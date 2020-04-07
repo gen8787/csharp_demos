@@ -3,7 +3,7 @@ namespace GroceryShoppingOOP
     public class Product
     {
         public string Name { get; set; }
-        public decimal Price { get; set; }
+        public decimal Price { get; }
 
         public Product(string name, decimal price)
         {

@@ -49,7 +49,19 @@ class LinkedList {
     return headData;
   }
 
-  insertAtBackRecursive(data, runner = this.head) {}
+  insertAtBackRecursive(data, runner = this.head) {
+    if (this.isEmpty()) {
+      this.head = new Node(data);
+      return this;
+    }
+
+    if (runner.next === null) {
+      runner.next = new Node(data);
+      return this;
+    }
+
+    return this.insertAtBackRecursive(data, runner.next);
+  }
 
   display() {
     let runner = this.head;

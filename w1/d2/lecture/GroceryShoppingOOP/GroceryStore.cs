@@ -5,10 +5,12 @@ namespace GroceryShoppingOOP
 {
     public class GroceryStore
     {
-        public string Name;
+        public string Name { get; }
         private List<Shopper> _shoppers = new List<Shopper>();
-        // will a shopper be able to access these private producst if they are in the _shoppers list?
+
         private List<Product> _products = new List<Product>();
+
+        public List<Product> Products { get { return _products; } }
 
         public GroceryStore(string name)
         {
@@ -17,9 +19,17 @@ namespace GroceryShoppingOOP
             _products = new List<Product>
             {
                 new Product("Milk", 4.99m),
+                new Product("Milk", 4.99m),
+                new Product("Royal Jelly", 10.95m),
+                new Product("Royal Jelly", 10.95m),
                 new Product("Royal Jelly", 10.95m),
                 new Product("Healing Crystal", 66.6m),
+                new Product("Healing Crystal", 66.6m),
+                new Product("Healing Crystal", 66.6m),
                 new Product("Cactus Jerkey", 5.95m),
+                new Product("Cactus Jerkey", 5.95m),
+                new Product("Fruit Flavored Fruitless Chews", 1.50m),
+                new Product("Fruit Flavored Fruitless Chews", 1.50m),
                 new Product("Fruit Flavored Fruitless Chews", 1.50m),
             };
         }

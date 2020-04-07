@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace GroceryShoppingOOP
 {
@@ -7,14 +8,14 @@ namespace GroceryShoppingOOP
         static void Main(string[] args)
         {
             /* 
-                1. Create a few grocery stores
-                2. Create a few shoppers with a shopping list
-                3. Have shoppers enter stores of their choosing
+                - Create a few grocery stores
+                - Create a few shoppers with a shopping list
+                - Have shoppers enter stores of their choosing
                     - when shopper enters store, store should print a greeting
-                4. Have store print list of shoppers
-                5. Add items from their list to their cart
+                - Have store print list of shoppers
+                - Add items from their list to their cart
                     - print shopping cart items
-                6. Shopper checkout and pay
+                - Shopper checkout and pay
                     - shopper must have enough money
                         - shopper says they got too many items if not enough money
                     - shopper exits store after checkout
@@ -24,11 +25,25 @@ namespace GroceryShoppingOOP
 
             GroceryStore albertAndHisSons = new GroceryStore("Albertsons");
 
-            Shopper shopper1 = new Shopper("Scott", 10000);
-            Shopper shopper2 = new Shopper("dennis", 1000);
+            Shopper shopper1 = new Shopper("Scott", 10000m, new Dictionary<string, int>() {
+                {"Toilet Paper", 20},
+                { "Healing Crystal", 5 },
+                { "Meat", 3 }
+            });
 
-            albertAndHisSons.ShopperEntering(shopper1);
-            albertAndHisSons.ShopperEntering(shopper2);
+            Shopper shopper2 = new Shopper("dennis", 1000m, new Dictionary<string, int>() {
+                {"Milk", 2},
+                {"Fruit Flavored Fruitless Chews", 5 },
+                { "Healing Crystal", 5 },
+            });
+
+
+            shopper1.EnterStore(albertAndHisSons);
+            shopper2.EnterStore(albertAndHisSons);
+
+            shopper1.AddGroceriesToCart();
+            shopper2.AddGroceriesToCart();
+
         }
     }
 }
