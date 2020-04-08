@@ -25,16 +25,16 @@ namespace GroceryShoppingOOP
 
             GroceryStore albertAndHisSons = new GroceryStore("Albertsons");
 
-            Shopper shopper1 = new Shopper("Scott", 10000m, new Dictionary<string, int>() {
-                {"Toilet Paper", 20},
-                { "Healing Crystal", 5 },
-                { "Meat", 3 }
+            Shopper shopper1 = new Shopper("Scott", 300m, new List<Product>() {
+                new Product("Toilet Paper", 20),
+                new Product( "Healing Crystal", 30 ),
+                new Product( "Meat", 3)
             });
 
-            Shopper shopper2 = new Shopper("dennis", 1000m, new Dictionary<string, int>() {
-                {"Milk", 2},
-                {"Fruit Flavored Fruitless Chews", 5 },
-                { "Healing Crystal", 5 },
+            Shopper shopper2 = new Shopper("dennis", 1000m, new List<Product>() {
+                new Product("Milk", 2),
+                new Product("Fruit Flavored Fruitless Chews", 5 ),
+                new Product( "Healing Crystal", 5 ),
             });
 
 
@@ -43,6 +43,9 @@ namespace GroceryShoppingOOP
 
             shopper1.AddGroceriesToCart();
             shopper2.AddGroceriesToCart();
+
+            shopper1.GroceryCheckout();
+            shopper2.GroceryCheckout();
 
         }
     }
