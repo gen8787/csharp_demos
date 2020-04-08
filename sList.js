@@ -65,7 +65,7 @@ class LinkedList {
     return this;
   }
 
-  removeHead() {
+  removeFront() {
     if (!this.head) {
       return null;
     }
@@ -109,6 +109,8 @@ class LinkedList {
 
   // extra looping can be avoided if we kept track of a length property on our list
   // updating the length as nodes are added / removed
+  // can also have two runners, one that goes next.next and the slower one going just .next
+  // so when the faster one reaches end, the slower one is half way
   getMiddleData() {
     let runner = this.head;
     let len = 0;
@@ -133,4 +135,84 @@ class LinkedList {
     }
     return runner.data;
   }
+
+  removeBack() {
+    let removedData = null;
+
+    if (this.head !== null) {
+      if (this.head.next === null) {
+        // head only node
+        removedData = this.head.data;
+        this.head = null; // remove it from list
+      } else {
+        let runner = this.head;
+        // right of && will only be checked if left is true
+        while (runner.next && runner.next.next) {
+          runner = runner.next;
+        }
+
+        // after while loop finishes, runner is now at 2nd to last node
+        removedData = runner.next.data;
+        runner.next = null; // remove it from list
+      }
+    }
+    return removedData;
+  }
+
+  contains(searchData) {
+    let runner = this.head;
+
+    // if head is null, runner is null, loop won't run
+    while (runner) {
+      if (runner.data === searchData) {
+        return true;
+      }
+      runner = runner.next;
+    }
+    return false;
+  }
+
+  containsRecursive(searchData, runner = this.head) {
+    if (this.isEmpty() || runner === null) {
+      return false;
+    }
+
+    if (runner.data == searchData) {
+      return true;
+    }
+
+    return this.containsRecursive(searchData, runner.next);
+  }
+
+  // splitOnVal(5) for the list (1=>3=>5=>2=>4) will change list to (1=>3), and the return value will be a new list containing (5=>2=>4)
+
+  splitOnVal(val) {
+    const newList = new SList();
+
+    if (this.isEmpty()) {
+      return newList;
+    }
+
+    if (this.head.data === val) {
+      newList.head = this.head;
+      this.head = null;
+      return newList;
+    }
+
+    let runner = this.head;
+
+    while (runner.next) {
+      if (runner.next.data === val) {
+        newList.head = runner.next;
+        runner.next = null;
+        return newList;
+      }
+      runner = runner.next;
+    }
+
+    return newList;
+  }
 }
+
+const myList = new LinkedList();
+myList.seedFromArr([5, 2, 1, 6, 3]);
