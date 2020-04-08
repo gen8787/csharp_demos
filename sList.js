@@ -1,26 +1,25 @@
 /* 
   Requirements:
 
-1. Mon
-   - intro
-   - SList: Add Back
-   - seedFromArr: SList: Convert Array to SList
-   - Bonus: addBack recursive
-2. Tue
-   1. List: Add Front
+  w1d1
+    1. SList: Add Back
+    2. seedFromArr: SList: Convert Array to SList
+    3. Bonus: addBack recursive
+  w1d2
+    1. List: Add Front
       - add a new node to the front of the list
-   2. List: Remove Front
+    2. List: Remove Front
       - remove only the first node from the list
       - bonus: return the removed val, or null if nothing was removed
     3. Bonus:
       - get middle node's data
-3. Wed
-   1. List: Contains (with & without recursion)
+  w1d3
+    1. List: Contains (with & without recursion)
       - check if the list contains a value
-   2. SList: Remove Back
+    2. SList: Remove Back
       - remove the last node from the list
       - bonus: return the removed val, or null if nothing was removed
-   3. Bonus:
+    3. Bonus:
       - SList: Split on Value
       - splitOnVal(5) for the list (1=>3=>5=>2=>4) will change list to (1=>3), and the return value will be a new list containing (5=>2=>4)
 */
