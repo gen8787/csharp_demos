@@ -1,3 +1,19 @@
+/* 
+  Requirements:
+
+  w1d3:
+    1. List: Contains (with & without recursion)
+      - check if the list contains a value
+    2. SList: Remove Back
+      - remove the last node from the list
+      - bonus: return the removed val, or null if nothing was removed
+
+    Bonus:
+
+      - SList: Split on Value
+      - splitOnVal(5) for the list (1=>3=>5=>2=>4) will change list to (1=>3), and the return value will be a new list containing (5=>2=>4)
+*/
+
 class Node {
   constructor(data) {
     this.data = data;
