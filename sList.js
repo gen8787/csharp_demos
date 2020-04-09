@@ -5,6 +5,7 @@
     1. SList: Add Back
     2. seedFromArr: SList: Convert Array to SList
     3. Bonus: addBack recursive
+
   w1d2
     1. List: Add Front
       - add a new node to the front of the list
@@ -13,6 +14,7 @@
       - bonus: return the removed val, or null if nothing was removed
     3. Bonus:
       - get middle node's data
+
   w1d3
     1. List: Contains (with & without recursion)
       - check if the list contains a value
@@ -22,6 +24,14 @@
     3. Bonus:
       - SList: Split on Value
       - splitOnVal(5) for the list (1=>3=>5=>2=>4) will change list to (1=>3), and the return value will be a new list containing (5=>2=>4)
+
+  w1d4
+    1. SList: Move Min to Front
+    2. SList: Remove Val
+        - remove the node with the specified value, return the removed val, or null if nothing was removed
+    3. Bonus: 
+      - displayPeople: in a linked list containing person objects, write a method to print a comma separated string of all the people's firstName
+
 */
 
 class Node {
