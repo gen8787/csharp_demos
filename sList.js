@@ -226,3 +226,12 @@ class LinkedList {
 
 const myList = new LinkedList();
 myList.seedFromArr([5, 2, 1, 6, 3]);
+
+const myListOfPersons = new LinkedList();
+myList.seedFromArr([
+  { firstName: "Alex" },
+  { firstName: "Kevin" },
+  { firstName: "Ronald" },
+  { firstName: "Mark" },
+  { firstName: "Roza" },
+]);
