@@ -28,7 +28,7 @@
   w1d4
     1. SList: Move Min to Front
     2. SList: Remove Val
-        - remove the node with the specified value, return the removed val, or null if nothing was removed
+        - remove the node with the specified value, true if successful / false if not
     3. Bonus: 
       - displayPeople: in a linked list containing person objects, write a method to print a comma separated string of all the people's firstName
 
@@ -221,6 +221,79 @@ class LinkedList {
     }
 
     return newList;
+  }
+
+  removeVal(val) {
+    if (this.isEmpty()) {
+      return false;
+    }
+
+    if (this.head.data === val) {
+      this.head = this.head.next;
+      return true;
+    }
+
+    let runner = this.head.next;
+
+    while (runner.next && runner.next.data !== val) {
+      runner = runner.next;
+    }
+
+    if (runner.next && runner.next.data === val) {
+      runner.next = runner.next.next;
+      return true;
+    }
+
+    return false;
+  }
+
+  // this solution removes the node and inserts new node at front, could also swap the data of the nodes
+  moveMinToFront() {
+    if (this.isEmpty()) {
+      return;
+    }
+
+    let runner = this.head;
+    let min = this.head.data;
+
+    while (runner) {
+      if (runner.data < min) {
+        min = runner.data;
+      }
+      runner = runner.next;
+    }
+    // now that we know the min, if it is alredy the head, nothing needs to be done
+    if (this.head.data === min) {
+      return;
+    }
+
+    let prev = this.head;
+    runner = this.head.next;
+
+    while (runner) {
+      if (runner.data === min) {
+        prev.next = runner.next; // remove the min
+        this.insertAtFront(min);
+        return;
+      } else {
+        prev = runner;
+        runner = runner.next;
+      }
+    }
+  }
+
+  displayPeople() {
+    let runner = this.head;
+    let names = "";
+
+    while (runner) {
+      names += `${runner.data.firstName} ${runner.data.lastName}${
+        runner.next ? ", " : ""
+      }`;
+      runner = runner.next;
+    }
+    console.log(names);
+    return names;
   }
 }
 
