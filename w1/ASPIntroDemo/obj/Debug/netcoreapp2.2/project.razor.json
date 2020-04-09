@@ -2961,8 +2961,8 @@
   "RootNamespace": "ASPIntroDemo",
   "Documents": [
     {
-      "FilePath": "c:\\Users\\Neil\\Documents\\code\\Dojo\\demos\\csharp\\w1\\d4\\ASPIntroDemo\\Views\\Home\\index.cshtml",
-      "TargetPath": "Views\\Home\\index.cshtml",
+      "FilePath": "c:\\Users\\Neil\\Documents\\code\\Dojo\\demos\\csharp\\w1\\d4\\ASPIntroDemo\\Views\\Home\\Index.cshtml",
+      "TargetPath": "Views\\Home\\Index.cshtml",
       "FileKind": "mvc"
     }
   ],
