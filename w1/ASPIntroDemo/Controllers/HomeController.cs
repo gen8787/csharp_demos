@@ -8,7 +8,7 @@ namespace ASPIntroDemo.Controllers
     public class HomeController : Controller
     {
         // prop of HomeController (a  member of HomeController)
-        public HomePage HomePageModel { get; set; } = new HomePage(new User("Lousy", "Tourist"));
+        public HomePage DefaultHomePageModel { get; set; } = new HomePage(new User("Lousy", "Tourist"));
 
         [HttpGet("")]
         public ViewResult Index()
@@ -16,7 +16,7 @@ namespace ASPIntroDemo.Controllers
             ViewBag.Message = "message from ViewBag";
 
             // looks for  Views/Home/Index because this action is called Index and we are in the HomeController
-            return View(HomePageModel);
+            return View(DefaultHomePageModel);
             // return View("Index");
         }
 
@@ -26,7 +26,7 @@ namespace ASPIntroDemo.Controllers
 
             Destination chosenDestination = null;
 
-            foreach (Destination dest in HomePageModel.TravelDestinations)
+            foreach (Destination dest in DefaultHomePageModel.TravelDestinations)
             {
                 if (destinationName == dest.Name)
                 {
@@ -45,23 +45,11 @@ namespace ASPIntroDemo.Controllers
         }
 
         [HttpPost("/register/process")]
-        public RedirectToActionResult Register(User newUser)
+        public ViewResult Register(User newUser)
         {
-            Console.WriteLine(newUser.FirstName);
-
-            /* 
-                HomePageModel.Tourist = newUser; This data doesn't persist through redirects
-
-                To Persist data, need: session, TempData, database
-
-                The HomeController gets re-instantiated during the redirect
-                So, the HomePageModel also gets re-instantiated because
-                it is a member of the HomeController
-            */
-            HomePageModel.Tourist = newUser;
-
-            return RedirectToAction("Index");
+            return View("GuestUser", newUser);
         }
+
 
         [HttpGet("{Path}")]
         public RedirectToActionResult Unknown(string path)
