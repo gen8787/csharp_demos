@@ -1,3 +1,5 @@
+@model HomePage;
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,23 +9,22 @@
   <link rel="stylesheet" href="~/style.css">
 </head>
 <body>
-  <h1 class="red">Hello World</h1>
+  <h1 class="red">Hello @Model.Tourist.FirstName @Model.Tourist.LastName</h1>
 
-  @{
-    string[] travelDestinations = new string[]
-    {
-      "Longyearbyen", "Solovetsky Islands", "Socotra", "Bhutan"
-    };
-  }
+  <h2 class="red">Hello @Model.Tourist.FullName()</h2>
 
   <ul>
-    @foreach (string destination in travelDestinations)
+    @foreach (Destination destination in Model.TravelDestinations)
     {
       <li>
-        <a href="/travel/@destination">@destination</a>
+        <a href="/travel/@destination.Name">@destination.Name</a>
       </li>
     }
   </ul>
+
+  <div>
+    <a href="/register">Register</a>
+  </div>
 
 </body>
 </html>

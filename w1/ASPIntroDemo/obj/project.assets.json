@@ -12077,11 +12077,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Neil\\Documents\\code\\Dojo\\demos\\csharp\\w1\\d4\\ASPIntroDemo\\ASPIntroDemo.csproj",
+      "projectUniqueName": "c:\\Users\\Neil\\Documents\\code\\Dojo\\demos\\csharp\\w1\\ASPIntroDemo\\ASPIntroDemo.csproj",
       "projectName": "ASPIntroDemo",
-      "projectPath": "C:\\Users\\Neil\\Documents\\code\\Dojo\\demos\\csharp\\w1\\d4\\ASPIntroDemo\\ASPIntroDemo.csproj",
+      "projectPath": "c:\\Users\\Neil\\Documents\\code\\Dojo\\demos\\csharp\\w1\\ASPIntroDemo\\ASPIntroDemo.csproj",
       "packagesPath": "C:\\Users\\Neil\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Neil\\Documents\\code\\Dojo\\demos\\csharp\\w1\\d4\\ASPIntroDemo\\obj\\",
+      "outputPath": "c:\\Users\\Neil\\Documents\\code\\Dojo\\demos\\csharp\\w1\\ASPIntroDemo\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
