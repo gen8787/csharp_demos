@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using ASPIntroDemo.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,33 +7,16 @@ namespace ASPIntroDemo.Controllers
 {
     public class HomeController : Controller
     {
-        // method attributes
-        // [HttpGet]
-        // attribute for url
-        // [Route("")]
-        // Request type & url combined attribute
-
-        Destination[] travelDestinations = new Destination[]
-        {
-        new Destination("Longyearbyen", "https://en.visitsvalbard.com/imageresizer/?image=%2Fdmsimgs%2FE600D47425B2C241EB591A284DDE5C21ECC31B67.jpg&action=ProductDetailProFullWidth&crop=4D037D0DBBC22CD55D8AF767F9"),
-        new Destination("Solovetsky Islands", "https://i.dailymail.co.uk/i/pix/2013/11/04/article-2487290-192FC96800000578-337_964x610.jpg"),
-        new Destination("Socotra", "https://www.nationalgeographic.com/content/dam/environment/2018/10/socotra/01_socotra_nationalgeographic_2708459.jpg"),
-        new Destination("Bhutan", "https://www.adventurewomen.com/wp-content/uploads/2018/04/1.-Tigers-Nest-800x533.jpg"),
-        new Destination("Hell", "https://i.pinimg.com/originals/7d/8d/9e/7d8d9e7b0f2496c2ca1ac2c7ab7c78c0.jpg")
-        };
+        // prop of HomeController (a  member of HomeController)
+        public HomePage HomePageModel { get; set; } = new HomePage(new User("Lousy", "Tourist"));
 
         [HttpGet("")]
         public ViewResult Index()
         {
-            ViewBag.TravelDestinations = travelDestinations;
-
-            User tourist = new User("Lousy", "Tourist");
-
-
-            HomePage homePageModel = new HomePage(tourist, travelDestinations);
+            ViewBag.Message = "message from ViewBag";
 
             // looks for  Views/Home/Index because this action is called Index and we are in the HomeController
-            return View(homePageModel);
+            return View(HomePageModel);
             // return View("Index");
         }
 
@@ -42,7 +26,7 @@ namespace ASPIntroDemo.Controllers
 
             Destination chosenDestination = null;
 
-            foreach (Destination dest in travelDestinations)
+            foreach (Destination dest in HomePageModel.TravelDestinations)
             {
                 if (destinationName == dest.Name)
                 {
@@ -64,6 +48,25 @@ namespace ASPIntroDemo.Controllers
         public RedirectToActionResult Register(User newUser)
         {
             Console.WriteLine(newUser.FirstName);
+
+            /* 
+                HomePageModel.Tourist = newUser; This data doesn't persist through redirects
+
+                To Persist data, need: session, TempData, database
+
+                The HomeController gets re-instantiated during the redirect
+                So, the HomePageModel also gets re-instantiated because
+                it is a member of the HomeController
+            */
+            HomePageModel.Tourist = newUser;
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet("{Path}")]
+        public RedirectToActionResult Unknown(string path)
+        {
+            Console.WriteLine(path);
             return RedirectToAction("Index");
         }
     }
