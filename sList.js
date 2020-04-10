@@ -32,6 +32,17 @@
     3. Bonus: 
       - displayPeople: in a linked list containing person objects, write a method to print a comma separated string of all the people's firstName
 
+  w1d5
+
+  1. SList: Second to Last Value
+    - return the 2nd to last val
+  2. SList: Concat
+    - combine two SLists together
+    - if `list1` is a list of nodes with values 1, 2, 3. and `list2` is a list of nodes with values 4, 5, 6
+      - `list1.concat(list2);` should result in `list1` having nodes with values 1, 2, 3, 4, 5, 6
+  3. Bonus
+    - insertPersonAscAge: build an add person method that adds a person object to linked list maintaing asc order by person's age key
+
 */
 
 class Node {
