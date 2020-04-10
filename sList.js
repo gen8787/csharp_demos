@@ -33,7 +33,6 @@
       - displayPeople: in a linked list containing person objects, write a method to print a comma separated string of all the people's firstName
 
   w1d5
-
   1. SList: Second to Last Value
     - return the 2nd to last val
   2. SList: Concat
@@ -305,6 +304,57 @@ class LinkedList {
     }
     console.log(names);
     return names;
+  }
+
+  secondToLast() {
+    if (!this.head || !this.head.next) return null;
+
+    let runner = this.head;
+
+    while (runner.next && runner.next.next) {
+      runner = runner.next;
+    }
+    return runner.data;
+  }
+
+  concat(addList) {
+    let runner = this.head;
+
+    if (runner === null) this.head = addList.head;
+    else {
+      while (runner.next) {
+        runner = runner.next;
+      }
+      runner.next = addList.head;
+    }
+  }
+
+  // assuming all node's data are person objects
+  insertPersonAscAge(data) {
+    const newNode = new Node(data);
+
+    if (!this.head) {
+      this.head = newNode;
+      return this;
+    }
+
+    if (newNode.data.age < this.head.data.age) {
+      newNode.next = this.head;
+      this.head = newNode;
+      return this;
+    }
+
+    let prev = this.head;
+    let current = this.head.next;
+
+    while (current && current.data.age <= newNode.data.age) {
+      prev = current;
+      current = current.next;
+    }
+
+    prev.next = newNode;
+    newNode.next = current;
+    return this;
   }
 }
 
