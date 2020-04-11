@@ -7,49 +7,34 @@ namespace ASPIntroDemo.Controllers
 {
     public class HomeController : Controller
     {
-        // prop of HomeController (a  member of HomeController)
-        public HomePage DefaultHomePageModel { get; set; } = new HomePage(new User("Lousy", "Tourist"));
-
         [HttpGet("")]
         public ViewResult Index()
         {
-            ViewBag.Message = "message from ViewBag";
-
-            // looks for  Views/Home/Index because this action is called Index and we are in the HomeController
-            return View(DefaultHomePageModel);
+            ViewBag.Introduction = "My name is Falconhoof and I will be your guide on your quest.";
+            // looks for  Views/Home/Index because this action / method is called Index and we are in the HomeController
+            return View();
             // return View("Index");
+        }
+
+        [HttpPost("/guide")]
+        public ViewResult Guide(User newUser)
+        {
+            Guide guideModel = new Guide(newUser);
+            // to let Destination method access this info since we have no DB or session set up
+            // TempData["FirstName"] = newUser.FirstName;
+            // TempData["LastName"] = newUser.LastName;
+            return View(guideModel);
         }
 
         [HttpGet("/travel/{DestinationName}")]
         public ViewResult Destination(string destinationName)
         {
-
-            Destination chosenDestination = null;
-
-            foreach (Destination dest in DefaultHomePageModel.TravelDestinations)
-            {
-                if (destinationName == dest.Name)
-                {
-                    chosenDestination = dest;
-                }
-            }
-
-            // Redirect to Index method / 'action'
-            return View("Destination", chosenDestination);
+            // right now we don't have access to the user from the form because we are in a different method
+            // and don't have a database or session set up
+            Guide guide = new Guide(new User());
+            Destination selectedDestionation = guide.GetDestination(destinationName);
+            return View("Destination", selectedDestionation);
         }
-
-        [HttpGet("/register")]
-        public ViewResult Register()
-        {
-            return View();
-        }
-
-        [HttpPost("/register/process")]
-        public ViewResult Register(User newUser)
-        {
-            return View("GuestUser", newUser);
-        }
-
 
         [HttpGet("{Path}")]
         public RedirectToActionResult Unknown(string path)

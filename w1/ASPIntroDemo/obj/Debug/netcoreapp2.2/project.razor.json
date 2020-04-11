@@ -2961,13 +2961,18 @@
   "RootNamespace": "ASPIntroDemo",
   "Documents": [
     {
-      "FilePath": "c:\\Users\\Neil\\Documents\\code\\Dojo\\demos\\csharp\\w1\\ASPIntroDemo\\Views\\Home\\GuestUser.cshtml",
-      "TargetPath": "Views\\Home\\GuestUser.cshtml",
+      "FilePath": "c:\\Users\\Neil\\Documents\\code\\Dojo\\demos\\csharp\\w1\\ASPIntroDemo\\Views\\Home\\Guide.cshtml",
+      "TargetPath": "Views\\Home\\Guide.cshtml",
       "FileKind": "mvc"
     },
     {
       "FilePath": "c:\\Users\\Neil\\Documents\\code\\Dojo\\demos\\csharp\\w1\\ASPIntroDemo\\Views\\Home\\Destination.cshtml",
       "TargetPath": "Views\\Home\\Destination.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\Neil\\Documents\\code\\Dojo\\demos\\csharp\\w1\\ASPIntroDemo\\Views\\Home\\Marketing.cshtml",
+      "TargetPath": "Views\\Home\\Marketing.cshtml",
       "FileKind": "mvc"
     },
     {
@@ -2978,11 +2983,6 @@
     {
       "FilePath": "c:\\Users\\Neil\\Documents\\code\\Dojo\\demos\\csharp\\w1\\ASPIntroDemo\\Views\\Home\\Index.cshtml",
       "TargetPath": "Views\\Home\\Index.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "c:\\Users\\Neil\\Documents\\code\\Dojo\\demos\\csharp\\w1\\ASPIntroDemo\\Views\\Home\\Register.cshtml",
-      "TargetPath": "Views\\Home\\Register.cshtml",
       "FileKind": "mvc"
     }
   ],

@@ -46,5 +46,5 @@ C:\Users\Neil\Documents\code\Dojo\demos\csharp\w1\ASPIntroDemo\obj\Debug\netcore
 C:\Users\Neil\Documents\code\Dojo\demos\csharp\w1\ASPIntroDemo\obj\Debug\netcoreapp2.2\ASPIntroDemo.csproj.CopyComplete
 C:\Users\Neil\Documents\code\Dojo\demos\csharp\w1\ASPIntroDemo\obj\Debug\netcoreapp2.2\Razor\Views\_ViewImports.g.cshtml.cs
 C:\Users\Neil\Documents\code\Dojo\demos\csharp\w1\ASPIntroDemo\obj\Debug\netcoreapp2.2\Razor\Views\Home\Destination.g.cshtml.cs
-C:\Users\Neil\Documents\code\Dojo\demos\csharp\w1\ASPIntroDemo\obj\Debug\netcoreapp2.2\Razor\Views\Home\Register.g.cshtml.cs
-C:\Users\Neil\Documents\code\Dojo\demos\csharp\w1\ASPIntroDemo\obj\Debug\netcoreapp2.2\Razor\Views\Home\GuestUser.g.cshtml.cs
+C:\Users\Neil\Documents\code\Dojo\demos\csharp\w1\ASPIntroDemo\obj\Debug\netcoreapp2.2\Razor\Views\Home\Marketing.g.cshtml.cs
+C:\Users\Neil\Documents\code\Dojo\demos\csharp\w1\ASPIntroDemo\obj\Debug\netcoreapp2.2\Razor\Views\Home\Guide.g.cshtml.cs

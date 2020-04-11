@@ -5,7 +5,7 @@ namespace ASPIntroDemo.Models
         public string Name { get; set; }
         public string ImgUrl { get; set; }
 
-        public Destination(string name, string imgUrl = "")
+        public Destination(string name = "", string imgUrl = "")
         {
             Name = name;
             ImgUrl = imgUrl;
