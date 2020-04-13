@@ -48,6 +48,9 @@ class Node {
   }
 }
 
+// can add to back and remove from back to maintain a LIFO pattern
+// OR can add to front and remove from front, still maintains a LIFO pattern but is faster
+// because it requires no looping to the end of the linked list
 class SLStack {
   constructor() {
     this.head = null;
