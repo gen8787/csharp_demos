@@ -1,0 +1,25 @@
+@model List<Dictionary<string, object>>;
+
+<h2 class="text-center">All Posts</h2>
+
+@foreach (Dictionary<string, object> postDict in Model)
+{
+    <div class="card mx-auto text-center mb-3 w-50">
+      <div class="card-header">
+        <h5 class="card-title">
+          @postDict["Topic"]
+        </h5>
+      </div>
+
+      <div class="card-body">
+        <h6 class="card-subtitle mb-2 text-muted">
+          @postDict["Username"]
+        </h6>
+        <p class="card-text">
+          @postDict["Body"]
+        </p>
+        <a asp-action="Details" asp-controller="Posts" asp-route-id='@postDict["PostId"]'>Details</a>
+        @* <a href='/Posts/@postDict["PostId"]'>Details</a> *@
+      </div>
+    </div>
+}
