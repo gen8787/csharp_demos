@@ -9,12 +9,14 @@ class Stack {
     this.items = items;
   }
 
-  push(el) {
-    this.items.push(el);
+  push(item) {
+    this.items.push(item);
   }
 
   pop() {
-    if (this.isEmpty()) return "Underflow";
+    if (this.isEmpty()) {
+      return "Underflow";
+    }
 
     return this.items.pop();
   }
