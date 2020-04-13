@@ -30,3 +30,4 @@ C:\Users\Neil\Documents\code\Dojo\demos\csharp\w2\ForumDemo\obj\Debug\netcoreapp
 C:\Users\Neil\Documents\code\Dojo\demos\csharp\w2\ForumDemo\obj\Debug\netcoreapp2.2\ForumDemo.pdb
 C:\Users\Neil\Documents\code\Dojo\demos\csharp\w2\ForumDemo\obj\Debug\netcoreapp2.2\ForumDemo.csproj.CopyComplete
 C:\Users\Neil\Documents\code\Dojo\demos\csharp\w2\ForumDemo\obj\Debug\netcoreapp2.2\Razor\Views\Posts\New.g.cshtml.cs
+C:\Users\Neil\Documents\code\Dojo\demos\csharp\w2\ForumDemo\obj\Debug\netcoreapp2.2\Razor\Views\Posts\Details.g.cshtml.cs

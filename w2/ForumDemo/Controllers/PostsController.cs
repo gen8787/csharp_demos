@@ -9,7 +9,7 @@ using DbConnection;
 
 public class PostsController : Controller
 {
-    [HttpGet("/Posts/All")]
+    [HttpGet("/Posts")]
     public IActionResult All()
     {
 
