@@ -1,0 +1,11 @@
+C:\Users\Neil\Documents\code\Dojo\demos\csharp\w2\d2\LinqDemo\bin\Debug\netcoreapp2.2\LinqDemo.deps.json
+C:\Users\Neil\Documents\code\Dojo\demos\csharp\w2\d2\LinqDemo\bin\Debug\netcoreapp2.2\LinqDemo.runtimeconfig.json
+C:\Users\Neil\Documents\code\Dojo\demos\csharp\w2\d2\LinqDemo\bin\Debug\netcoreapp2.2\LinqDemo.runtimeconfig.dev.json
+C:\Users\Neil\Documents\code\Dojo\demos\csharp\w2\d2\LinqDemo\bin\Debug\netcoreapp2.2\LinqDemo.dll
+C:\Users\Neil\Documents\code\Dojo\demos\csharp\w2\d2\LinqDemo\bin\Debug\netcoreapp2.2\LinqDemo.pdb
+C:\Users\Neil\Documents\code\Dojo\demos\csharp\w2\d2\LinqDemo\obj\Debug\netcoreapp2.2\LinqDemo.csprojAssemblyReference.cache
+C:\Users\Neil\Documents\code\Dojo\demos\csharp\w2\d2\LinqDemo\obj\Debug\netcoreapp2.2\LinqDemo.csproj.CoreCompileInputs.cache
+C:\Users\Neil\Documents\code\Dojo\demos\csharp\w2\d2\LinqDemo\obj\Debug\netcoreapp2.2\LinqDemo.AssemblyInfoInputs.cache
+C:\Users\Neil\Documents\code\Dojo\demos\csharp\w2\d2\LinqDemo\obj\Debug\netcoreapp2.2\LinqDemo.AssemblyInfo.cs
+C:\Users\Neil\Documents\code\Dojo\demos\csharp\w2\d2\LinqDemo\obj\Debug\netcoreapp2.2\LinqDemo.dll
+C:\Users\Neil\Documents\code\Dojo\demos\csharp\w2\d2\LinqDemo\obj\Debug\netcoreapp2.2\LinqDemo.pdb
