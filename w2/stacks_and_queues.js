@@ -133,3 +133,123 @@ class SLStack {
     return vals;
   }
 }
+
+class Queue {
+  constructor(items = []) {
+    this.items = items;
+  }
+
+  enqueue(item) {
+    this.items.push(item);
+  }
+
+  dequeue() {
+    if (this.isEmpty()) {
+      return "Underflow";
+    }
+
+    return this.items.shift();
+  }
+
+  front() {
+    if (this.isEmpty()) {
+      return "Queue empty";
+    }
+
+    return this.items[0];
+  }
+
+  isEmpty() {
+    return this.items.length === 0;
+  }
+
+  size() {
+    return this.items.length;
+  }
+
+  print() {
+    const str = this.items.join(" ");
+    console.log(str);
+    return str;
+  }
+}
+
+class SLQueue {
+  constructor() {
+    this.head = null;
+  }
+
+  enqueue(val) {
+    // add to back
+    const newBack = new Node(val);
+    let runner = this.head;
+
+    if (runner === null) {
+      this.head = newBack;
+    } else {
+      while (runner.next) {
+        runner = runner.next;
+      }
+      runner.next = newBack;
+    }
+  }
+
+  dequeue() {
+    // remove head
+    if (!this.head) {
+      return null;
+    }
+
+    const dequeued = this.head;
+    this.head = this.head.next;
+    return dequeued.data;
+  }
+
+  front() {
+    if (this.head === null) {
+      return null;
+    }
+    return this.head.data;
+  }
+
+  isEmpty() {
+    return this.head === null;
+  }
+
+  contains(val) {
+    let runner = this.head;
+
+    while (runner) {
+      if (runner.val === val) return true;
+      runner = runner.next;
+    }
+    return false;
+  }
+
+  size() {
+    let len = 0;
+    let runner = this.head;
+
+    while (runner) {
+      len += 1;
+      runner = runner.next;
+    }
+    return len;
+  }
+
+  print() {
+    let runner = this.head;
+    let vals = "";
+
+    while (runner) {
+      vals += `${runner.val}${runner.next ? ", " : ""}`;
+      runner = runner.next;
+    }
+    console.log(vals);
+    return vals;
+  }
+
+  seed(vals) {
+    vals.forEach((val) => this.enqueue(val));
+  }
+}
