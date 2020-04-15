@@ -8,6 +8,13 @@
     - A queue is a FIFO (First in First Out) data structure
     - create a class to represent a queue using an array & another class for a queue using a singly linked list
     - create methods for each classes: enqueue (add item), dequeue (remove and return item), isEmpty, size, front (return first item without removing)
+
+  w2d3
+    - compareQueues
+      - write a method on the Queue class that will be given another Queue, determine if both queues are equal (all same items in same order)
+        - DO NOT manually loop over the queue items, use the provided methods (enqueue and dequeue) to do the comparison
+        - return whether or not they are equal and restore both queues to their original order
+
 */
 
 class Stack {
