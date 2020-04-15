@@ -34,6 +34,11 @@ namespace AlgoORM
                     { "Topic", "I'm a huge fan."},
                     { "Body", "Whirl, whirl, whirl."},
                     { "Rating", 4}
+                },
+                new Dictionary<string, object>{
+                    { "Topic", "Honesty & Motivation"},
+                    { "Body", "Do you want to do what you say you want to do bad enough to do what needs to be done?"},
+                    { "Rating", 4}
                 }
             };
         }
