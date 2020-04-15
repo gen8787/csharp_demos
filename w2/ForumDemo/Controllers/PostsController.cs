@@ -20,7 +20,6 @@ public class PostsController : Controller
     [HttpGet("/Posts")]
     public IActionResult All()
     {
-
         // get all posts and all columns
         List<Post> allPosts = db.Posts.ToList();
 
