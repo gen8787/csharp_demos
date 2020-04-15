@@ -2981,6 +2981,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\Neil\\Documents\\code\\Dojo\\demos\\csharp\\w2\\ForumDemo\\Views\\Posts\\Edit.cshtml",
+      "TargetPath": "Views\\Posts\\Edit.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\Neil\\Documents\\code\\Dojo\\demos\\csharp\\w2\\ForumDemo\\Views\\Posts\\Details.cshtml",
       "TargetPath": "Views\\Posts\\Details.cshtml",
       "FileKind": "mvc"

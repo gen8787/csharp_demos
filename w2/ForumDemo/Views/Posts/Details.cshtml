@@ -1,17 +1,17 @@
-@model Dictionary<string, object>;
+@model Post;
 
 <div class="container">
-  <h1>Details for Post Id #@Model["PostId"]</h1>
+  <h1>Details for Post Id #@Model.PostId</h1>
   <hr />
 
   <h2>Author</h2>
-  <h5>@Model["Username"]</h5>
+  <h5>@Model.Username</h5>
   <hr />
 
   <h2>Topic</h2>
-  <h5>@Model["Topic"]</h5>
+  <h5>@Model.Topic</h5>
   <hr />
 
   <h2>Post</h2>
-  <p>@Model["Body"]</p>
+  <p>@Model.Body</p>
 </div>
