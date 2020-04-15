@@ -1,8 +1,10 @@
-﻿using System;
+﻿// create a dotnet new console project and copy this code into it
+
+using System;
+using System.Collections.Generic;
 
 namespace AlgoORM
 {
-    // create a dotnet new console project and copy this code into it
     public class ForumPost
     {
         public string Topic { get; set; }
@@ -34,8 +36,6 @@ namespace AlgoORM
                     { "Rating", 4}
                 }
             };
-
-
         }
     }
 }
