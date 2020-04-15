@@ -14,7 +14,6 @@
       - write a method on the Queue class that will be given another Queue, determine if both queues are equal (all same items in same order)
         - DO NOT manually loop over the queue items, use the provided methods (enqueue and dequeue) to do the comparison
         - return whether or not they are equal and restore both queues to their original order
-
 */
 
 class Stack {
@@ -258,5 +257,29 @@ class SLQueue {
 
   seed(vals) {
     vals.forEach((val) => this.enqueue(val));
+  }
+
+  compareQueues(q2) {
+    if (this.size() !== q2.size()) {
+      return false;
+    }
+    let count = 0;
+    let isEqual = true;
+    const len = this.size();
+
+    while (count < len) {
+      const dequeued1 = this.dequeue();
+      const dequeued2 = q2.dequeue();
+
+      if (dequeued1 !== dequeued2) {
+        isEqual = false;
+      }
+
+      this.enqueue(dequeued1);
+      q2.enqueue(dequeued2);
+      count++;
+    }
+
+    return isEqual;
   }
 }
