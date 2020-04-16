@@ -27,6 +27,7 @@ namespace ForumDemo
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddSession();
+            services.AddHttpContextAccessor();
             services.AddDbContext<ForumContext>(options => options.UseMySql(Configuration["DBInfo:ConnectionString"]));
         }
 

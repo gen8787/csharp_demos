@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ForumDemo.Models;
+using Microsoft.AspNetCore.Http;
 
 public class PostsController : Controller
 {
@@ -20,6 +21,13 @@ public class PostsController : Controller
     [HttpGet("/Posts")]
     public IActionResult All()
     {
+        int? userId = HttpContext.Session.GetInt32("UserId");
+
+        if (userId == null)
+        {
+            return RedirectToAction("Index", "Home");
+        }
+
         // get all posts and all columns
         List<Post> allPosts = db.Posts.ToList();
 

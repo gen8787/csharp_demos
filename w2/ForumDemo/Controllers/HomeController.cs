@@ -20,8 +20,15 @@ namespace ForumDemo.Controllers
         {
             db = context;
         }
+
         public IActionResult Index()
         {
+            int? userId = HttpContext.Session.GetInt32("UserId");
+
+            if (userId != null)
+            {
+                return RedirectToAction("All", "Posts");
+            }
             return View();
         }
 
@@ -53,6 +60,92 @@ namespace ForumDemo.Controllers
 
             HttpContext.Session.SetInt32("UserId", newUser.UserId);
             return RedirectToAction("All", "Posts");
+        }
+
+        public IActionResult Login(LoginUser loginUser)
+        {
+            string genericErrMsg = "Invalid Email or Password";
+
+            if (ModelState.IsValid == false)
+            {
+                // display validation error messages
+                return View("Index");
+            }
+
+            User dbUser = db.Users.FirstOrDefault(user => user.Email == loginUser.LoginEmail);
+
+            if (dbUser == null)
+            {
+                ModelState.AddModelError("LoginEmail", genericErrMsg);
+            }
+            // user found in db
+            else
+            {
+                PasswordHasher<LoginUser> hasher = new PasswordHasher<LoginUser>();
+                PasswordVerificationResult result = hasher.VerifyHashedPassword(loginUser, dbUser.Password, loginUser.LoginPassword);
+
+                if (result == 0)
+                {
+                    ModelState.AddModelError("LoginEmail", genericErrMsg);
+                }
+            }
+
+            if (ModelState.IsValid == false)
+            {
+                // display custom validation error messages
+                return View("Index");
+            }
+
+            // if none of the returns happened, good to go
+            HttpContext.Session.SetInt32("UserId", dbUser.UserId);
+
+            return RedirectToAction("All", "Posts");
+        }
+
+        // public IActionResult Login(LoginUser loginUser)
+        // {
+        //     string genericErrMsg = "Invalid Email or Password";
+        //     int? userId = null;
+
+        //     if (ModelState.IsValid)
+        //     {
+        //         User dbUser = db.Users.FirstOrDefault(user => user.Email == loginUser.LoginEmail);
+
+        //         if (dbUser == null)
+        //         {
+        //             ModelState.AddModelError("LoginEmail", genericErrMsg);
+        //         }
+        //         // user found in db
+        //         else
+        //         {
+        //             userId = dbUser.UserId;
+
+        //             PasswordHasher<LoginUser> hasher = new PasswordHasher<LoginUser>();
+        //             PasswordVerificationResult result = hasher.VerifyHashedPassword(loginUser, dbUser.Password, loginUser.LoginPassword);
+
+        //             if (result == 0)
+        //             {
+        //                 ModelState.AddModelError("LoginEmail", genericErrMsg);
+        //             }
+        //         }
+        //     }
+
+        //     if (ModelState.IsValid == false)
+        //     {
+        //         // display custom validation error messages
+        //         return View("Index");
+        //     }
+
+        //     // if none of the returns happened, good to go
+        //     HttpContext.Session.SetInt32("UserId", (int)userId);
+
+        //     return RedirectToAction("All", "Posts");
+        // }
+
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Index");
         }
 
         public IActionResult Privacy()

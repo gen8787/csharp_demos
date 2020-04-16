@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@{
+    @* MUST ADD LINE TO _ViewImports to be able to access session from view *@
+    int? userId = Context.Session.GetInt32("UserId");
+}
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -39,6 +44,14 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Posts" asp-action="New">New Post</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Logout">
+                                Logout @if (userId != null)
+                                {
+                                    <span>(@userId)</span>
+                                }
+                            </a>
                         </li>
                     </ul>
                 </div>
