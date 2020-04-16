@@ -410,5 +410,3 @@ securityQueue.dequeueToNextConditionally(isAdditionalSecurityNeeded);
 securityQueue.dequeueToNextConditionally(isAdditionalSecurityNeeded);
 securityQueue.dequeueToNextConditionally(isAdditionalSecurityNeeded);
 securityQueue.dequeueToNextConditionally(isAdditionalSecurityNeeded);
-
-console.log("test");
