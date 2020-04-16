@@ -14,6 +14,13 @@
       - write a method on the Queue class that will be given another Queue, determine if both queues are equal (all same items in same order)
         - DO NOT manually loop over the queue items, use the provided methods (enqueue and dequeue) to do the comparison
         - return whether or not they are equal and restore both queues to their original order
+
+  w2d4
+    - sumOfHalvesEqual
+      - create a method on the Queue class that returns whether or not theh sum of the first half of the queue is
+    - nextQueue
+      - Design a Queue class that automatically sends every 3rd dequeued person object to a next queue that can be specified
+      - Imagine a security queue where every 3rd person is randomly sent to an additional security queue
 */
 
 class Stack {
