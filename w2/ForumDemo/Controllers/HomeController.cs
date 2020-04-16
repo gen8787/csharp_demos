@@ -89,7 +89,7 @@ namespace ForumDemo.Controllers
                     ModelState.AddModelError("LoginEmail", genericErrMsg);
                 }
             }
-
+            // this is true if any of our above manually added model errors happened: ModelState.AddModelError
             if (ModelState.IsValid == false)
             {
                 // display custom validation error messages
