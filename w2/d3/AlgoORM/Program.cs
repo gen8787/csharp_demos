@@ -41,6 +41,21 @@ namespace AlgoORM
                     { "Rating", 4}
                 }
             };
+
+            // convert to List<ForumPost>
+            List<ForumPost> forumPosts = new List<ForumPost>();
+
+            foreach (Dictionary<string, object> postDict in forumPostsFromDb)
+            {
+                ForumPost post = new ForumPost()
+                {
+                    Topic = (string)postDict["Topic"],
+                    Body = (string)postDict["Body"],
+                    Rating = (int)postDict["Rating"]
+                };
+
+                forumPosts.Add(post);
+            }
         }
     }
 }
