@@ -17,7 +17,7 @@
 
   w2d4
     - sumOfHalvesEqual
-      - create a method on the Queue class that returns whether or not theh sum of the first half of the queue is
+      - create a method on the Queue class that returns whether or not the sum of the first half of the queue is equal to the sum of the second half
     - nextQueue
       - Design a Queue class that automatically sends every 3rd dequeued person object to a next queue that can be specified
       - Imagine a security queue where every 3rd person is randomly sent to an additional security queue
