@@ -187,6 +187,57 @@ class Queue {
     console.log(str);
     return str;
   }
+
+  compareQueues(q2) {
+    if (this.size() !== q2.size()) {
+      return false;
+    }
+    let count = 0;
+    let isEqual = true;
+    const len = this.size();
+
+    while (count < len) {
+      const dequeued1 = this.dequeue();
+      const dequeued2 = q2.dequeue();
+
+      if (dequeued1 !== dequeued2) {
+        isEqual = false;
+      }
+
+      this.enqueue(dequeued1);
+      q2.enqueue(dequeued2);
+      count++;
+    }
+
+    return isEqual;
+  }
+
+  isSumOfHalvesEqual() {
+    const len = this.size();
+
+    if (len % 2 !== 0) {
+      return false;
+    }
+
+    const halfLen = len / 2;
+    let leftSum = 0;
+    let rightSum = 0;
+    let count = 0;
+
+    while (count < len) {
+      const dequeued = this.dequeue();
+
+      if (count < halfLen) {
+        leftSum += dequeued;
+      } else {
+        rightSum += dequeued;
+      }
+
+      count++;
+      this.enqueue(dequeued);
+    }
+    return leftSum === rightSum;
+  }
 }
 
 class SLQueue {
@@ -267,28 +318,97 @@ class SLQueue {
   seed(vals) {
     vals.forEach((val) => this.enqueue(val));
   }
+}
 
-  compareQueues(q2) {
-    if (this.size() !== q2.size()) {
-      return false;
-    }
-    let count = 0;
-    let isEqual = true;
-    const len = this.size();
+// students not expected to use extends, could just re-write the basic methods
+class NextQueue extends Queue {
+  constructor(items, nextQueue) {
+    // call the constructor for Queue class
+    super(items);
 
-    while (count < len) {
-      const dequeued1 = this.dequeue();
-      const dequeued2 = q2.dequeue();
+    // props only added to NextQueue
+    this.dequeueCount = 0;
+    this.nextQueue = nextQueue;
+  }
 
-      if (dequeued1 !== dequeued2) {
-        isEqual = false;
-      }
-
-      this.enqueue(dequeued1);
-      q2.enqueue(dequeued2);
-      count++;
+  // generic, all go to next queue so this class can be used generically, not just for every 3rd dequeued item
+  dequeueToNext() {
+    if (this.isEmpty()) {
+      return "Underflow";
     }
 
-    return isEqual;
+    // dequeue method was inherited
+    const dequeued = this.dequeue();
+    this.nextQueue.enqueue(dequeued);
+    return dequeued;
+  }
+
+  dequeueEveryThirdToNext() {
+    if (this.isEmpty()) {
+      return "Underflow";
+    }
+    const dequeued = this.dequeue();
+    this.dequeueCount++;
+
+    if (this.dequeueCount % 3 === 0) {
+      this.nextQueue.enqueue(dequeued);
+    }
+
+    return dequeued;
+  }
+
+  // more flexible, allow for the logic that determines if the item goes to the next queue to be passed in
+  // and allow a new nextQueue to be provided as well
+  dequeueToNextConditionally(sendToNextCallback, nextQ = this.nextQueue) {
+    if (this.isEmpty()) {
+      return "Underflow";
+    }
+
+    const dequeued = this.dequeue();
+    this.dequeueCount++;
+
+    if (sendToNextCallback.call(this, dequeued) === true) {
+      nextQ.enqueue(dequeued);
+    }
+    return dequeued;
   }
 }
+
+const initItems = [
+  { name: "person 1", flaggedBySecurity: true },
+  { name: "person 2", flaggedBySecurity: false },
+  { name: "person 3", flaggedBySecurity: false },
+  { name: "person 4", flaggedBySecurity: false },
+  { name: "person 5", flaggedBySecurity: false },
+  { name: "person 6", flaggedBySecurity: false },
+];
+
+let additionalSecurityQueue = new Queue();
+let securityQueue = new NextQueue(initItems.slice(), additionalSecurityQueue);
+
+securityQueue.dequeueEveryThirdToNext();
+securityQueue.dequeueEveryThirdToNext();
+securityQueue.dequeueEveryThirdToNext();
+securityQueue.dequeueEveryThirdToNext();
+securityQueue.dequeueEveryThirdToNext();
+securityQueue.dequeueEveryThirdToNext();
+
+// reset for more testing
+additionalSecurityQueue = new Queue();
+securityQueue = new NextQueue(initItems.slice(), additionalSecurityQueue);
+
+const isAdditionalSecurityNeeded = function (dequeued) {
+  if (this.dequeueCount % 3 === 0 || dequeued.flaggedBySecurity) {
+    return true;
+  }
+  return false;
+};
+
+securityQueue.dequeueToNextConditionally(isAdditionalSecurityNeeded);
+securityQueue.dequeueToNextConditionally(isAdditionalSecurityNeeded);
+securityQueue.dequeueToNextConditionally(isAdditionalSecurityNeeded);
+securityQueue.dequeueToNextConditionally(isAdditionalSecurityNeeded);
+securityQueue.dequeueToNextConditionally(isAdditionalSecurityNeeded);
+securityQueue.dequeueToNextConditionally(isAdditionalSecurityNeeded);
+
+console.log("test");
