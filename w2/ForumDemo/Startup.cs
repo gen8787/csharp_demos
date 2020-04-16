@@ -26,6 +26,7 @@ namespace ForumDemo
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddSession();
             services.AddDbContext<ForumContext>(options => options.UseMySql(Configuration["DBInfo:ConnectionString"]));
         }
 
@@ -42,6 +43,7 @@ namespace ForumDemo
             }
 
             app.UseStaticFiles();
+            app.UseSession();
 
             app.UseMvc(routes =>
             {

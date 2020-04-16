@@ -2986,6 +2986,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\Neil\\Documents\\code\\Dojo\\demos\\csharp\\w2\\ForumDemo\\Views\\Home\\_Register.cshtml",
+      "TargetPath": "Views\\Home\\_Register.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\Neil\\Documents\\code\\Dojo\\demos\\csharp\\w2\\ForumDemo\\Views\\Posts\\Details.cshtml",
       "TargetPath": "Views\\Posts\\Details.cshtml",
       "FileKind": "mvc"
@@ -3013,6 +3018,11 @@
     {
       "FilePath": "c:\\Users\\Neil\\Documents\\code\\Dojo\\demos\\csharp\\w2\\ForumDemo\\Views\\_ViewImports.cshtml",
       "TargetPath": "Views\\_ViewImports.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\Neil\\Documents\\code\\Dojo\\demos\\csharp\\w2\\ForumDemo\\Views\\Home\\_Login.cshtml",
+      "TargetPath": "Views\\Home\\_Login.cshtml",
       "FileKind": "mvc"
     },
     {
