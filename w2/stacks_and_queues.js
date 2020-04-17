@@ -23,6 +23,11 @@
     - nextQueue
       - Design a Queue class that automatically sends every 3rd dequeued person object to a next queue that can be specified
       - Imagine a security queue where every 3rd person is randomly sent to an additional security queue
+
+  w2d5
+    - priorityQueue (create enqueue and dequeue methods)
+      - design a new PriorityQueue class where the queue maintains an ascending order when items are added based on queue item's provided priority integer value
+    - BONUS: see processPallets method on queue class
 */
 
 class Stack {
@@ -238,6 +243,27 @@ class Queue {
     }
     return leftSum === rightSum;
   }
+
+  /* 
+    Bonus:
+    Visualize a pallet of products, it is a grid (rows and columns, like a chess board)
+    where eatch grid space has a stack of products:
+
+    Process shipment of pallets that arrived, process them in the order they were received (FIFO):
+
+    Given a queue of pallets (this queue) write a processPallets method,
+    where a pallet is a 2d grid 
+    where the nested arrays contain stacks of product objects containing a name and price key
+    work through the queue, unload the pallets and
+    return a bill of goods containing all the names of products received and the total value of the merchandise
+
+    Unloading simply means removing all the items from the queues and stacks via the appropriate methods
+
+    Bonus: unload the products into a priority queue based on a daysUntilExpiration
+      return this priority queue along with the report.
+  */
+
+  processPallets() {}
 }
 
 class SLQueue {
