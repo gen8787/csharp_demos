@@ -13,7 +13,7 @@
 
       <div class="card-body">
         <h6 class="card-subtitle mb-2 text-muted">
-          <a asp-controller="Posts" asp-action="Authors" asp-route-userId="@post.Author.UserId">
+          <a asp-controller="Posts" asp-action="AuthorPage" asp-route-userId="@post.Author.UserId">
             @post.Author.FullName()
           </a>
         </h6>
