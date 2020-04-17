@@ -13,14 +13,25 @@
 
       <div class="card-body">
         <h6 class="card-subtitle mb-2 text-muted">
-          @post.Username
+          <a asp-controller="Posts" asp-action="Authors" asp-route-userId="@post.Author.UserId">
+            @post.Author.FullName()
+          </a>
         </h6>
         <p class="card-text">
           @post.Body
         </p>
-        <a asp-action="Details" asp-controller="Posts" asp-route-postId='@post.PostId'>Details</a>
-        <a class="text-warning" asp-action="Edit" asp-controller="Posts" asp-route-postId='@post.PostId'>Edit</a>
-        <a class="text-danger" href="/Posts/@post.PostId/Delete">Delete</a>
+
+        <a asp-action="Details" asp-controller="Posts" asp-route-postId='@post.PostId'>
+          Details
+        </a>
+
+        <a class="text-warning" asp-action="Edit" asp-controller="Posts" asp-route-postId='@post.PostId'>
+          Edit
+        </a>
+
+        <a class="text-danger" asp-controller="Posts" asp-action="Delete" asp-route-postId="@post.PostId">
+          Delete
+        </a>
         @* Example of using href instead of tag helpers *@
         @* <a href='/Posts/@post.PostId'>Details</a> *@
       </div>

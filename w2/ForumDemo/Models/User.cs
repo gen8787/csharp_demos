@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -8,6 +9,9 @@ namespace ForumDemo.Models
     {
         [Key] // denotes PK, not needed if named ModelNameId
         public int UserId { get; set; }
+
+        // Navigation property for 1 User to Many Posts relationship
+        public List<Post> Posts { get; set; }
 
         [Required(ErrorMessage = "is required.")]
         [MinLength(2, ErrorMessage = "must be at least 2 characters")]
@@ -35,5 +39,10 @@ namespace ForumDemo.Models
         public string PasswordConfirm { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
+
+        public string FullName()
+        {
+            return $"{FirstName} {LastName}";
+        }
     }
 }

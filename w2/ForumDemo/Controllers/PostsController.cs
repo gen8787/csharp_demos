@@ -6,10 +6,18 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ForumDemo.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 
 public class PostsController : Controller
 {
     private ForumContext db;
+    private int? uid
+    {
+        get
+        {
+            return HttpContext.Session.GetInt32("UserId");
+        }
+    }
 
     // controller constructor overload
     public PostsController(ForumContext context)
@@ -21,15 +29,15 @@ public class PostsController : Controller
     [HttpGet("/Posts")]
     public IActionResult All()
     {
-        int? userId = HttpContext.Session.GetInt32("UserId");
-
-        if (userId == null)
+        if (uid == null)
         {
             return RedirectToAction("Index", "Home");
         }
 
         // get all posts and all columns
-        List<Post> allPosts = db.Posts.ToList();
+        List<Post> allPosts = db.Posts
+            .Include(post => post.Author)
+            .ToList();
 
         return View(allPosts);
     }
@@ -37,6 +45,11 @@ public class PostsController : Controller
     [HttpGet("/Posts/New")]
     public IActionResult New()
     {
+        if (uid == null)
+        {
+            return RedirectToAction("Index", "Home");
+        }
+
         return View();
     }
 
@@ -50,16 +63,22 @@ public class PostsController : Controller
         }
 
         // ModelState IS valid
+
+        // User author = db.Users.FirstOrDefault(user => user.UserId == uid);
+        newPost.UserId = (int)uid; // assign author to post for the 1 to many relationship
+
         db.Posts.Add(newPost);
         // after save changes, our newPost object gets it's id from the database
         db.SaveChanges();
-        return RedirectToAction("Details", new { id = newPost.PostId });
+        return RedirectToAction("Details", new { postId = newPost.PostId });
     }
 
     [HttpGet("/Posts/{postId}")]
     public IActionResult Details(int postId)
     {
-        Post selectedPost = db.Posts.FirstOrDefault(post => post.PostId == postId);
+        Post selectedPost = db.Posts
+            .Include(post => post.Author)
+            .FirstOrDefault(post => post.PostId == postId);
 
         // in caes user manually types an invalid ID into the URL
         if (selectedPost == null)
@@ -73,9 +92,13 @@ public class PostsController : Controller
     [HttpGet("/Posts/{postId}/Edit")]
     public IActionResult Edit(int postId)
     {
-        Post postToEdit = db.Posts.FirstOrDefault(post => post.PostId == postId);
+        Post postToEdit = db.Posts
+            .Include(post => post.Author)
+            .FirstOrDefault(post => post.PostId == postId);
 
-        if (postToEdit == null)
+        // in case of manually entering URL into address bar
+        // if post is not found, or user trying to edit is not the author
+        if (postToEdit == null || postToEdit.Author.UserId != uid)
         {
             return RedirectToAction("All");
         }
@@ -104,7 +127,7 @@ public class PostsController : Controller
         db.Posts.Update(dbPost);
         db.SaveChanges();
 
-        return RedirectToAction("Details", new { id = dbPost.PostId });
+        return RedirectToAction("Details", new { postId = dbPost.PostId });
     }
 
     [HttpGet("/Posts/{postId}/Delete")]
@@ -119,5 +142,20 @@ public class PostsController : Controller
         db.SaveChanges();
 
         return RedirectToAction("All");
+    }
+
+    [HttpGet("/Posts/Authors/{userId}")]
+    public IActionResult AuthorPage(int userId)
+    {
+        User selectedUser = db.Users
+            .Include(user => user.Posts)
+            .FirstOrDefault(user => user.UserId == userId);
+
+        if (selectedUser == null)
+        {
+            return RedirectToAction("All");
+        }
+
+        return View(selectedUser);
     }
 }

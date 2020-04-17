@@ -3,14 +3,16 @@ using System;
 using ForumDemo.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ForumDemo.Migrations
 {
     [DbContext(typeof(ForumContext))]
-    partial class ForumContextModelSnapshot : ModelSnapshot
+    [Migration("20200417174236_UserToPostsRelationship")]
+    partial class UserToPostsRelationship
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,6 +36,10 @@ namespace ForumDemo.Migrations
                     b.Property<DateTime>("UpdatedAt");
 
                     b.Property<int>("UserId");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasMaxLength(45);
 
                     b.HasKey("PostId");
 

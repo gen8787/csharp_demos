@@ -9,14 +9,6 @@
   asp-controller="Posts"
   asp-route-postId="@Model.PostId"
 >
-  <div class="form-group">
-    <b><label asp-for="Username"></label></b>
-    <span
-      class="text-danger font-weight-bold"
-      asp-validation-for="Username"
-    ></span>
-    <input readonly class="form-control" asp-for="Username" />
-  </div>
 
   <div class="form-group">
     <b><label asp-for="Topic"></label></b>
