@@ -30,6 +30,8 @@
     - BONUS: see processPallets method on queue class
 */
 
+const PriorityQueue = require("./priorityQueue");
+
 class Stack {
   constructor(items = []) {
     this.items = items;
@@ -259,10 +261,38 @@ class Queue {
 
     Unloading simply means removing all the items from the queues and stacks via the appropriate methods
 
-    Bonus: unload the products into a priority queue based on a daysUntilExpiration key
+    Bonus: unload the products into a priority queue based on a daysUntilExpiration key on the product
       return this priority queue along with the bill of goods report.
   */
-  processPallets() {}
+  processPallets() {
+    const billOfGoods = {
+      names: [],
+      totalValue: 0,
+    };
+
+    const priorityQueue = new PriorityQueue();
+
+    while (this.isEmpty() === false) {
+      const pallet2dArr = this.dequeue();
+
+      for (const rowArr of pallet2dArr) {
+        for (const stack of rowArr) {
+          while (stack.isEmpty() === false) {
+            const product = stack.pop();
+
+            billOfGoods.names.push(product.name);
+            billOfGoods.totalValue += product.price;
+
+            priorityQueue.enqueue(product, product.daysUntilExpiration);
+          }
+        }
+      }
+    }
+    return {
+      billOfGoods: billOfGoods,
+      priorityQueue: priorityQueue,
+    };
+  }
 }
 
 class SLQueue {
