@@ -26,7 +26,7 @@
 
   w2d5
     - priorityQueue (create enqueue and dequeue methods)
-      - design a new PriorityQueue class where the queue maintains an ascending order when items are added based on queue item's provided priority integer value
+      - design a new PriorityQueue class where the queue maintains an ascending order when items are added based on queue item's provided priority integer value. A priority value of 1 is most important.
     - BONUS: see processPallets method on queue class
 */
 
@@ -259,10 +259,9 @@ class Queue {
 
     Unloading simply means removing all the items from the queues and stacks via the appropriate methods
 
-    Bonus: unload the products into a priority queue based on a daysUntilExpiration
-      return this priority queue along with the report.
+    Bonus: unload the products into a priority queue based on a daysUntilExpiration key
+      return this priority queue along with the bill of goods report.
   */
-
   processPallets() {}
 }
 
@@ -400,39 +399,85 @@ class NextQueue extends Queue {
   }
 }
 
-const initItems = [
-  { name: "person 1", flaggedBySecurity: true },
-  { name: "person 2", flaggedBySecurity: false },
-  { name: "person 3", flaggedBySecurity: false },
-  { name: "person 4", flaggedBySecurity: false },
-  { name: "person 5", flaggedBySecurity: false },
-  { name: "person 6", flaggedBySecurity: false },
-];
+// next queue testing
+// const nextQInitItems = [
+//   { name: "person 1", flaggedBySecurity: true },
+//   { name: "person 2", flaggedBySecurity: false },
+//   { name: "person 3", flaggedBySecurity: false },
+//   { name: "person 4", flaggedBySecurity: false },
+//   { name: "person 5", flaggedBySecurity: false },
+//   { name: "person 6", flaggedBySecurity: false },
+// ];
 
-let additionalSecurityQueue = new Queue();
-let securityQueue = new NextQueue(initItems.slice(), additionalSecurityQueue);
+// let additionalSecurityQueue = new Queue();
+// let securityQueue = new NextQueue(nextQInitItems.slice(), additionalSecurityQueue);
 
-securityQueue.dequeueEveryThirdToNext();
-securityQueue.dequeueEveryThirdToNext();
-securityQueue.dequeueEveryThirdToNext();
-securityQueue.dequeueEveryThirdToNext();
-securityQueue.dequeueEveryThirdToNext();
-securityQueue.dequeueEveryThirdToNext();
+// securityQueue.dequeueEveryThirdToNext();
+// securityQueue.dequeueEveryThirdToNext();
+// securityQueue.dequeueEveryThirdToNext();
+// securityQueue.dequeueEveryThirdToNext();
+// securityQueue.dequeueEveryThirdToNext();
+// securityQueue.dequeueEveryThirdToNext();
 
-// reset for more testing
-additionalSecurityQueue = new Queue();
-securityQueue = new NextQueue(initItems.slice(), additionalSecurityQueue);
+// // reset for more testing
+// additionalSecurityQueue = new Queue();
+// securityQueue = new NextQueue(nextQInitItems.slice(), additionalSecurityQueue);
 
-const isAdditionalSecurityNeeded = function (dequeued) {
-  if (this.dequeueCount % 3 === 0 || dequeued.flaggedBySecurity) {
-    return true;
-  }
-  return false;
-};
+// const isAdditionalSecurityNeeded = function (dequeued) {
+//   if (this.dequeueCount % 3 === 0 || dequeued.flaggedBySecurity) {
+//     return true;
+//   }
+//   return false;
+// };
 
-securityQueue.dequeueToNextConditionally(isAdditionalSecurityNeeded);
-securityQueue.dequeueToNextConditionally(isAdditionalSecurityNeeded);
-securityQueue.dequeueToNextConditionally(isAdditionalSecurityNeeded);
-securityQueue.dequeueToNextConditionally(isAdditionalSecurityNeeded);
-securityQueue.dequeueToNextConditionally(isAdditionalSecurityNeeded);
-securityQueue.dequeueToNextConditionally(isAdditionalSecurityNeeded);
+// securityQueue.dequeueToNextConditionally(isAdditionalSecurityNeeded);
+// securityQueue.dequeueToNextConditionally(isAdditionalSecurityNeeded);
+// securityQueue.dequeueToNextConditionally(isAdditionalSecurityNeeded);
+// securityQueue.dequeueToNextConditionally(isAdditionalSecurityNeeded);
+// securityQueue.dequeueToNextConditionally(isAdditionalSecurityNeeded);
+// securityQueue.dequeueToNextConditionally(isAdditionalSecurityNeeded);
+
+// for process pallets method
+const palletQueue = new Queue([
+  [
+    [
+      new Stack([
+        { name: "1", price: 1, daysUntilExpiration: 10 },
+        { name: "2", price: 1, daysUntilExpiration: 10 },
+        { name: "3", price: 1, daysUntilExpiration: 1 },
+      ]),
+      new Stack([
+        { name: "4", price: 1, daysUntilExpiration: 10 },
+        { name: "5", price: 1, daysUntilExpiration: 2 },
+        { name: "6", price: 1, daysUntilExpiration: 8 },
+      ]),
+      new Stack([
+        { name: "7", price: 1, daysUntilExpiration: 9 },
+        { name: "8", price: 1, daysUntilExpiration: 2 },
+        { name: "9", price: 1, daysUntilExpiration: 5 },
+      ]),
+    ],
+  ],
+  [
+    [
+      new Stack([
+        { name: "10", price: 1, daysUntilExpiration: 7 },
+        { name: "11", price: 1, daysUntilExpiration: 9 },
+        { name: "12", price: 1, daysUntilExpiration: 3 },
+      ]),
+      new Stack([
+        { name: "13", price: 1, daysUntilExpiration: 8 },
+        { name: "14", price: 1, daysUntilExpiration: 10 },
+        { name: "15", price: 1, daysUntilExpiration: 4 },
+      ]),
+      new Stack([
+        { name: "16", price: 1, daysUntilExpiration: 6 },
+        { name: "17", price: 1, daysUntilExpiration: 10 },
+        { name: "18", price: 1, daysUntilExpiration: 5 },
+      ]),
+    ],
+  ],
+]);
+
+const report = palletQueue.processPallets();
+console.log(report);
