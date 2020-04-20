@@ -9,5 +9,6 @@ namespace ForumDemo.Models
         // This DbSet corresponds to our posts table in our database which will let us query the table
         public DbSet<Post> Posts { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Vote> Votes { get; set; }
     }
 }

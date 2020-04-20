@@ -37,6 +37,7 @@ public class PostsController : Controller
         // get all posts and all columns
         List<Post> allPosts = db.Posts
             .Include(post => post.Author)
+            .Include(post => post.Votes)
             .ToList();
 
         return View(allPosts);
@@ -78,6 +79,8 @@ public class PostsController : Controller
     {
         Post selectedPost = db.Posts
             .Include(post => post.Author)
+            .Include(post => post.Votes)
+            .ThenInclude(vote => vote.Voter)
             .FirstOrDefault(post => post.PostId == postId);
 
         // in caes user manually types an invalid ID into the URL
@@ -157,5 +160,66 @@ public class PostsController : Controller
         }
 
         return View(selectedUser);
+    }
+
+    // this can be done as a GET instead using an anchor tag, but POST is better practice
+    // in order to get a vote to be automatically instantiated, would need
+    // to create a new model for the Posts/All.cshtml page that has
+    // a List<Post> AND a Vote inside it so asp-for could be used
+
+    // SIMPLE VERSION, prevents duplicate votes, but does not let you change vote
+    // [HttpPost("/Posts/Vote")]
+    // public IActionResult Vote(int postId, bool isUpvote)
+    // {
+
+    //     // does it already exist
+    //     bool alreadyVoted = db.Votes.Any(vote => vote.PostId == postId && vote.UserId == (int)uid);
+
+    //     if (alreadyVoted == false)
+    //     {
+    //         Vote newVote = new Vote()
+    //         {
+    //             PostId = postId,
+    //             UserId = (int)uid,
+    //             IsUpvote = isUpvote
+    //         };
+
+    //         db.Votes.Add(newVote);
+    //         db.SaveChanges();
+    //     }
+
+    //     return RedirectToAction("Details", new { postId = postId });
+    // }
+
+    [HttpPost("/Posts/Vote")]
+    public IActionResult Vote(int postId, bool isUpvote)
+    {
+
+        // does it already exist
+        Vote existingVote = db.Votes.FirstOrDefault(vote => vote.PostId == postId && vote.UserId == (int)uid);
+
+        if (existingVote == null)
+        {
+            Vote newVote = new Vote()
+            {
+                PostId = postId,
+                UserId = (int)uid,
+                IsUpvote = isUpvote
+            };
+
+            db.Votes.Add(newVote);
+        }
+        else
+        {
+            // if already voted, only update if changing vote
+            if (existingVote.IsUpvote != isUpvote)
+            {
+                existingVote.IsUpvote = isUpvote;
+                db.Votes.Update(existingVote);
+            }
+        }
+
+        db.SaveChanges();
+        return RedirectToAction("Details", new { postId = postId });
     }
 }

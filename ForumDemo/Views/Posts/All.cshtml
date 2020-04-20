@@ -1,9 +1,20 @@
 @model List<Post>
 
+@{
+  @* MUST ADD LINE TO _ViewImports to be able to access session from view *@
+  @* Otherwise, need to put the logged in user id in ViewBag *@
+  int loggedInUserId = (int)Context.Session.GetInt32("UserId");
+}
+
 <h2 class="text-center">All Posts</h2>
 
 @foreach (Post post in Model)
 {
+  @* not at symbol needed here because we haven't started writing HTML yet inside the foreach *@
+  bool alreadyUpvoted = post.Votes.Any(vote => vote.UserId == loggedInUserId && vote.IsUpvote == true);
+  bool alreadyDownvoted = post.Votes.Any(vote => vote.UserId == loggedInUserId && vote.IsUpvote == false);
+
+  
     <div class="card mx-auto text-center mb-3 w-50">
       <div class="card-header">
         <h5 class="card-title">
@@ -34,6 +45,30 @@
         </a>
         @* Example of using href instead of tag helpers *@
         @* <a href='/Posts/@post.PostId'>Details</a> *@
+
+        <div class="row justify-content-center">
+          <form
+            asp-controller="Posts"
+            asp-action="Vote"
+            asp-route-postId="@post.PostId"
+            asp-route-isUpvote="true"
+          >
+            <button disabled="@alreadyUpvoted" class="btn btn-link text-success">
+              &uarr;
+            </button>
+          </form>
+  
+          <form
+            asp-controller="Posts"
+            asp-action="Vote"
+            asp-route-postId="@post.PostId"
+            asp-route-isUpvote="false"
+          >
+            <button disabled="@alreadyDownvoted" class="btn btn-link text-danger">
+              &darr;
+            </button>
+          </form>
+        </div>
       </div>
     </div>
 }

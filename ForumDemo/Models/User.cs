@@ -10,9 +10,6 @@ namespace ForumDemo.Models
         [Key] // denotes PK, not needed if named ModelNameId
         public int UserId { get; set; }
 
-        // Navigation property for 1 User to Many Posts relationship
-        public List<Post> Posts { get; set; }
-
         [Required(ErrorMessage = "is required.")]
         [MinLength(2, ErrorMessage = "must be at least 2 characters")]
         [Display(Name = "First Name")]
@@ -39,6 +36,10 @@ namespace ForumDemo.Models
         public string PasswordConfirm { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
+
+        // Navigation properties
+        public List<Post> Posts { get; set; } // 1 User to Many Posts relationship
+        public List<Vote> Votes { get; set; } // Many to Many between User & Post: 1 User can have Many votes
 
         public string FullName()
         {
