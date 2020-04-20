@@ -48,6 +48,7 @@
 
         <div class="row justify-content-center">
           <form
+            method="POST"
             asp-controller="Posts"
             asp-action="Vote"
             asp-route-postId="@post.PostId"
@@ -61,6 +62,7 @@
           </form>
   
           <form
+            method="POST"
             asp-controller="Posts"
             asp-action="Vote"
             asp-route-postId="@post.PostId"
