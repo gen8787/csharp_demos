@@ -371,12 +371,9 @@ class LinkedList {
     let valCount = 1;
 
     let runner = this.head;
-    if (runner === null) {
-      return this;
-    }
 
     while (runner) {
-      // insertAtFront for better perfmance than insertAtBack
+      // insertAtFront for better performance than insertAtBack
       if (runner.data < val) {
         smallerList.insertAtFront(runner.data);
       } else if (runner.data > val) {
@@ -384,7 +381,6 @@ class LinkedList {
       } else if (runner.data === val) {
         valCount++;
       }
-
       runner = runner.next;
     }
     // ensure our given val is at the beginning of the larger list
