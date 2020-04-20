@@ -21,12 +21,12 @@
   <p>@Model.Body</p>
   <p>
     Up Votes: (@upvotes.ToList().Count)
-    @String.Join(", ", upvotes.Select(vote => vote.Voter.FirstName).ToList())
+    @String.Join(", ", upvotes.Select(vote => vote.Voter.FirstName + " " + vote.Voter.LastName).ToList())
   </p>
   
   <p>
     Down Votes: (@downvotes.ToList().Count)
-    @String.Join(", ", downvotes.Select(vote => vote.Voter.FirstName).ToList())
+    @String.Join(", ", downvotes.Select(vote => $"{vote.Voter.FirstName} {vote.Voter.LastName}").ToList())
   </p>
 
 </div>
