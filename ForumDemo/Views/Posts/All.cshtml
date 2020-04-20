@@ -54,7 +54,9 @@
             asp-route-isUpvote="true"
           >
             <button disabled="@alreadyUpvoted" class="btn btn-link text-success">
-              &uarr;
+              <span class="h1">
+                &uarr;
+              </span>
             </button>
           </form>
   
@@ -65,7 +67,9 @@
             asp-route-isUpvote="false"
           >
             <button disabled="@alreadyDownvoted" class="btn btn-link text-danger">
-              &darr;
+              <span class="h1">
+                &darr;
+              </span>
             </button>
           </form>
         </div>
