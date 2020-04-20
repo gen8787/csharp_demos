@@ -360,6 +360,53 @@ class LinkedList {
     newNode.next = current;
     return this;
   }
+
+  partition(val) {
+    if (this.contains(val) === false) {
+      return this;
+    }
+
+    const smallerList = new SList();
+    const largerList = new SList();
+    let valCount = 1;
+
+    let runner = this.head;
+    if (runner === null) {
+      return this;
+    }
+
+    while (runner) {
+      // insertAtFront for better perfmance than insertAtBack
+      if (runner.data < val) {
+        smallerList.insertAtFront(runner.data);
+      } else if (runner.data > val) {
+        largerList.insertAtFront(runner.data);
+      } else if (runner.data === val) {
+        valCount++;
+      }
+
+      runner = runner.next;
+    }
+    // ensure our given val is at the beginning of the larger list
+    for (let i = 0; i < valCount; ++i) {
+      largerList.insertAtFront(val);
+    }
+
+    smallerList.concat(largerList);
+
+    this.head = smallerList.head;
+    return this;
+  }
+
+  recursiveLast(runner = this.head) {
+    if (runner === null) {
+      return null;
+    }
+    if (runner.next === null) {
+      return runner.data;
+    }
+    return this.recursiveLast(runner.next);
+  }
 }
 
 const myList = new LinkedList();
