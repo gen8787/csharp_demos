@@ -27,6 +27,7 @@ namespace FoodTrucks
         {
             services.AddDbContext<FoodTrucksContext>(options => options.UseMySql(Configuration["DBInfo:ConnectionString"]));
             services.AddSession();
+            services.AddHttpContextAccessor(); // needed to directly access session in views 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
