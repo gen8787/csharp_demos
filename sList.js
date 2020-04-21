@@ -429,20 +429,20 @@ class LinkedList {
 
     let runner = this.head;
 
-    // get rid of all negatives at start so head will be positive
-    while (runner.data < 0) {
+    // get rid of all negatives at start so head will be positive, or null
+    while (runner && runner.data < 0) {
       runner = runner.next;
     }
 
     this.head = runner;
 
-    // need runner to stay on a positive because if it is on a negative
-    // then we would need access to prev in order to cut it out
-    while (runner) {
-      while (runner && runner.next && runner.next.data < 0) {
+    //  head may have become null, that's why we check runner && runner.next
+    while (runner && runner.next) {
+      if (runner.next.data < 0) {
         runner.next = runner.next.next;
+      } else {
+        runner = runner.next;
       }
-      runner = runner.next;
     }
     return this;
   }
