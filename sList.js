@@ -46,6 +46,10 @@
     1. recursiveLast: recursively return the value / data of the last node
     2. SList: Partition
       - partition a SList such that all values less than the given value are to the left of it, and all values greater than the given value are to the right (not perfectly sorted)
+
+  w3d2
+    1. Remove Negatives (in place)
+    2. recursiveMax - find the max int recursively
 */
 
 class Node {
