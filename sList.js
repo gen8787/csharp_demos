@@ -407,6 +407,45 @@ class LinkedList {
     }
     return this.recursiveLast(runner.next);
   }
+
+  // can't set max to 0 in case list has all negative numbers
+  recursiveMax(runner = this.head, max = null) {
+    if (max === null && this.head !== null) {
+      max = this.head.data;
+    }
+    if (runner === null) {
+      return max;
+    }
+    if (runner.data > max) {
+      max = runner.data;
+    }
+    return this.recursiveMax(runner.next, max);
+  }
+
+  removeNegatives() {
+    if (!this.head) {
+      return this;
+    }
+
+    let runner = this.head;
+
+    // get rid of all negatives at start so head will be positive
+    while (runner.data < 0) {
+      runner = runner.next;
+    }
+
+    this.head = runner;
+
+    // need runner to stay on a positive because if it is on a negative
+    // then we would need access to prev in order to cut it out
+    while (runner) {
+      while (runner && runner.next && runner.next.data < 0) {
+        runner.next = runner.next.next;
+      }
+      runner = runner.next;
+    }
+    return this;
+  }
 }
 
 const myList = new LinkedList();
