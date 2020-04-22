@@ -26,6 +26,11 @@ namespace FoodTrucks.Controllers
         }
         public IActionResult Index()
         {
+            if (uid != null)
+            {
+                return RedirectToAction("Dashboard", "FoodTrucks");
+            }
+
             return View();
         }
 

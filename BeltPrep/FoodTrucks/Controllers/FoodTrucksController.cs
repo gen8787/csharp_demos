@@ -33,7 +33,9 @@ namespace FoodTrucks.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            return View();
+            List<FoodTruck> allTrucks = db.FoodTrucks.ToList();
+
+            return View("Dashboard", allTrucks);
         }
 
         [HttpPost("/Create")]
@@ -73,6 +75,77 @@ namespace FoodTrucks.Controllers
             }
 
             return View();
+        }
+
+        [HttpGet("/trucks/{foodTruckId}/edit")]
+        // any parameters in the url need to be parameters for the method (action)
+        public IActionResult Edit(int foodTruckId)
+        {
+            if (uid == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            FoodTruck selectedTruck = db.FoodTrucks.FirstOrDefault(truck => truck.FoodTruckId == foodTruckId);
+
+
+            // selected truck not found due to manually entering bad id into URL
+            // OR the Uesr is not The Creator
+            if (selectedTruck == null || selectedTruck.UserId != uid)
+            {
+                return RedirectToAction("Dashboard");
+            }
+
+            return View("Edit", selectedTruck);
+        }
+
+        [HttpPost("/Update/{foodTruckId}")]
+        public IActionResult Update(FoodTruck editedTruck, int foodTruckId)
+        {
+
+            if (ModelState.IsValid == false)
+            {
+                return View("Edit", editedTruck); // display error messages
+            }
+
+            FoodTruck dbTruck = db.FoodTrucks.FirstOrDefault(truck => truck.FoodTruckId == editedTruck.FoodTruckId);
+
+            // if the name is being changed
+            if (editedTruck.Name != dbTruck.Name)
+            {
+                bool isNameTaken = db.FoodTrucks.Any(truck => truck.Name == editedTruck.Name);
+
+                if (isNameTaken)
+                {
+                    ModelState.AddModelError("Name", "is taken");
+                    return View("Edit", editedTruck); // display error messages
+                }
+            }
+
+            // none of the above returns happened, safe to update
+
+            dbTruck.UpdatedAt = DateTime.Now;
+            dbTruck.Name = editedTruck.Name;
+            dbTruck.Style = editedTruck.Style;
+            dbTruck.Description = editedTruck.Description;
+
+            db.Update(dbTruck);
+            db.SaveChanges();
+            return RedirectToAction("Dashboard");
+        }
+
+        // better practice to make delete a POST request, but can't have a form nested in a form so kept it as a GET to make
+        // the formatting to match the mockup easier
+        [HttpGet("/trucks/{foodTruckId}/delete")]
+        public IActionResult Delete(int foodTruckId)
+        {
+            FoodTruck dbTruck = db.FoodTrucks.FirstOrDefault(truck => truck.FoodTruckId == foodTruckId);
+            db.FoodTrucks.Remove(dbTruck);
+            db.SaveChanges();
+
+            // succinct version
+            // db.FoodTrucks.Remove(db.FoodTrucks.FirstOrDefault(truck => truck.FoodTruckId == foodTruckId));
+            return RedirectToAction("Dashboard");
         }
     }
 }

@@ -3,10 +3,10 @@
 <partial name="_DashboardLinks"></partial>
 
 <div class="container mt-5">
-  <form asp-controller="FoodTrucks" asp-action="Create" method="POST">
+  <form asp-controller="FoodTrucks" asp-action="Update" asp-route-foodTruckId="@Model.FoodTruckId" method="POST">
     <fieldset class="border p-3">
       <legend class="w-auto">
-        New Foodtruck
+        Edit Foodtruck
       </legend>
 
       <div class="form-group row">
@@ -43,8 +43,9 @@
       </div>
 
       <div class="text-right">
+        <a asp-controller="FoodTrucks" asp-action="Delete" asp-route-foodTruckId="@Model.FoodTruckId" class="btn btn-danger">Delete</a>
         <a asp-controller="FoodTrucks" asp-action="Dashboard" class="btn btn-primary">Cancel</a>
-        <button class="btn btn-success">Submit</button>
+        <button class="btn btn-success">Update</button>
       </div>
     </fieldset>
   </form>
