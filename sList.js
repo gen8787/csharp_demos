@@ -50,6 +50,9 @@
   w3d2
     1. Remove Negatives (in place)
     2. recursiveMax - find the max int recursively
+
+  w3d3
+    - removeDupesSorted: Remove duplicates from a sorted linked list (in place)
 */
 
 class Node {
