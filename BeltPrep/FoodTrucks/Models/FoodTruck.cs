@@ -8,13 +8,13 @@ namespace FoodTrucks.Models
     {
         [Key]
         public int FoodTruckId { get; set; }
-        [Required]
+        [Required(ErrorMessage = "is required")]
         [MinLength(5, ErrorMessage = "must be at least {1} characters")]
         public string Name { get; set; }
-        [Required]
+        [Required(ErrorMessage = "is required")]
         [MinLength(3, ErrorMessage = "must be at least {1} characters")]
         public string Style { get; set; }
-        [Required]
+        [Required(ErrorMessage = "is required")]
         [MinLength(10, ErrorMessage = "must be at least {1} characters")]
         public string Description { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;

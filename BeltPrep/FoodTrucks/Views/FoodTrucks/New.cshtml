@@ -1,0 +1,51 @@
+@model FoodTruck
+
+<partial name="_DashboardLinks"></partial>
+
+<div class="container mt-5">
+  <form asp-controller="FoodTrucks" asp-action="Create" method="POST">
+    <fieldset>
+      <legend>
+        New Foodtruck
+      </legend>
+
+      <div class="row">
+        <div class="col-md-3">
+          <div>
+            <label asp-for="Name" class="mb-3">Name</label>
+            <span
+              class="text-danger font-weight-bold"
+              asp-validation-for="Name">
+            </span>
+          </div>
+
+          <div>
+            <label asp-for="Style" class="mb-3">Style</label>
+            <span
+              class="text-danger font-weight-bold"
+              asp-validation-for="Style">
+            </span>
+          </div>
+
+          <div>
+            <label asp-for="Description" class="mb-3">Description</label>
+            <span
+              class="text-danger font-weight-bold"
+              asp-validation-for="Description">
+            </span>
+          </div>
+        </div>
+
+        <div class="col-md-9">
+          <input asp-for="Name" type="text" class="form-control">
+          <input asp-for="Style" type="text" class="form-control">
+          <input asp-for="Description" type="text" class="form-control">
+        </div>
+      </div>
+    </fieldset>
+    <div class="text-right">
+      <a asp-controller="FoodTrucks" asp-action="Dashboard" class="btn btn-primary">Cancel</a>
+      <button class="btn btn-success">Submit</button>
+    </div>
+  </form>
+</div>

@@ -28,6 +28,50 @@ namespace FoodTrucks.Controllers
         [HttpGet("/dashboard")]
         public IActionResult Dashboard()
         {
+            if (uid == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            return View();
+        }
+
+        [HttpPost("/Create")]
+        public IActionResult Create(FoodTruck newTruck)
+        {
+
+            if (uid == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            if (ModelState.IsValid)
+            {
+                if (db.FoodTrucks.Any(truck => truck.Name == newTruck.Name))
+                {
+                    ModelState.AddModelError("Name", "is taken");
+                }
+                else
+                {
+                    newTruck.UserId = (int)uid;
+                    db.Add(newTruck);
+                    db.SaveChanges();
+                    return RedirectToAction("Dashboard");
+                }
+
+            }
+            // above return did not run, so not valid, re-render page to display error messages
+            return View("New");
+        }
+
+        [HttpGet("/New")]
+        public IActionResult New()
+        {
+            if (uid == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             return View();
         }
     }
