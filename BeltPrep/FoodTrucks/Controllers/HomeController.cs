@@ -58,7 +58,47 @@ namespace FoodTrucks.Controllers
             // add to session, they are now "logged in"
             HttpContext.Session.SetInt32("UserId", newUser.UserId);
             HttpContext.Session.SetString("FirstName", newUser.FirstName);
-            return RedirectToAction("Index");
+            return RedirectToAction("Dashboard", "FoodTrucks");
+        }
+
+        [HttpPost("/login")]
+        public IActionResult Login(LoginUser loginUser)
+        {
+            if (ModelState.IsValid == false)
+            {
+                // display validation error messages
+                return View("Index");
+            }
+
+            User dbUser = db.Users.FirstOrDefault(user => user.Email == loginUser.LoginEmail);
+
+            if (dbUser == null)
+            {
+                ModelState.AddModelError("LoginEmail", "Email not found");
+            }
+            else // user found, check their password
+            {
+                PasswordHasher<LoginUser> hasher = new PasswordHasher<LoginUser>();
+                PasswordVerificationResult pwCompareResult = hasher.VerifyHashedPassword(loginUser, dbUser.Password, loginUser.LoginPassword);
+
+                if (pwCompareResult == 0)
+                {
+                    ModelState.AddModelError("LoginPassword", "Password mismatch");
+                }
+            }
+
+            // check if any of the above ModelState.AddModelError happen
+            if (ModelState.IsValid == false)
+            {
+                // display the manually added ModelState.AddModelError messages
+                return View("Index");
+            }
+
+            // if none of the above returns happened, no errors
+            // add to session, they are now "logged in"
+            HttpContext.Session.SetInt32("UserId", dbUser.UserId);
+            HttpContext.Session.SetString("FirstName", dbUser.FirstName);
+            return RedirectToAction("Dashboard", "FoodTrucks");
         }
 
         [HttpPost("/logout")]
