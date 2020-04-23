@@ -46,8 +46,11 @@ class DLL {
   }
 
   isNodeInLeftHalf(node) {
-    let amntToLeft = (amntToRight = 0);
-    let leftRunner = (rightRunner = node);
+    let amntToLeft = 0,
+      amntToRight = 0;
+
+    let leftRunner = node,
+      rightRunner = node;
 
     while (leftRunner) {
       amntToLeft++;
