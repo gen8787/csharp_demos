@@ -1,6 +1,7 @@
 @model Review
 
 @* none star left black &#11240; *@
+@* asp-route-foodTruckId="@ViewBag.FoodTruckId" is only needed if using the ViewBag approach instead of instantiating a review in Details.cshtml *@
 
 <div>
   <form asp-controller="FoodTrucks" asp-action="ReviewTruck" asp-route-foodTruckId="@ViewBag.FoodTruckId" method="POST">
