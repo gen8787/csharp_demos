@@ -22,4 +22,43 @@ class DLL {
     this.head = null;
     this.tail = null;
   }
+
+  prepend(targetVal, newVal) {
+    const newNode = new DLLNode(newVal);
+    let runner = this.head;
+
+    while (runner) {
+      if (runner.data === targetVal) {
+        newNode.next = runner;
+        newNode.prev = runner.prev;
+        runner.prev.next = newNode;
+        runner.prev = newNode;
+
+        if (runner === this.head) {
+          this.head = newNode;
+        }
+        return true;
+      } else {
+        runner = runner.next;
+      }
+    }
+    return false;
+  }
+
+  isNodeInLeftHalf(node) {
+    let amntToLeft = (amntToRight = 0);
+    let leftRunner = (rightRunner = node);
+
+    while (leftRunner) {
+      amntToLeft++;
+      leftRunner = leftRunner.prev;
+    }
+
+    while (rightRunner) {
+      amntToRight++;
+      rightRunner = rightRunner.prev;
+    }
+
+    return amntToLeft < amntToRight;
+  }
 }
