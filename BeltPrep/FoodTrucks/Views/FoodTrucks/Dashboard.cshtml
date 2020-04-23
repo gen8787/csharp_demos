@@ -9,6 +9,8 @@
 <div class="container mt-5">
   @foreach (FoodTruck truck in Model)
   {
+      double avgRating = truck.CalculateAverageRating();
+
       <div class="row bg-secondary border mt-2 mb-2 p-3">
         <div class="col-md-3">
           <img src="https://image.flaticon.com/icons/png/512/45/45880.png" alt="Delivery Truck" width="100">
@@ -18,10 +20,11 @@
             @truck.Name
           </h3>
           <p>
-            @truck.Style
+            Style: @truck.Style
           </p>
           <p>
-            Average Rating: 
+            Average Rating: @avgRating 
+            <partial name="_RatingStars" model="@avgRating"></partial>
           </p>
         </div>
         <div class="col-md-3 text-right">

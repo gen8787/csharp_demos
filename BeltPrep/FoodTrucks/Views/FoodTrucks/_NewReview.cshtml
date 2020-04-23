@@ -16,7 +16,7 @@
           </span>
           </label>
           <div class="col-sm-9">
-            <textarea class="form-control" asp-for="Body" id="" cols="30" rows="10"></textarea>
+            <textarea asp-for="Body" class="form-control" id="" cols="30" rows="10"></textarea>
           </div>
         </div>
       </div>
@@ -45,6 +45,23 @@
               <option value="5">
                 &#9733; &#9733; &#9733; &#9733; &#9733; 
               </option>
+
+              @* same as above but using loops *@
+              @* @for(int i = 1; i <= 5; i++) {
+
+                <option value="@i">
+                  @for(int j = 1; j<= 5; j++) {
+                    if(j <= i)
+                    {
+                      <span>&#9733;</span>
+                    }
+                    else
+                    {
+                      <span>&#9734;</span>
+                    }
+                  }
+                </option>
+              } *@
             </select>
           
             @* this is an anchor tag so that it won't submit the form *@

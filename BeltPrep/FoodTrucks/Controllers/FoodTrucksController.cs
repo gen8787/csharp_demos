@@ -34,7 +34,9 @@ namespace FoodTrucks.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            List<FoodTruck> allTrucks = db.FoodTrucks.ToList();
+            List<FoodTruck> allTrucks = db.FoodTrucks
+                .Include(truck => truck.Reviews)
+                .ToList();
 
             return View("Dashboard", allTrucks);
         }
@@ -145,6 +147,7 @@ namespace FoodTrucks.Controllers
 
             FoodTruck selectedTruck = db.FoodTrucks
                 .Include(truck => truck.Reviews)
+                .ThenInclude(review => review.Author)
                 .FirstOrDefault(truck => truck.FoodTruckId == foodTruckId);
 
             ViewBag.FoodTruckId = foodTruckId;
@@ -170,6 +173,26 @@ namespace FoodTrucks.Controllers
         [HttpPost("/trucks/{foodTruckId}/review")]
         public IActionResult ReviewTruck(Review newReview, int foodTruckId)
         {
+            // in case we need to return the view for error messages, we need to send the view model as well, which is the selected FoodTruck
+            FoodTruck selectedTruck = db.FoodTrucks
+                .Include(truck => truck.Reviews)
+                .ThenInclude(review => review.Author)
+                .FirstOrDefault(truck => truck.FoodTruckId == foodTruckId);
+
+            if (ModelState.IsValid == false)
+            {
+
+                return View("Details", selectedTruck);
+            }
+
+            bool alreadyReviewed = db.Reviews.Any(review => review.UserId == uid && review.FoodTruckId == newReview.FoodTruckId);
+
+            if (alreadyReviewed)
+            {
+                ModelState.AddModelError("Body", "Already Reviewed");
+                return View("Details", selectedTruck);
+            }
+
             newReview.UserId = (int)uid;
             db.Reviews.Add(newReview);
             db.SaveChanges();
