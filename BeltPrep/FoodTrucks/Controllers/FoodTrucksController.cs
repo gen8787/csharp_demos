@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using FoodTrucks.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 
 namespace FoodTrucks.Controllers
 {
@@ -134,6 +135,22 @@ namespace FoodTrucks.Controllers
             return RedirectToAction("Dashboard");
         }
 
+        [HttpGet("/trucks/{foodTruckId}")]
+        public IActionResult Details(int foodTruckId)
+        {
+            if (uid == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            FoodTruck selectedTruck = db.FoodTrucks
+                .Include(truck => truck.Reviews)
+                .FirstOrDefault(truck => truck.FoodTruckId == foodTruckId);
+
+            ViewBag.FoodTruckId = foodTruckId;
+            return View("Details", selectedTruck);
+        }
+
         // better practice to make delete a POST request, but can't have a form nested in a form so kept it as a GET to make
         // the formatting to match the mockup easier
         [HttpGet("/trucks/{foodTruckId}/delete")]
@@ -146,6 +163,17 @@ namespace FoodTrucks.Controllers
             // succinct version
             // db.FoodTrucks.Remove(db.FoodTrucks.FirstOrDefault(truck => truck.FoodTruckId == foodTruckId));
             return RedirectToAction("Dashboard");
+        }
+
+        // not using int foodTruckId parameter, it is included for showing the alternative method of getting the 
+        // foodTruckId using ViewBag
+        [HttpPost("/trucks/{foodTruckId}/review")]
+        public IActionResult ReviewTruck(Review newReview, int foodTruckId)
+        {
+            newReview.UserId = (int)uid;
+            db.Reviews.Add(newReview);
+            db.SaveChanges();
+            return RedirectToAction("Details", new { foodTruckId = newReview.FoodTruckId });
         }
     }
 }
