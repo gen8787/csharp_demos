@@ -90,25 +90,6 @@ const example5 = joinMeetup(
   joinedMeetups
 );
 
-function joinMeetup(newMeet, joinedMeetups) {
-  for (const joinedMeetup of joinedMeetups) {
-    const newMeetStartsAfter = newMeet.start >= joinedMeetup.end;
-
-    const newMeetEndsBefore = newMeet.end <= joinedMeetup.start;
-
-    // no conflict
-    // if written so that you check the else
-    // condition first, no continue is needed
-    // but it's a little easier to read this way
-    if (newMeetStartsAfter || newMeetEndsBefore) {
-      continue;
-    } else {
-      return false;
-    }
-  }
-  // made it through loop with no conflicts
-  joinedMeetups.push(newMeet);
-  return true;
-}
+function joinMeetup(newMeet, joinedMeetups) {}
 
 console.log(example1, example2, example3, example4, example5);
