@@ -59,7 +59,7 @@ class DLL {
 
     while (rightRunner) {
       amntToRight++;
-      rightRunner = rightRunner.prev;
+      rightRunner = rightRunner.next;
     }
 
     return amntToLeft < amntToRight;
