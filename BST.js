@@ -18,3 +18,65 @@
         \
         25
 */
+
+class BSTNode {
+  constructor(val) {
+    this.val = val;
+    this.left = null;
+    this.right = null;
+  }
+}
+
+class BST {
+  constructor() {
+    this.root = null;
+  }
+
+  min() {
+    let current = this.root;
+
+    if (current === null) {
+      return null;
+    }
+
+    while (current.left) {
+      current = current.left;
+    }
+    return current.val;
+  }
+
+  minRecursive(current = this.root) {
+    if (current === null) {
+      return null;
+    }
+
+    if (current.left === null) {
+      return current.val;
+    }
+
+    return this.minRecursive(current.left);
+  }
+
+  max(current = this.root) {
+    if (current === null) {
+      return null;
+    }
+
+    while (current.right) {
+      current = current.right;
+    }
+    return current.val;
+  }
+
+  maxRecursive(current = this.root) {
+    if (current === null) {
+      return null;
+    }
+
+    if (current.right === null) {
+      return current.val;
+    }
+
+    return this.minRecursive(current.right);
+  }
+}
