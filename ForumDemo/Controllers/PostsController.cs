@@ -191,7 +191,7 @@ public class PostsController : Controller
     //     return RedirectToAction("Details", new { postId = postId });
     // }
 
-    [HttpPost("/Posts/Vote")]
+    [HttpPost("/Posts/{postId}/Vote")]
     public IActionResult Vote(int postId, bool isUpvote)
     {
 
