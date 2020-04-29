@@ -1,10 +1,15 @@
 /* 
-  w3d2
+  w4d2
     - create the BST class and the BSTNode class
       - a BST has a root instead of a head (because it's a tree)
       - a BSTNode has a left, right, and val or data instead of next
     - BST Max return the max with and without recursion
     - BST Min return the min with and without recursion
+
+  w4d3
+    - BST Contains (with & without recursion)
+    - min of right sub tree (how can non-recursive min & max be adapted to work for this?)
+    - max of left sub tree
 */
 
 /* 
