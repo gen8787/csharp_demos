@@ -43,6 +43,10 @@ class BST {
     this.root = null;
   }
 
+  isEmpty() {
+    return this.root === null;
+  }
+
   // bst.min(myBst.root.right) would let us get the min value of the right sub-tree
   min(current = this.root) {
     if (current === null) {
@@ -124,5 +128,42 @@ class BST {
     if (searchVal > current.val) {
       return this.containsRecursive(searchVal, current.right);
     }
+  }
+
+  range(startNode = this.root) {
+    if (!startNode) {
+      return null;
+    }
+    return this.max(startNode) - this.min(startNode);
+  }
+
+  add(newVal) {
+    const node = new BSTNode(newVal);
+
+    if (this.isEmpty()) {
+      this.root = node;
+    } else {
+      let current = this.root;
+
+      while (true) {
+        if (newVal <= current.val) {
+          if (!current.left) {
+            current.left = node;
+            break;
+          } else {
+            current = current.left;
+          }
+        } else {
+          // newVal is greater than current.val
+          if (!current.right) {
+            current.right = node;
+            break;
+          } else {
+            current = current.right;
+          }
+        }
+      }
+    }
+    return this;
   }
 }
