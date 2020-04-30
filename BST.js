@@ -10,6 +10,12 @@
     - BST Contains (with & without recursion)
     - min of right sub tree (how can non-recursive min & max be adapted to work for this?)
     - max of left sub tree
+
+  w4d4
+    - BST Add
+      - add a new value to the appropriate place in the tree, if the new value is equal to an existing value, add it to the left
+    - BST Range
+      - (Range is max minus min. What if tree is empty?)
 */
 
 /* 
