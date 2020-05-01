@@ -198,6 +198,23 @@ class BST {
     }
     return 1 + this.size(node.left) + this.size(node.right);
   }
+
+  // kevin udink's sln
+  size2(current = this.root, total = 0) {
+    if (current == null) return total;
+    total++;
+
+    if (current.left != null) {
+      // total = is important, won't work if you only use total++ everywhere because ints are not passed by reference
+      total = this.count(current.left, total);
+    }
+
+    if (current.right != null) {
+      total = this.count(current.right, total);
+    }
+
+    return total;
+  }
 }
 
 /* 
