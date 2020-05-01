@@ -170,4 +170,60 @@ class BST {
     }
     return this;
   }
+
+  print(node = this.root) {
+    if (!node) {
+      return "";
+    }
+    return node.val + " " + this.print(node.left) + this.print(node.right);
+  }
+
+  printSeparator(node = this.root, separator = ", ", first = true) {
+    if (!node) {
+      return "";
+    }
+
+    const nodeStr = first ? node.val : separator + node.val;
+
+    return (
+      nodeStr +
+      this.printSeparator(node.left, separator, false) +
+      this.printSeparator(node.right, separator, false)
+    );
+  }
+
+  size(node) {
+    if (!node) {
+      return 0;
+    }
+    return 1 + this.size(node.left) + this.size(node.right);
+  }
 }
+
+/* 
+                  50
+                /   \
+              40    60
+            /  \    / \
+          30   45 55  70
+        /   \        /
+      20    35     65
+        \
+        25
+*/
+
+const bst = new BST();
+
+bst.add(50);
+bst.add(40);
+bst.add(60);
+bst.add(70);
+bst.add(45);
+bst.add(30);
+bst.add(35);
+bst.add(20);
+bst.add(25);
+bst.add(65);
+bst.add(55);
+
+console.log(bst.print());
