@@ -200,17 +200,19 @@ class BST {
   }
 
   // kevin udink's sln
+  // have to be careful using primitives as params with recursive because they are not passed by reference
+  // so different recursive branches will have their own copy and they will be updated separately resulting in wrong total
+  // if you only do total++ everywhere, but total = this.size2 solves the problem
   size2(current = this.root, total = 0) {
     if (current == null) return total;
     total++;
 
     if (current.left != null) {
-      // total = is important, won't work if you only use total++ everywhere because ints are not passed by reference
-      total = this.count(current.left, total);
+      total = this.size2(current.left, total);
     }
 
     if (current.right != null) {
-      total = this.count(current.right, total);
+      total = this.size2(current.right, total);
     }
 
     return total;
