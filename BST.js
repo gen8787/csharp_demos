@@ -16,6 +16,10 @@
       - add a new value to the appropriate place in the tree, if the new value is equal to an existing value, add it to the left
     - BST Range
       - (Range is max minus min. What if tree is empty?)
+
+  w4d5
+    - print all vals as one space separated string
+    - BST Size (recursive: total number of nodes)
 */
 
 /* 
