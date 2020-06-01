@@ -10,7 +10,7 @@ class FamList {
     this.headOfHousehold = null;
   }
 
-  getYou() {
+  getYoungestChild() {
     let runner = this.headOfHousehold;
 
     while (runner.firstChild !== null) {
@@ -30,4 +30,4 @@ const you = greatGrandpa.firstChild.firstChild.firstChild;
 const famList = new FamList();
 famList.headOfHousehold = greatGrandpa;
 
-famList.getYou();
+famList.getYoungestChild();
