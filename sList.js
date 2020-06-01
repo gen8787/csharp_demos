@@ -18,10 +18,14 @@ class SList {
     this.head = null;
   }
 
+  // Time: O(1) constant
+  // Space: O(1)
   isEmpty() {
     return this.head === null;
   }
 
+  // Time: O(n) linear, n = length of list
+  // Space: O(1)
   insertAtBack(val) {
     const newNode = new Node(val);
 
@@ -38,12 +42,16 @@ class SList {
     runner.next = newNode;
   }
 
+  // Time: O(n * m) n = list length, m = arr.length
+  // Space: O(1) constant
   seedFromArr(arr) {
     for (const elem of arr) {
       this.insertAtBack(elem);
     }
   }
 
+  // Time: O(n) linear, n = length of list
+  // Space: O(n) due to the string growing based on list size
   display() {
     let str = "";
 
@@ -64,8 +72,5 @@ class SList {
 }
 
 const linkedList = new SList();
-// linkedList.insertAtBack(1);
-// linkedList.insertAtBack(2);
-// linkedList.insertAtBack(3);
 linkedList.seedFromArr([1, 2, 3, 5, 6, 7, 8, 9, 10]);
 linkedList.display();
