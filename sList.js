@@ -78,8 +78,48 @@ class SList {
     console.log(str);
     return str;
   }
+
+  // Time: O(1) constant
+  // Space: O(1)
+  insertAtFront(data) {
+    const newHead = new Node(data);
+    newHead.next = this.head;
+    this.head = newHead;
+    return this;
+  }
+
+  // Time: O(1) constant
+  // Space: O(1)
+  removeHead() {
+    if (this.isEmpty()) {
+      return null;
+    }
+
+    this.head = this.head.next;
+    return this;
+  }
+
+  // Time: O(n) linear, n = list length
+  // Space: O(1)
+  average() {
+    if (this.isEmpty()) {
+      return 0;
+    }
+
+    let count = 0;
+    let sum = 0;
+    let runner = this.head;
+
+    // while runner is truthy, will cancel if runner is null or empty string or the int 0, anything that is falsy
+    while (runner) {
+      count++;
+      sum += runner.data;
+      runner = runner.next;
+    }
+    return sum / count;
+  }
 }
 
 const linkedList = new SList();
-linkedList.seedFromArr([1, 2, 3, 5, 6, 7, 8, 9, 10]);
+linkedList.seedFromArr([10, 15, 10]);
 linkedList.display();
