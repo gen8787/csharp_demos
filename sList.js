@@ -125,8 +125,63 @@ class SList {
     }
     return sum / count;
   }
+
+  // Time: O(n) linear, n = length of list
+  // Space: O(1)
+  contains(val) {
+    let runner = this.head;
+
+    while (runner) {
+      if (runner.data === val) {
+        return true;
+      }
+      runner = runner.next;
+    }
+    return false;
+  }
+
+  // Time: O(n) linear, n = length of list
+  // Space: O(1) constant
+  containsRecursive(val, current = this.head) {
+    if (current === null) {
+      return false;
+    }
+    if (current.data === val) {
+      return true;
+    }
+    return this.containsRecursive(val, current.next);
+  }
+
+  // Time: O(n) linear, n = length of list
+  // Space: O(1) constant
+  removeBack() {
+    let removedData = null;
+
+    if (!this.isEmpty()) {
+      if (this.head.next === null) {
+        // head only node
+        removedData = this.head.data;
+        this.head = null; // remove it from list
+      } else {
+        let runner = this.head;
+        // right of && will only be checked if left is true
+        while (runner.next && runner.next.next) {
+          runner = runner.next;
+        }
+
+        // after while loop finishes, runner is now at 2nd to last node
+        removedData = runner.next.data;
+        runner.next = null; // remove it from list
+      }
+    }
+    return removedData;
+  }
 }
 
+SList.prototype.someNewMethod = function () {
+  console.log("This method was added to the class from outside the class");
+};
+
 const linkedList = new SList();
-linkedList.seedFromArr([10, 15, 10]);
-linkedList.display();
+// linkedList.seedFromArr([10, 15, 10]);
+// linkedList.display();
