@@ -9,10 +9,17 @@ Week 1
 
   2. Tue
     1. insertAtFront
-        - add a new node to the front of the list
+      - add a new node to the front of the list
     2. removeHead
-        - remove only the first node from the list and return the data of the removed node or null
+      - remove only the first node from the list and return the data of the removed node or null
     3. Bonus: return the average of the list
+
+  3. Wed
+    1. contains - with & without recursion
+      - check if the list contains a value
+    2. removeBack
+      - remove the last node from the list and return it's data or null
+    3. Bonus: getMiddleData: get data of middle node
 */
 
 class Node {
