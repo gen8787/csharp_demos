@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="~/styles.css">
+</head>
+<body>
+  <h1 id="test">Virtual Travel Site</h1>
+
+  @{
+    List<string> travelDestinations = new List<string>()
+    {
+      "Longyearbyen", "Solovetsky Islands", "Socotra", "Bhutan"
+    };
+  }
+
+  <ul>
+    @foreach (string destination in travelDestinations)
+    {   
+        @* since we are inside a code block we can write C# code *@
+        string test = "test";
+
+        @* As soon as we write HTML, we cannot write C# anymore unless we use the special template rendering syntax *@
+        <li>
+          <a href="/travel/@destination">@destination</a>
+        </li>
+    }
+  </ul>
+
+</body>
+</html>
