@@ -184,6 +184,31 @@ class SList {
     return removedData;
   }
 
+  // Time: O(n) linear, n = list length. Val could be last node
+  // Space: O(1) constant
+  removeVal(val) {
+    if (this.isEmpty()) {
+      return false;
+    }
+
+    if (this.head.data === val) {
+      this.head = this.head.next;
+      return true;
+    }
+
+    let runner = this.head.next;
+
+    while (runner.next && runner.next.data !== val) {
+      runner = runner.next;
+    }
+
+    if (runner.next && runner.next.data === val) {
+      runner.next = runner.next.next;
+      return true;
+    }
+    return false;
+  }
+
   // getMinMode() {
   //   let runner = this.head;
   //   let minNode = this.head;
