@@ -20,6 +20,13 @@ Week 1
     2. removeBack
       - remove the last node from the list and return it's data or null
     3. Bonus: getMiddleData: get data of middle node
+
+  4. Thur
+    1. removeVal
+      - remove the node with the specified value, return the removed val, or null if nothing was removed
+    2. moveMinToFront
+      - move node with min value in it to the front of the list (work in place, do not create a new list)
+    3. Bonus: prepend new val before given val
 */
 
 class Node {
