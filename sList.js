@@ -183,6 +183,89 @@ class SList {
     }
     return removedData;
   }
+
+  // getMinMode() {
+  //   let runner = this.head;
+  //   let minNode = this.head;
+
+  //   while (runner) {
+  //     if (runner.data < minNode.data) {
+  //       minNode = runner;
+  //     }
+  //     runner = runner.next;
+  //   }
+  //   return minNode;
+  // }
+
+  // Time: O(2n) -> O(n) linear, n = list length
+  // Space: O(1) constant
+  moveMinToFront() {
+    if (this.isEmpty()) {
+      return this;
+    }
+
+    let minNode = this.head;
+    let prev = this.head;
+    let runner = this.head;
+
+    while (runner) {
+      if (runner.data < minNode.data) {
+        minNode = runner;
+      }
+      runner = runner.next;
+    }
+
+    if (this.head === minNode) {
+      return this;
+    }
+
+    runner = this.head;
+
+    while (runner !== minNode) {
+      prev = runner;
+      runner = runner.next;
+    }
+
+    prev.next = minNode.next;
+    minNode.next = this.head;
+    this.head = minNode;
+    return this;
+  }
+
+  // Time: O(n) linear, n = list length
+  // Space: O(n)
+  // This avoids the extra loop in the above sln
+  moveMinFront() {
+    if (this.isEmpty()) {
+      return this;
+    }
+
+    let minNode = this.head;
+    let runner = this.head;
+    let prev = this.head;
+
+    while (runner) {
+      if (runner.data < minNode.data) {
+        minNode = runner;
+      }
+
+      // make sure the prev stays the prev of minNode
+      // if minNode is last node, we don't want prev to become the runner
+      if (prev.next !== minNode && runner.next !== null) {
+        prev = runner;
+      }
+      runner = runner.next;
+    }
+
+    if (minNode === this.head) {
+      return this;
+    }
+
+    prev.next = minNode.next;
+    minNode.next = this.head;
+    this.head = minNode;
+    return this;
+  }
 }
 
 SList.prototype.someNewMethod = function () {
@@ -190,5 +273,5 @@ SList.prototype.someNewMethod = function () {
 };
 
 const linkedList = new SList();
-// linkedList.seedFromArr([10, 15, 10]);
-// linkedList.display();
+linkedList.seedFromArr([10, 15, 1]);
+linkedList.display();
