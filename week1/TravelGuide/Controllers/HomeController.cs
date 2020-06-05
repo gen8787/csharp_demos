@@ -12,8 +12,8 @@ namespace TravelGuide.Controllers
         public ViewResult Index()
         {
             ViewBag.Introduction = "My name is Falconhoof and I will be your guide on your quest.";
-            ViewBag.SubIntro = "Please respect the Falconhoof";
             ViewBag.YearCreated = 2020;
+            ViewBag.ImgUrl = "https://ih1.redbubble.net/image.230236822.2041/raf,750x1000,075,t,101010:01c5ca27c6.u3.jpg";
             return View("Index");
 
             // if the method name is the same as the .cshtml file, no argument needs to be passed to View
