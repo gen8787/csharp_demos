@@ -27,6 +27,16 @@ Week 1
     2. moveMinToFront
       - move node with min value in it to the front of the list (work in place, do not create a new list)
     3. Bonus: prepend new val before given val
+
+  5. Fri
+    1. secondToLast
+      - return the 2nd to last val
+    2. concat
+      - combine two SLists together
+      - if list1 is a list of nodes with values 1, 2, 3 and list2 is a list of nodes with values 4, 5, 6
+        - list1.concat(list2) should result in list1 having nodes with data in this order: 1, 2, 3, 4, 5, 6
+    3. Bonus: splitOnVal
+      - splitOnVal(5) for the list (1=>3=>5=>2=>4) will change list to (1=>3), and the return value will be a new list containing (5=>2=>4)
 */
 
 class Node {
