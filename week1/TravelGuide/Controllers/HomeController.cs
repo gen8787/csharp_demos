@@ -58,8 +58,7 @@ namespace TravelGuide.Controllers
         [HttpGet("/travel/{destination}")]
         public ViewResult Destination(string destination)
         {
-            Guide g = new Guide();
-            Destination chosenDestination = g.GetDestination(destination);
+            Destination chosenDestination = TravelDestinations.GetDestination(destination);
             return View("Destination", chosenDestination);
         }
 
