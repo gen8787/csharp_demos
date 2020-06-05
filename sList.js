@@ -301,6 +301,37 @@ class SList {
     this.head = minNode;
     return this;
   }
+
+  // Time: O(n - 1) n = list length -> O(n) linear
+  // Space: O(1) constant
+  secondToLast() {
+    if (!this.head || !this.head.next) {
+      return null;
+    }
+
+    let runner = this.head;
+
+    while (runner.next && runner.next.next) {
+      runner = runner.next;
+    }
+    return runner.data;
+  }
+
+  // Time: O(n) n = "this" list length -> O(n) linear. addList does not need to be looped
+  // Space: O(1) constant, although this list grows by addList's length, our algo does not need to take up additional space to do it's job
+  concat(addList) {
+    let runner = this.head;
+
+    if (runner === null) {
+      this.head = addList.head;
+    } else {
+      while (runner.next) {
+        runner = runner.next;
+      }
+      runner.next = addList.head;
+    }
+    return this;
+  }
 }
 
 SList.prototype.someNewMethod = function () {
