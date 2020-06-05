@@ -1,0 +1,27 @@
+@* see comments at top of Index.cshtml *@
+@model Traveler
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h2>Greetings @Model.FirstName @Model.LastName. Where would you like to travel to?</h2>
+
+  <ul>
+    @foreach (string destination in ViewBag.travelDestinations)
+    {   
+        @* since we are inside a code block we can write C# code *@
+        string test = "test";
+
+        @* As soon as we write HTML, we cannot write C# anymore unless we use the special template rendering syntax *@
+        <li>
+          <a href="/travel/@destination">@destination</a>
+        </li>
+    }
+  </ul>
+</body>
+</html>

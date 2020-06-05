@@ -1,3 +1,10 @@
+@* Long-form *@
+@* @model TravelGuide.Models.Traveler *@
+
+@* the @using is needed unless you use a Views/_ViewImports.cshtml file *@
+@* @using TravelGuide.Models *@
+@model Traveler
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,27 +14,25 @@
   <link rel="stylesheet" href="~/styles.css">
 </head>
 <body>
-  <h1 id="test">Virtual Travel Site</h1>
+  <h1 id="test">@ViewBag.Introduction</h1>
+  <h5>@ViewBag.SubIntro</h5>
+  <p>Travel guid created in @ViewBag.YearCreated</p>
 
-  @{
-    List<string> travelDestinations = new List<string>()
-    {
-      "Longyearbyen", "Solovetsky Islands", "Socotra", "Bhutan"
-    };
-  }
+  <h3>Greetings, what is your name traveller?</h3>
 
-  <ul>
-    @foreach (string destination in travelDestinations)
-    {   
-        @* since we are inside a code block we can write C# code *@
-        string test = "test";
+  <form action="/guide" method="POST">
+    <div class="form-group">
+      <label>First Name</label>
+      <input class="form-control" type="text" name="FirstName" />
+    </div>
 
-        @* As soon as we write HTML, we cannot write C# anymore unless we use the special template rendering syntax *@
-        <li>
-          <a href="/travel/@destination">@destination</a>
-        </li>
-    }
-  </ul>
+    <div class="form-group">
+      <label>Last Name</label>
+      <input class="form-control" type="text" name="LastName" />
+    </div>
+    @* <input type="submit" value="Please Guide Me On A Journey!" /> *@
+    <button>Please Guide Me On A Journey!</button>
+  </form>
 
 </body>
 </html>
