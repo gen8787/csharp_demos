@@ -31,15 +31,10 @@ namespace TravelGuide.Controllers
                 This way the Giude.cshtml page needs
                 @model Traveler
             */
-            // ViewBag.travelDestinations = new List<string>()
-            // {
-            //     "Longyearbyen", "Solovetsky Islands", "Socotra", "Bhutan", "Hell"
-            // };
+            // ViewBag.travelDestinations = TravelDestinations.Destinations;
             // return View("Guide1", newTraveler);
 
-            /* 
-                Second approach (more robust) is to create a new model that contains all the info you need it to contain
-            */
+            // Second approach (more robust) is to create a new model that contains all the info you need it to contain
             Guide GuideViewModel = new Guide()
             {
                 Traveler = newTraveler
