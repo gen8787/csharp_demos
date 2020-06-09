@@ -4,6 +4,10 @@
    - A stack is a LIFO (Last in First Out) data structure
      - design a class to represent a stack using an array & another class for a stack using a singly linked list
      - create these methods for each classes: push, pop, isEmpty, size, peek (return top item without removing)
+2. Tue
+   - A queue is a FIFO (First in First Out) data structure
+   - design a class to represent a queue using an array & another class for a queue using a singly linked list
+   - create these methods for each classes: enqueue (add item), dequeue (remove and return item), isEmpty, size, front (return first item without removing)
 
 ## Description
 
