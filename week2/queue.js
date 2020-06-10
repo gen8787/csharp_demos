@@ -1,3 +1,6 @@
+// import stack to use it in this file too
+const stack = require("./stack");
+
 class Queue {
   constructor(items = []) {
     this.items = items;
