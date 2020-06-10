@@ -5,6 +5,9 @@ namespace ForumDemo.Models
 {
     public class Post
     {
+        [Key]
+        public int PostId { get; set; }
+
         [Required]
         [MinLength(2, ErrorMessage = "Must be more than 2 characters.")]
         [Display(Name = "User Name")]

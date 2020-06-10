@@ -11,6 +11,23 @@ namespace ForumDemo.Controllers
         public IActionResult All()
         {
             List<Dictionary<string, object>> allPosts = DbConnector.Query("SELECT * FROM posts");
+
+            // Manually mapping related properties from object (dictionary) to Post object
+            List<Post> posts = new List<Post>();
+
+            foreach (Dictionary<string, object> dict in allPosts)
+            {
+                Post post = new Post()
+                {
+                    PostId = (int)dict["PostId"],
+                    Username = (string)dict["Username"],
+                    Topic = (string)dict["Topic"],
+                    Body = (string)dict["Body"]
+                };
+
+                posts.Add(post);
+            }
+
             return View("All", allPosts);
         }
 
