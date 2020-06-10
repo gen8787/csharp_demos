@@ -79,8 +79,17 @@ class Queue {
     return isEqual;
   }
 
-  // Time: O(2n) -> O(n) linear, n = queue length
-  // Space: O(n) linear, every queue item duplicated into stack
+  /* 
+    Approach:
+    1. loop over fixed-length of queue
+      - dequeue each item and push it into the stack
+      - enqueue each item back into the queue to preserve it's order
+    2. loop over fixed-length of queue and check equality of popped & dequeued vals
+      - enqueue each dequeued item back into the queue to preserve it's order
+
+    Time: O(2n) -> O(n) linear, n = queue length
+    Space: O(n) from the stack being used
+  */
   isPalindrome() {
     const stack = new Stack();
     const len = this.size();
