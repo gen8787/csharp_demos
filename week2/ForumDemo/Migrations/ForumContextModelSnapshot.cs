@@ -48,7 +48,16 @@ namespace ForumDemo.Migrations
 
                     b.Property<DateTime>("CreatedAt");
 
+                    b.Property<string>("Email")
+                        .IsRequired();
+
                     b.Property<string>("FirstName")
+                        .IsRequired();
+
+                    b.Property<string>("LastName")
+                        .IsRequired();
+
+                    b.Property<string>("Password")
                         .IsRequired();
 
                     b.Property<DateTime>("UpdatedAt");

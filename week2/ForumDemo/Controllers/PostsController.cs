@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using ForumDemo.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ForumDemo.Controllers
@@ -10,6 +11,22 @@ namespace ForumDemo.Controllers
     {
         // private field of controller class
         private ForumContext db;
+        private int? uid
+        {
+            get
+            {
+                return HttpContext.Session.GetInt32("UserId");
+            }
+        }
+
+        private bool isLoggedIn
+        {
+            get
+            {
+                return uid != null;
+            }
+        }
+
         public PostsController(ForumContext context)
         {
             db = context;
@@ -18,6 +35,11 @@ namespace ForumDemo.Controllers
         [HttpGet("/posts")]
         public IActionResult All()
         {
+            if (!isLoggedIn)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             List<Post> allPosts = db.Posts.ToList();
             return View("All", allPosts);
         }

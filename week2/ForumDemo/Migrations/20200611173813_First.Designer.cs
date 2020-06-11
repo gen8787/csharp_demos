@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ForumDemo.Migrations
 {
     [DbContext(typeof(ForumContext))]
-    [Migration("20200610175211_AddedDateColumns")]
-    partial class AddedDateColumns
+    [Migration("20200611173813_First")]
+    partial class First
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -19,6 +19,30 @@ namespace ForumDemo.Migrations
                 .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
+            modelBuilder.Entity("ForumDemo.Models.Post", b =>
+                {
+                    b.Property<int>("PostId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Body")
+                        .IsRequired();
+
+                    b.Property<DateTime>("CreatedAt");
+
+                    b.Property<string>("Topic")
+                        .IsRequired()
+                        .HasMaxLength(45);
+
+                    b.Property<DateTime>("UpdatedAt");
+
+                    b.Property<string>("Username")
+                        .IsRequired();
+
+                    b.HasKey("PostId");
+
+                    b.ToTable("Posts");
+                });
+
             modelBuilder.Entity("ForumDemo.Models.User", b =>
                 {
                     b.Property<int>("UserId")
@@ -26,7 +50,16 @@ namespace ForumDemo.Migrations
 
                     b.Property<DateTime>("CreatedAt");
 
+                    b.Property<string>("Email")
+                        .IsRequired();
+
                     b.Property<string>("FirstName")
+                        .IsRequired();
+
+                    b.Property<string>("LastName")
+                        .IsRequired();
+
+                    b.Property<string>("Password")
                         .IsRequired();
 
                     b.Property<DateTime>("UpdatedAt");
