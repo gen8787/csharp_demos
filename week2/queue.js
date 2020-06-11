@@ -115,7 +115,36 @@ class Queue {
     }
     return isPalin;
   }
+
+  isSumOfHalvesEqual() {
+    if (this.items.length % 2 !== 0) {
+      return false;
+    }
+
+    let leftSum = 0;
+    let rightSum = 0;
+    let count = 0;
+
+    const halfLen = this.items.length / 2;
+
+    while (count < halfLen) {
+      const dequeued = this.dequeue();
+      leftSum += dequeued;
+      this.enqueue(dequeued);
+      count++;
+    }
+
+    count = 0;
+
+    while (count < halfLen) {
+      const dequeued = this.dequeue();
+      rightSum += dequeued;
+      this.enqueue(dequeued);
+      count++;
+    }
+    return leftSum === rightSum;
+  }
 }
 
-const q = new Queue([1, 2, 3]);
-console.log(q.isPalindrome());
+const q = new Queue([1, 2, 5, 3, 0, 5]);
+console.log(q.isSumOfHalvesEqual());
