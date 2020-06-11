@@ -17,6 +17,13 @@
      - write a method on the Queue class that returns whether or not the queue is a palindrome
      - use only 1 stack as additional storage (no additional arrays / objects)
      - do not manually index the queue, use the provided queue methods and stack methods, restore the queue to original state when done
+4. Thur
+   - queueUsingTwoStacks
+     - create enqueue and dequeue methods on a new queue class that uses ONLY 2 stacks as storage but simulates a FIFO pattern
+   - sumOfHalvesEqual
+     - create a method on the array Queue class that returns whether or not the sum of the first half of the queue is equal to the sum of the second half
+     - DO NOT manually index the queue items, only use the provided queue methods, use no additional arrays or objects for storage
+     - restore the queue to it's original state before returning
 
 ## Description
 
