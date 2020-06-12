@@ -25,6 +25,10 @@
      - create a method on the Queue class that returns whether or not the sum of the first half of the queue is equal to the sum of the second half
      - DO NOT manually index the queue items, only use the provided queue methods, use no additional arrays or objects for storage
      - restore the queue to it's original state before returning
+5. Fri
+   - priorityQueue (create enqueue and dequeue methods)
+     - design a new PriorityQueue class where the queue maintains an ascending order when items are added based on queue item's provided priority integer value. A priority value of 1 is most important which means it should be at the front of the queue, the first to be dequeued.
+   - sListPriorityQueue
 
 ## Description
 
