@@ -3,14 +3,16 @@ using System;
 using ForumDemo.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ForumDemo.Migrations
 {
     [DbContext(typeof(ForumContext))]
-    partial class ForumContextModelSnapshot : ModelSnapshot
+    [Migration("20200612175436_RenameNavProp")]
+    partial class RenameNavProp
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -26,8 +28,6 @@ namespace ForumDemo.Migrations
                         .IsRequired();
 
                     b.Property<DateTime>("CreatedAt");
-
-                    b.Property<string>("ImgUrl");
 
                     b.Property<string>("Topic")
                         .IsRequired()

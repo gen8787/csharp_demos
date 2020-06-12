@@ -4,6 +4,7 @@ using System.Linq;
 using ForumDemo.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace ForumDemo.Controllers
 {
@@ -40,7 +41,9 @@ namespace ForumDemo.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            List<Post> allPosts = db.Posts.ToList();
+            List<Post> allPosts = db.Posts
+                .Include(post => post.Author)
+                .ToList();
             return View("All", allPosts);
         }
 
@@ -48,6 +51,11 @@ namespace ForumDemo.Controllers
         [HttpGet("/posts/new")]
         public IActionResult New()
         {
+            if (!isLoggedIn)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             return View("New");
         }
 
@@ -62,6 +70,7 @@ namespace ForumDemo.Controllers
             }
 
             // ModelState IS valid
+            newPost.UserId = (int)uid;
             db.Posts.Add(newPost);
             // db doesn't update until we run save changes
             // after SaveChanges, our newPost object now has PostId from db
@@ -79,7 +88,9 @@ namespace ForumDemo.Controllers
         [HttpGet("/posts/{id}")]
         public IActionResult Details(int id)
         {
-            Post selectedPost = db.Posts.FirstOrDefault(post => post.PostId == id);
+            Post selectedPost = db.Posts
+                .Include(post => post.Author)
+                .FirstOrDefault(post => post.PostId == id);
 
             if (selectedPost == null)
             {
@@ -92,9 +103,16 @@ namespace ForumDemo.Controllers
         [HttpGet("/posts/{id}/edit")]
         public IActionResult Edit(int id)
         {
+
+            if (!isLoggedIn)
+            {
+                RedirectToAction("Index", "Home");
+            }
+
             Post selectedPost = db.Posts.FirstOrDefault(post => post.PostId == id);
 
-            if (selectedPost == null)
+            // in case manually typing url into address bar, bypassing hidden edit button
+            if (selectedPost == null || selectedPost.UserId != uid)
             {
                 return RedirectToAction("All");
             }
@@ -109,6 +127,7 @@ namespace ForumDemo.Controllers
             if (ModelState.IsValid == false)
             {
                 // send back to the page with the form so error messages are displayed
+                // this id assignment could be done automatically if we named the parameter postId to match the primary key name
                 editedPost.PostId = id;
                 return View("Edit", editedPost);
             }
@@ -122,6 +141,7 @@ namespace ForumDemo.Controllers
 
             selectedPost.Topic = editedPost.Topic;
             selectedPost.Body = editedPost.Body;
+            selectedPost.ImgUrl = editedPost.ImgUrl;
             selectedPost.UpdatedAt = DateTime.Now;
 
             db.Posts.Update(selectedPost);

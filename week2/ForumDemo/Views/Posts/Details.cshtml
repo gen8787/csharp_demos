@@ -15,14 +15,48 @@
 
       <div class="card-body">
         <h6 class="card-subtitle mb-2 text-muted">
-          by: @Model.Username
+          <a asp-controller="Home" asp-action="Profile" asp-route-id="@Model.Author.UserId">
+            by: @Model.Author.FullName()
+          </a>
         </h6>
         <p class="card-text">
           @Model.Body
         </p>
+        @if (Model.ImgUrl != null)
+        {
+          <img class="w-100" src="@Model.ImgUrl" alt="Post">
+        }
       </div>
 
       <div class="card-footer">
+        @* asp-route-paramName=@paramValue *@
+        <a 
+          asp-controller="Posts"
+          asp-action="Details"
+          asp-route-id="@Model.PostId"
+          class="btn btn-info">
+          View Details
+        </a>
+        <a 
+          asp-controller="Posts"
+          asp-action="Edit"
+          asp-route-id="@Model.PostId"
+          class="btn btn-warning">
+          Edit
+        </a>
+        <a 
+          asp-controller="Posts"
+          asp-action="Delete"
+          asp-route-id="@Model.PostId"
+          class="btn btn-danger">
+          Delete
+        </a>
+        @* without tag helpers the href will not update if you change the url in the controller *@
+        @* <a 
+          href="/posts/@Model.PostId"
+          class="btn btn-info">
+          View Details
+        </a> *@
       </div>
     </div>
 </div>

@@ -7,11 +7,28 @@ using Microsoft.AspNetCore.Mvc;
 using ForumDemo.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 
 namespace ForumDemo.Controllers
 {
     public class HomeController : Controller
     {
+
+        private int? uid
+        {
+            get
+            {
+                return HttpContext.Session.GetInt32("UserId");
+            }
+        }
+
+        private bool isLoggedIn
+        {
+            get
+            {
+                return uid != null;
+            }
+        }
 
         // private field of controller class
         private ForumContext db;
@@ -19,10 +36,30 @@ namespace ForumDemo.Controllers
         {
             db = context;
         }
+
         [HttpGet("")]
         public IActionResult Index()
         {
+            if (isLoggedIn)
+            {
+                RedirectToAction("All", "Posts");
+            }
             return View();
+        }
+
+        [HttpGet("/users/{id}")]
+        public IActionResult Profile(int id)
+        {
+            if (!isLoggedIn)
+            {
+                RedirectToAction("Index");
+            }
+
+            User selectedUser = db.Users
+                .Include(u => u.Posts)
+                .FirstOrDefault(user => user.UserId == id);
+
+            return View("Profile", selectedUser);
         }
 
         [HttpPost("/register")]

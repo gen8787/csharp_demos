@@ -1,13 +1,13 @@
-@* 
-  @model lowercase m to specify the data type of the view model
-  @Model capital m to access the data
-*@
-@model List<Post>
+@model User
 
-<h2 class="text-center">All Posts</h2>
+<div class="text-center">
+  <h2>@Model.FullName()<span>'s Page</span></h2>
+  <p>Member since: @Model.CreatedAt</p>
+</div>
+
 <hr>
 
-@foreach (Post post in Model)
+@foreach (Post post in Model.Posts)
 {
     <div class="card mx-auto text-center mb-3 w-50">
       <div class="card-header">
@@ -18,9 +18,7 @@
 
       <div class="card-body">
         <h6 class="card-subtitle mb-2 text-muted">
-          <a asp-controller="Home" asp-action="Profile" asp-route-id="@post.Author.UserId">
-            by: @post.Author.FullName()
-          </a>
+          by: @post.Author.FullName()
         </h6>
         <p class="card-text">
           @post.Body
