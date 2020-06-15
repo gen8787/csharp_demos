@@ -50,6 +50,7 @@ namespace ForumDemo.Controllers
         [HttpGet("/users/{id}")]
         public IActionResult Profile(int id)
         {
+
             if (!isLoggedIn)
             {
                 RedirectToAction("Index");

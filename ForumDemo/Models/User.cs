@@ -42,6 +42,9 @@ namespace ForumDemo.Models
         // Navigation properties
         public List<Post> Posts { get; set; } // 1 User : Many Post
 
+        // Many User : Many Post because 1 User has Many Vote and each Vote has a Post, so through the Vote you can access the Many related Posts
+        public List<Vote> Votes { get; set; }
+
         // methods
         public string FullName()
         {

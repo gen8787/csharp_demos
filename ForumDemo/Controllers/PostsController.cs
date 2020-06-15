@@ -43,6 +43,7 @@ namespace ForumDemo.Controllers
 
             List<Post> allPosts = db.Posts
                 .Include(post => post.Author)
+                .Include(post => post.Votes)
                 .ToList();
             return View("All", allPosts);
         }
@@ -86,8 +87,11 @@ namespace ForumDemo.Controllers
         [HttpGet("/posts/{id}")]
         public IActionResult Details(int id)
         {
+            // .include is dealing with a post, .thenInclude is dealing with whatever was just included above it
             Post selectedPost = db.Posts
                 .Include(post => post.Author)
+                .Include(post => post.Votes)
+                .ThenInclude(vote => vote.Voter)
                 .FirstOrDefault(post => post.PostId == id);
 
             if (selectedPost == null)
@@ -162,6 +166,53 @@ namespace ForumDemo.Controllers
             }
 
             return RedirectToAction("All");
+        }
+
+        // corresponds to the All.cshtml URL param example
+        [HttpPost("/vote/{isUpvote}/{postId}/{userId}")]
+        public IActionResult Vote(bool isUpvote, int postId, int userId, Vote newVote)
+        {
+
+            /* 
+                because our param names match the prop names in the Vote class, it can auto construct the newVote and assign the params as prop values even though all these params came in the URL and NOT from input box, if the param names did NOT match, we could manually construct a Vote instance and assign the prop values to the params ourself
+            */
+            // manually assignment example:
+            // Vote newV = new Vote()
+            // {
+            //     PostId = paramName1,
+            //     UserId = paramName2,
+            //     IsUpvote = paramName3
+            // };
+
+            Vote existingVote = db.Votes.FirstOrDefault(vote => vote.PostId == postId && vote.UserId == (int)uid);
+
+            if (existingVote == null)
+            {
+                db.Votes.Add(newVote);
+                db.SaveChanges();
+            }
+            else
+            {
+                // trying to change vote
+                if (existingVote.IsUpvote != isUpvote)
+                {
+                    existingVote.IsUpvote = isUpvote;
+                    existingVote.UpdatedAt = DateTime.Now;
+                    db.Votes.Update(existingVote);
+                    db.SaveChanges();
+                }
+            }
+
+            return RedirectToAction("Details", new { id = postId });
+        }
+
+        // corresponds to the All.cshtml _Vote partial view example
+        [HttpPost("/vote")]
+        public IActionResult Vote2(Vote newVote)
+        {
+            db.Votes.Add(newVote);
+            db.SaveChanges();
+            return RedirectToAction("Details", new { id = newVote.PostId });
         }
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace ForumDemo.Models
@@ -27,5 +28,8 @@ namespace ForumDemo.Models
 
         // Navigation properties:
         public User Author { get; set; }
+
+        // Many User : Many Post because 1 Post has Many Vote and each Vote has a User, so through the Vote you can access the Many related Users
+        public List<Vote> Votes { get; set; }
     }
 }
