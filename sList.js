@@ -339,6 +339,68 @@ class SList {
     }
     return this;
   }
+
+  /*
+    each iteration we cut out current's next to make it the new head
+    1234 -> initial, 'current' is 1, iter by iter example:
+    2134
+    3214
+    4321
+
+    Time: O(n) linear, n = list length
+    Space: O(1) constant
+  */
+  reverse() {
+    if (!this.head || !this.head.next) {
+      return this;
+    }
+
+    let current = this.head;
+
+    while (current.next) {
+      const newHead = current.next;
+      // cut the newHead out from where it currently is
+      current.next = current.next.next;
+      newHead.next = this.head;
+      this.head = newHead;
+    }
+    return this;
+  }
+
+  // Time: O(n) linear, n = list length
+  // Space: O(1) constant
+  recursiveLast(runner = this.head) {
+    if (runner === null) {
+      return null;
+    }
+    if (runner.next === null) {
+      return runner.data;
+    }
+    return this.recursiveLast(runner.next);
+  }
+
+  reverse2() {
+    if (this.isEmpty()) {
+      return null;
+    }
+    let runner = this.head;
+    // console.log('before while');
+    while (runner.next) {
+      // console.log('in while');
+      if (runner.next.next == null) {
+        let head = this.insertAtFront(runner.next.data);
+        // console.log('in if statement');
+        this.head = head;
+        runner.next = runner.next.next;
+        // this.display();
+        break;
+      }
+      this.insertAtFront(runner.next.data);
+      runner.next = runner.next.next;
+      // this.display();
+    }
+    return;
+  }
 }
 
 SList.prototype.someNewMethod = function () {
