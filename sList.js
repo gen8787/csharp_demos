@@ -41,9 +41,9 @@ Week 1
   Week 3:
 
     1. Mon
-      - reverse
-        - reverse an sList in place (do not create a new sList)
-      - recursiveLast: recursively return the value / data of the last node
+    - recursiveLast: recursively return the value / data of the last node
+    - reverse
+      - reverse an sList in place (do not create a new sList)
 */
 
 class Node {
