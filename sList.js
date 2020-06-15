@@ -37,6 +37,13 @@ Week 1
         - list1.concat(list2) should result in list1 having nodes with data in this order: 1, 2, 3, 4, 5, 6
     3. Bonus: splitOnVal
       - splitOnVal(5) for the list (1=>3=>5=>2=>4) will change list to (1=>3), and the return value will be a new list containing (5=>2=>4)
+
+  Week 3:
+
+    1. Mon
+      - reverse
+        - reverse an sList in place (do not create a new sList)
+      - recursiveLast: recursively return the value / data of the last node
 */
 
 class Node {

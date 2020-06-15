@@ -55,7 +55,6 @@ namespace ForumDemo.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-
             return View("New");
         }
 
@@ -78,7 +77,6 @@ namespace ForumDemo.Controllers
 
             // when redirect to an action that has params, pass the params using a new dictionary where the keys match the param names
             return RedirectToAction("Details", new { id = newPost.PostId });
-
         }
 
         // url param and method param names match
