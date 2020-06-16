@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FoodTruckDemo.Migrations
 {
     [DbContext(typeof(FoodTruckContext))]
-    [Migration("20200616181640_AddedModelsAndRelationships")]
-    partial class AddedModelsAndRelationships
+    [Migration("20200616222641_First")]
+    partial class First
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -26,11 +26,14 @@ namespace FoodTruckDemo.Migrations
 
                     b.Property<DateTime>("CreatedAt");
 
-                    b.Property<string>("Description");
+                    b.Property<string>("Description")
+                        .IsRequired();
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired();
 
-                    b.Property<string>("Style");
+                    b.Property<string>("Style")
+                        .IsRequired();
 
                     b.Property<DateTime>("UpdatedAt");
 
@@ -52,11 +55,9 @@ namespace FoodTruckDemo.Migrations
 
                     b.Property<DateTime>("CreatedAt");
 
-                    b.Property<int?>("FoodTruckId");
+                    b.Property<int>("FoodTruckId");
 
                     b.Property<int>("Rating");
-
-                    b.Property<int>("TruckId");
 
                     b.Property<DateTime>("UpdatedAt");
 
@@ -109,7 +110,8 @@ namespace FoodTruckDemo.Migrations
                 {
                     b.HasOne("FoodTruckDemo.Models.FoodTruck", "FoodTruck")
                         .WithMany("Reviews")
-                        .HasForeignKey("FoodTruckId");
+                        .HasForeignKey("FoodTruckId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("FoodTruckDemo.Models.User", "Author")
                         .WithMany("Reviews")

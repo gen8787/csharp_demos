@@ -9,13 +9,16 @@ namespace FoodTruckDemo.Models
         [Key]
         public int FoodTruckId { get; set; }
 
-        [MinLength(5, ErrorMessage = "must be at least 2 characters")]
+        [Required]
+        [MinLength(5, ErrorMessage = "must be at least 5 characters")]
         public string Name { get; set; }
 
-        [MinLength(3, ErrorMessage = "must be at least 2 characters")]
+        [Required]
+        [MinLength(3, ErrorMessage = "must be at least 3 characters")]
         public string Style { get; set; }
 
-        [MinLength(10, ErrorMessage = "must be at least 2 characters")]
+        [Required]
+        [MinLength(10, ErrorMessage = "must be at least 10 characters")]
         public string Description { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;

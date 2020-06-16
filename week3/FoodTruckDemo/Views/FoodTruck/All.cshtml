@@ -1,11 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-  All Trucks
-</body>
-</html>
+@model List<FoodTruck>
+
+<div class="container w-75 mx-auto p-3">
+  @foreach (FoodTruck truck in Model)
+  {
+      <div class="row bg-light p-3 mt-3">
+        <div class="col-md-3">
+          <img class="w-100" src="https://image.flaticon.com/icons/png/512/683/683071.png" alt="Truck">
+        </div>
+
+        <div class="col-md-6">
+          <h2>@truck.Name</h2>
+          <p>Style: @truck.Style</p>
+          <p>Average Rating: TODO</p>
+        </div>
+
+        <div class="col-md-3">
+          <a asp-controller="FoodTruck" asp-action="Edit" asp-route-foodTruckId="@truck.FoodTruckId" class="btn btn-info">edit</a>
+          <a asp-controller="FoodTruck" asp-action="Details" asp-route-foodTruckId="@truck.FoodTruckId" class="btn btn-success">review</a>
+        </div>
+
+      </div>
+  }
+</div>

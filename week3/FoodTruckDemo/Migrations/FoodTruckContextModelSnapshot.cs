@@ -24,11 +24,14 @@ namespace FoodTruckDemo.Migrations
 
                     b.Property<DateTime>("CreatedAt");
 
-                    b.Property<string>("Description");
+                    b.Property<string>("Description")
+                        .IsRequired();
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired();
 
-                    b.Property<string>("Style");
+                    b.Property<string>("Style")
+                        .IsRequired();
 
                     b.Property<DateTime>("UpdatedAt");
 

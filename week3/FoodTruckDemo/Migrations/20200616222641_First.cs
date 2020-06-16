@@ -4,19 +4,37 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FoodTruckDemo.Migrations
 {
-    public partial class AddedModelsAndRelationships : Migration
+    public partial class First : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Users",
+                columns: table => new
+                {
+                    UserId = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    FirstName = table.Column<string>(nullable: false),
+                    LastName = table.Column<string>(nullable: false),
+                    Email = table.Column<string>(nullable: false),
+                    Password = table.Column<string>(nullable: false),
+                    CreatedAt = table.Column<DateTime>(nullable: false),
+                    UpdatedAt = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.UserId);
+                });
+
             migrationBuilder.CreateTable(
                 name: "FoodTrucks",
                 columns: table => new
                 {
                     FoodTruckId = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true),
-                    Style = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: false),
+                    Style = table.Column<string>(nullable: false),
+                    Description = table.Column<string>(nullable: false),
                     CreatedAt = table.Column<DateTime>(nullable: false),
                     UpdatedAt = table.Column<DateTime>(nullable: false),
                     UserId = table.Column<int>(nullable: false)
@@ -43,8 +61,7 @@ namespace FoodTruckDemo.Migrations
                     CreatedAt = table.Column<DateTime>(nullable: false),
                     UpdatedAt = table.Column<DateTime>(nullable: false),
                     UserId = table.Column<int>(nullable: false),
-                    TruckId = table.Column<int>(nullable: false),
-                    FoodTruckId = table.Column<int>(nullable: true)
+                    FoodTruckId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -54,7 +71,7 @@ namespace FoodTruckDemo.Migrations
                         column: x => x.FoodTruckId,
                         principalTable: "FoodTrucks",
                         principalColumn: "FoodTruckId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Reviews_Users_UserId",
                         column: x => x.UserId,
@@ -86,6 +103,9 @@ namespace FoodTruckDemo.Migrations
 
             migrationBuilder.DropTable(
                 name: "FoodTrucks");
+
+            migrationBuilder.DropTable(
+                name: "Users");
         }
     }
 }

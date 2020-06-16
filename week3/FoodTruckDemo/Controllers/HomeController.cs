@@ -86,6 +86,13 @@ namespace FoodTruckDemo.Controllers
             return RedirectToAction("All", "FoodTruck");
         }
 
+        [HttpGet("/logout")]
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Index");
+        }
+
         public IActionResult Privacy()
         {
             return View();
