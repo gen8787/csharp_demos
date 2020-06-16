@@ -46,9 +46,9 @@ Week 1
       - reverse an sList in place (do not create a new sList)
 
     2. Tue
+      - recursiveMax
       - hasLoop
         - return whether or not the linked list connects back to itself. If it connects to itself, what does that mean will happen when you loop through it?
-      - recursiveMax
 */
 
 class Node {
@@ -76,7 +76,7 @@ class SList {
 
     if (this.isEmpty()) {
       this.head = newNode;
-      return;
+      return this;
     }
 
     let runner = this.head;
@@ -85,6 +85,7 @@ class SList {
       runner = runner.next;
     }
     runner.next = newNode;
+    return this;
   }
 
   // Time: O(n * m) n = list length, m = arr.length
@@ -93,6 +94,7 @@ class SList {
     for (const elem of arr) {
       this.insertAtBack(elem);
     }
+    return this;
   }
 
   // Time: O(n) linear, n = length of list
@@ -406,12 +408,103 @@ class SList {
     }
     return;
   }
+
+  // Time: O(n) linear, n = list length. Max could be at end.
+  // Space: O(1) constant
+  recursiveMax(runner = this.head, maxNode = this.head) {
+    if (this.head === null) {
+      return null;
+    }
+
+    if (runner === null) {
+      return maxNode.data;
+    }
+
+    if (runner.data > maxNode.data) {
+      maxNode = runner;
+    }
+
+    return this.recursiveMax(runner.next, maxNode);
+  }
+
+  /** hasLoop
+    If you manually create two objects that have same exact
+    keys and values. They will not be == or ===
+    However, if you have two vars that point to the same obj
+    == or === will return true because it is the same instance
+
+    APPROACH:
+      two runners are sent out and one runner goes faster so it will
+      eventually 'lap' the slower runner if there is a loop, 
+      at the moment faster runner laps slower runner, they are at the same
+      place, aka same instance of a node.
+
+    Time: O(n) linear, n = list length
+    Space: O(1) constant
+  */
+  hasLoop() {
+    if (this.isEmpty()) {
+      return false;
+    }
+
+    let fasterRunner = this.head;
+    let runner = this.head;
+
+    while (fasterRunner && fasterRunner.next) {
+      runner = runner.next;
+      fasterRunner = fasterRunner.next.next;
+
+      if (runner === fasterRunner) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /* 
+    Time: O(n) linear, n = list length
+    Space: O(n) constant
+    In a normal object, the keys cannot be other objects, but in a new Map object, they can be
+    We can't use the .data as the keys in a normal object because that would could return a false positive for has loop
+    when there are nodes with duplicate data but no loop
+  */
+  hasLoopMap() {
+    if (this.isEmpty()) {
+      return false;
+    }
+
+    const seenMap = new Map();
+    let runner = this.head;
+
+    while (runner) {
+      if (seenMap.has(runner)) {
+        return true;
+      }
+      seenMap.set(runner, true);
+      runner = runner.next;
+    }
+    return false;
+  }
 }
 
-SList.prototype.someNewMethod = function () {
-  console.log("This method was added to the class from outside the class");
-};
+const emptyList = new SList();
+const singleNodeList = new SList().insertAtFront(1);
+const biNodeList = new SList().insertAtBack(1).insertAtBack(2);
+const firstThreeList = new SList().seedFromArr([1, 2, 3]);
+const secondThreeList = new SList().seedFromArr([4, 5, 6]);
+const unorderedList = new SList().seedFromArr([-5, -10, 4, -3, 6, 1, -7, -2]);
 
-const linkedList = new SList();
-linkedList.seedFromArr([10, 15, 1]);
-linkedList.display();
+// node 4 connects to node 1, back to head
+const perfectLoopList = new SList().seedFromArr([1, 2, 3, 4]);
+perfectLoopList.head.next.next.next = perfectLoopList.head;
+
+// node 4 connects to node 2
+const loopList = new SList().seedFromArr([1, 2, 3, 4]);
+loopList.head.next.next.next = loopList.head.next;
+
+const sortedDupeList = new SList().seedFromArr([1, 1, 1, 2, 3, 3, 4, 5, 5]);
+
+console.log(emptyList.recursiveMax());
+console.log(singleNodeList.recursiveMax());
+console.log(biNodeList.recursiveMax());
+console.log(firstThreeList.recursiveMax());
