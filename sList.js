@@ -463,9 +463,9 @@ class SList {
 
   /* 
     Time: O(n) linear, n = list length
-    Space: O(n) constant
+    Space: O(n)
     In a normal object, the keys cannot be other objects, but in a new Map object, they can be
-    We can't use the .data as the keys in a normal object because that would could return a false positive for has loop
+    We can't use the .data as the keys in a normal object because that would could cause hasLoop to return a false positive
     when there are nodes with duplicate data but no loop
   */
   hasLoopMap() {
@@ -484,6 +484,36 @@ class SList {
       runner = runner.next;
     }
     return false;
+  }
+
+  // adding seen key to nodes, then removing them when done
+  // Time: O(2n) -> O(n) linear
+  // Space: O(n) because "seen" key is being stored n times
+  hasLoopSeen() {
+    if (this.isEmpty()) {
+      return false;
+    }
+
+    let runner = this.head;
+    let hasLoop = false;
+
+    while (runner) {
+      if (runner.hasOwnProperty("seen")) {
+        hasLoop = true;
+        break;
+      } else {
+        runner.seen = true;
+      }
+      runner = runner.next;
+    }
+
+    runner = this.head;
+
+    while (runner && runner.hasOwnProperty("seen")) {
+      delete runner.seen;
+      runner = runner.next;
+    }
+    return hasLoop;
   }
 }
 
