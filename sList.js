@@ -44,6 +44,11 @@ Week 1
     - recursiveLast: recursively return the value / data of the last node
     - reverse
       - reverse an sList in place (do not create a new sList)
+
+    2. Tue
+      - hasLoop
+        - return whether or not the linked list connects back to itself. If it connects to itself, what does that mean will happen when you loop through it?
+      - recursiveMax
 */
 
 class Node {
