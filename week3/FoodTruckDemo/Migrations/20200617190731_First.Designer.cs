@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FoodTruckDemo.Migrations
 {
     [DbContext(typeof(FoodTruckContext))]
-    [Migration("20200616222641_First")]
+    [Migration("20200617190731_First")]
     partial class First
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -51,7 +51,8 @@ namespace FoodTruckDemo.Migrations
                     b.Property<int>("ReviewId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Body");
+                    b.Property<string>("Body")
+                        .IsRequired();
 
                     b.Property<DateTime>("CreatedAt");
 

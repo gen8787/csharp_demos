@@ -27,7 +27,7 @@ namespace FoodTruckDemo.Models
         // Foreign Keys:
         public int UserId { get; set; } // 1 User : Many Uploaded Trucks
 
-        // Navigation Props:
+        // Navigation Props - MUST USE .include to access:
         public User UploadedBy { get; set; } // 1 User : Many Uploaded Trucks
         public List<Review> Reviews { get; set; }
     }

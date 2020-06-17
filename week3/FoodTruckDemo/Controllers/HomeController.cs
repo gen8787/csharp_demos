@@ -48,7 +48,7 @@ namespace FoodTruckDemo.Controllers
 
             HttpContext.Session.SetInt32("UserId", newUser.UserId);
             HttpContext.Session.SetString("FullName", newUser.FullName());
-            return RedirectToAction("All", "FoodTruck");
+            return RedirectToAction("All", "FoodTrucks");
         }
 
         [HttpPost("/login")]
@@ -83,7 +83,7 @@ namespace FoodTruckDemo.Controllers
             // no errors because no returns happened
             HttpContext.Session.SetInt32("UserId", dbUser.UserId);
             HttpContext.Session.SetString("FullName", dbUser.FullName());
-            return RedirectToAction("All", "FoodTruck");
+            return RedirectToAction("All", "FoodTrucks");
         }
 
         [HttpGet("/logout")]

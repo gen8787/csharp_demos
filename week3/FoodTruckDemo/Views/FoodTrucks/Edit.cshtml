@@ -1,9 +1,6 @@
 @model FoodTruck
 
-<form asp-controller="FoodTruck" asp-action="Create">
-
-  @* using this would avoid having to manually assign the newTruck.UserId in the controller *@
-  @* <input asp-for="UserId" value="@Context.Session.GetInt32("UserId")" type="hidden"> *@
+<form asp-controller="FoodTrucks" asp-action="Update" asp-route-foodTruckId="@Model.FoodTruckId">
 
   <div class="form-group">
     <label asp-for="Name"></label>
@@ -35,5 +32,7 @@
     <input class="form-control" asp-for="Description" />
   </div>
 
-  <button class="btn btn-light">Submit</button>
+  <a asp-controller="FoodTrucks" asp-action="Delete" asp-route-foodTruckId="@Model.FoodTruckId" class="btn btn-danger">Delete</a>
+  <a asp-controller="FoodTrucks" asp-action="All" class="btn btn-primary">Cancel</a>
+  <button class="btn btn-success">Update</button>
 </form>

@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace FoodTruckDemo.Controllers
 {
-    public class FoodTruckController : Controller
+    public class FoodTrucksController : Controller
     {
         private FoodTruckContext db;
 
@@ -29,7 +29,7 @@ namespace FoodTruckDemo.Controllers
                 return uid != null;
             }
         }
-        public FoodTruckController(FoodTruckContext context)
+        public FoodTrucksController(FoodTruckContext context)
         {
             db = context;
         }
@@ -42,7 +42,9 @@ namespace FoodTruckDemo.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            List<FoodTruck> allTrucks = db.FoodTrucks.ToList();
+            List<FoodTruck> allTrucks = db.FoodTrucks
+                .Include(truck => truck.UploadedBy)
+                .ToList();
 
             return View("All", allTrucks);
         }
@@ -131,7 +133,12 @@ namespace FoodTruckDemo.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            FoodTruck selectedTruck = db.FoodTrucks.FirstOrDefault(truck => truck.FoodTruckId == foodTruckId);
+            FoodTruck selectedTruck = db.FoodTrucks
+                .Include(truck => truck.UploadedBy)
+                .Include(truck => truck.Reviews)
+                // then include because I want to include something from truck.Reviews, not from the truck itself
+                .ThenInclude(review => review.Author)
+                .FirstOrDefault(truck => truck.FoodTruckId == foodTruckId);
 
             if (selectedTruck == null)
             {
@@ -139,6 +146,50 @@ namespace FoodTruckDemo.Controllers
             }
 
             return View("Details", selectedTruck);
+        }
+
+        [HttpGet("/trucks/{foodTruckId}/delete")]
+        public IActionResult Delete(int foodTruckId)
+        {
+            if (!isLoggedIn)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            FoodTruck selectedTruck = db.FoodTrucks.FirstOrDefault(truck => truck.FoodTruckId == foodTruckId);
+
+            if (selectedTruck == null || selectedTruck.UserId != uid)
+            {
+                return RedirectToAction("All");
+            }
+
+            // truck is not null and requester is the uploader of the truck
+            db.FoodTrucks.Remove(selectedTruck);
+            db.SaveChanges();
+            return RedirectToAction("All");
+        }
+
+        [HttpPost("/trucks/{foodTruckId}/review")]
+        public IActionResult Review(int foodTruckId, Review newReview)
+        {
+            if (ModelState.IsValid == false)
+            {
+                return View("Details");
+            }
+
+            // Associate the author of the review
+            newReview.UserId = (int)uid;
+
+            // this assignment happens automatically because they are named the same
+            // newReview.FoodTruckId = foodTruckId;
+
+            db.Reviews.Add(newReview);
+            db.SaveChanges();
+
+
+            // new {} dictionary is full of paramName value pairs for Details action
+            // every param that the action needs, must be a key in the dictionary
+            return RedirectToAction("Details", new { foodTruckId = newReview.FoodTruckId });
         }
 
     }

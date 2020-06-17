@@ -1,0 +1,94 @@
+@model FoodTruck
+
+@{
+  int? uid = Context.Session.GetInt32("UserId");
+}
+
+<div class="container w-75 mx-auto">
+  <div class="row bg-light p-3 mt-3">
+
+    <div class="col-md-3">
+      <img class="w-100" src="https://image.flaticon.com/icons/png/512/683/683071.png" alt="Truck">
+    </div>
+
+    <div class="col-md-9">
+      <h2>@Model.Name</h2>
+      <p>Style: @Model.Style</p>
+      <p>Average Rating: TODO</p>
+    </div>
+
+    <small class="text-muted">Uploaded by @Model.UploadedBy.FullName() on @Model.CreatedAt.ToString("MMMM dd yyyy")</small>
+  </div>
+
+  <div class="h-50 pt-3 py-5">
+
+    @* 
+      filledStar = &#9733;
+      emptyStar = &#9734; 
+    *@
+
+    @foreach (Review review in Model.Reviews)
+    {
+      <div class="row bg-light mb-2 p-2">
+
+        <div class="col-md-4">
+          @review.Author.FullName()
+        </div>
+
+        <div class="col-md-8">
+          <p>@review.Body</p>
+
+          <span class="mr-2">Rating @review.Rating</span>
+
+          @if (review.Rating == 5)
+          {
+            <span>&#9733; &#9733; &#9733; &#9733; &#9733; </span>
+          }
+          else if (review.Rating == 4)
+          {
+            <span>&#9733; &#9733; &#9733; &#9733; &#9734; </span>
+          }
+          else if (review.Rating == 3)
+          {
+            <span>&#9733; &#9733; &#9733; &#9734; &#9734; </span>
+          }
+          else if (review.Rating == 2)
+          {
+            <span>&#9733; &#9733; &#9734; &#9734; &#9734; </span>
+          }
+          else if (review.Rating == 1)
+          {
+            <span>&#9733; &#9734; &#9734; &#9734; &#9734; </span>
+          }
+          
+          @* Programmatically display filled in / non filled in stars *@
+          @* <p>
+            <span class="mr-2">Rating @review.Rating</span>
+            
+            @for(int i = 0; i < review.Rating; i++)
+            {
+              <span>&#9733;</span>
+            }
+
+            @for(int i = 0; i < (5 - review.Rating); i++)
+            {
+              <span>&#9734;</span>
+            }
+          </p> *@
+        </div>
+        
+      </div>
+    }
+    
+  </div>
+
+  @{
+    Review newReview = new Review()
+    {
+        UserId = (int)uid,
+        FoodTruckId = Model.FoodTruckId
+    };
+  }
+
+  <partial name="_Review" model="@newReview"></partial>
+</div>

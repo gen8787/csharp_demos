@@ -39,7 +39,7 @@ namespace FoodTruckDemo.Models
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
 
-        // Navigation properties
+        // Navigation Props - MUST USE .include to access:
         // 1 user : many trucks. Truck can only be created by 1 user
         public List<FoodTruck> UploadedTrucks { get; set; }
         // 1 User : Many Reviews

@@ -56,7 +56,7 @@ namespace FoodTruckDemo.Migrations
                 {
                     ReviewId = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Body = table.Column<string>(nullable: true),
+                    Body = table.Column<string>(nullable: false),
                     Rating = table.Column<int>(nullable: false),
                     CreatedAt = table.Column<DateTime>(nullable: false),
                     UpdatedAt = table.Column<DateTime>(nullable: false),

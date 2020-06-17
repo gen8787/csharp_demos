@@ -49,7 +49,8 @@ namespace FoodTruckDemo.Migrations
                     b.Property<int>("ReviewId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Body");
+                    b.Property<string>("Body")
+                        .IsRequired();
 
                     b.Property<DateTime>("CreatedAt");
 

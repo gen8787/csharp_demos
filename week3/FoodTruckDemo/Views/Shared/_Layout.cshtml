@@ -38,10 +38,10 @@
 
                         @if (Context.Session.GetInt32("UserId") != null) {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="FoodTruck" asp-action="All">Dashboard</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="FoodTrucks" asp-action="All">Dashboard</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="FoodTruck" asp-action="New">New Truck</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="FoodTrucks" asp-action="New">New Truck</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Logout">Logout (@Context.Session.GetString("FullName"))</a>

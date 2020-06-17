@@ -8,6 +8,7 @@ namespace FoodTruckDemo.Models
         [Key]
         public int ReviewId { get; set; }
 
+        [Required]
         [MinLength(3, ErrorMessage = "must be at least 2 characters")]
         [Display(Name = "Review")]
         public string Body { get; set; }
@@ -22,7 +23,7 @@ namespace FoodTruckDemo.Models
         public int UserId { get; set; }
         public int FoodTruckId { get; set; }
 
-        // Navigation Props:
+        // Navigation Props - MUST USE .include to access:
         // 1 User : Many Reviews, corresponds to the UserId
         public User Author { get; set; }
         public FoodTruck FoodTruck { get; set; }
