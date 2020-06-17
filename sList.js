@@ -49,6 +49,11 @@ Week 1
       - recursiveMax
       - hasLoop
         - return whether or not the linked list connects back to itself. If it connects to itself, what does that mean will happen when you loop through it?
+
+    3. Wed
+      - removeDupesSorted: Remove duplicates from a sorted linked list (in place)
+      - removeNegatives (in place, no new list)
+
 */
 
 class Node {
@@ -533,8 +538,3 @@ const loopList = new SList().seedFromArr([1, 2, 3, 4]);
 loopList.head.next.next.next = loopList.head.next;
 
 const sortedDupeList = new SList().seedFromArr([1, 1, 1, 2, 3, 3, 4, 5, 5]);
-
-console.log(emptyList.recursiveMax());
-console.log(singleNodeList.recursiveMax());
-console.log(biNodeList.recursiveMax());
-console.log(firstThreeList.recursiveMax());
