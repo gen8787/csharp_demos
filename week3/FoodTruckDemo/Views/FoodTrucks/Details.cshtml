@@ -2,6 +2,7 @@
 
 @{
   int? uid = Context.Session.GetInt32("UserId");
+  double avgRating = Model.GetAvgReviewRating();
 }
 
 <div class="container w-75 mx-auto">
@@ -14,7 +15,7 @@
     <div class="col-md-9">
       <h2>@Model.Name</h2>
       <p>Style: @Model.Style</p>
-      <p>Average Rating: TODO</p>
+      <p>Average Rating @avgRating.ToString("#.#"): <partial name="_ReviewStars" model="@avgRating"></partial></p>
     </div>
 
     <small class="text-muted">Uploaded by @Model.UploadedBy.FullName() on @Model.CreatedAt.ToString("MMMM dd yyyy")</small>

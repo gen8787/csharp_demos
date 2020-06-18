@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace FoodTruckDemo.Models
 {
@@ -29,6 +30,20 @@ namespace FoodTruckDemo.Models
 
         // Navigation Props - MUST USE .include to access:
         public User UploadedBy { get; set; } // 1 User : Many Uploaded Trucks
-        public List<Review> Reviews { get; set; }
+        public List<Review> Reviews { get; set; } // 1 Truck : Many Reviews
+
+        // Many User : Many Truck - to get the Users who are fans
+        public List<TruckFan> TruckFans { get; set; }
+
+        // Methods:
+        public double GetAvgReviewRating()
+        {
+            if (Reviews.Count == 0)
+            {
+                return 0;
+            }
+            return Reviews.Average(review => review.Rating);
+        }
     }
+
 }

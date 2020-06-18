@@ -11,5 +11,6 @@ namespace FoodTruckDemo.Models
         public DbSet<User> Users { get; set; }
         public DbSet<FoodTruck> FoodTrucks { get; set; }
         public DbSet<Review> Reviews { get; set; }
+        public DbSet<TruckFan> TruckFans { get; set; }
     }
 }

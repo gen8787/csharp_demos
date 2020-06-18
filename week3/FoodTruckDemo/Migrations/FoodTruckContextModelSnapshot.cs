@@ -71,6 +71,24 @@ namespace FoodTruckDemo.Migrations
                     b.ToTable("Reviews");
                 });
 
+            modelBuilder.Entity("FoodTruckDemo.Models.TruckFan", b =>
+                {
+                    b.Property<int>("TruckFanId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("FoodTruckId");
+
+                    b.Property<int>("UserId");
+
+                    b.HasKey("TruckFanId");
+
+                    b.HasIndex("FoodTruckId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("TruckFans");
+                });
+
             modelBuilder.Entity("FoodTruckDemo.Models.User", b =>
                 {
                     b.Property<int>("UserId")
@@ -114,6 +132,19 @@ namespace FoodTruckDemo.Migrations
 
                     b.HasOne("FoodTruckDemo.Models.User", "Author")
                         .WithMany("Reviews")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("FoodTruckDemo.Models.TruckFan", b =>
+                {
+                    b.HasOne("FoodTruckDemo.Models.FoodTruck", "FoodTruck")
+                        .WithMany("TruckFans")
+                        .HasForeignKey("FoodTruckId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("FoodTruckDemo.Models.User", "Fan")
+                        .WithMany("TruckFans")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

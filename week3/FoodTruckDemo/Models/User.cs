@@ -42,8 +42,12 @@ namespace FoodTruckDemo.Models
         // Navigation Props - MUST USE .include to access:
         // 1 user : many trucks. Truck can only be created by 1 user
         public List<FoodTruck> UploadedTrucks { get; set; }
+
         // 1 User : Many Reviews
         public List<Review> Reviews { get; set; }
+
+        // Many User : Many Truck - to get the trucks that this user is a fan of
+        public List<TruckFan> TruckFans { get; set; }
 
         // methods
         public string FullName()

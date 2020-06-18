@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FoodTruckDemo.Migrations
 {
     [DbContext(typeof(FoodTruckContext))]
-    [Migration("20200617190731_First")]
-    partial class First
+    [Migration("20200618183726_FirstHaha")]
+    partial class FirstHaha
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -73,6 +73,24 @@ namespace FoodTruckDemo.Migrations
                     b.ToTable("Reviews");
                 });
 
+            modelBuilder.Entity("FoodTruckDemo.Models.TruckFan", b =>
+                {
+                    b.Property<int>("TruckFanId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("FoodTruckId");
+
+                    b.Property<int>("UserId");
+
+                    b.HasKey("TruckFanId");
+
+                    b.HasIndex("FoodTruckId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("TruckFans");
+                });
+
             modelBuilder.Entity("FoodTruckDemo.Models.User", b =>
                 {
                     b.Property<int>("UserId")
@@ -116,6 +134,19 @@ namespace FoodTruckDemo.Migrations
 
                     b.HasOne("FoodTruckDemo.Models.User", "Author")
                         .WithMany("Reviews")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("FoodTruckDemo.Models.TruckFan", b =>
+                {
+                    b.HasOne("FoodTruckDemo.Models.FoodTruck", "FoodTruck")
+                        .WithMany("TruckFans")
+                        .HasForeignKey("FoodTruckId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("FoodTruckDemo.Models.User", "Fan")
+                        .WithMany("TruckFans")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

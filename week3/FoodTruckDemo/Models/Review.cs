@@ -25,7 +25,7 @@ namespace FoodTruckDemo.Models
 
         // Navigation Props - MUST USE .include to access:
         // 1 User : Many Reviews, corresponds to the UserId
-        public User Author { get; set; }
-        public FoodTruck FoodTruck { get; set; }
+        public User Author { get; set; } // the User who created this Review
+        public FoodTruck FoodTruck { get; set; } // the FoodTruck the Review is for
     }
 }

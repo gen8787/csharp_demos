@@ -21,11 +21,28 @@
           filledStar = &#9733;
           emptyStar = &#9734; 
         *@
-        <option value="1">&#9733;&#9734;&#9734;&#9734;&#9734;</option>
+
+        @for (double i = 1; i <= 5; i++)
+        {
+          bool isSelected = false;
+
+          @if (i == 5) 
+          { 
+            isSelected = true;
+          }
+
+          <option selected="@isSelected" value="@i">
+            <partial name="_ReviewStars" model="@i"></partial>
+          </option>
+        }
+
+
+        @* hard coded / manual *@
+        @* <option value="1">&#9733;&#9734;&#9734;&#9734;&#9734;</option>
         <option value="2">&#9733;&#9733;&#9734;&#9734;&#9734;</option>
         <option value="3">&#9733;&#9733;&#9733;&#9734;&#9734;</option>
         <option value="4">&#9733;&#9733;&#9733;&#9733;&#9734;</option>
-        <option selected value="5">&#9733;&#9733;&#9733;&#9733;&#9733;</option>
+        <option selected value="5">&#9733;&#9733;&#9733;&#9733;&#9733;</option> *@
       </select>
 
       <div class="mt-3">

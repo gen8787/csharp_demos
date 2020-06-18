@@ -44,6 +44,8 @@ namespace FoodTruckDemo.Controllers
 
             List<FoodTruck> allTrucks = db.FoodTrucks
                 .Include(truck => truck.UploadedBy)
+                .Include(truck => truck.Reviews)
+                .Include(truck => truck.TruckFans)
                 .ToList();
 
             return View("All", allTrucks);
@@ -174,7 +176,14 @@ namespace FoodTruckDemo.Controllers
         {
             if (ModelState.IsValid == false)
             {
-                return View("Details");
+                FoodTruck selectedTruck = db.FoodTrucks
+                    .Include(truck => truck.UploadedBy)
+                    .Include(truck => truck.Reviews)
+                    // then include because I want to include something from truck.Reviews, not from the truck itself
+                    .ThenInclude(review => review.Author)
+                    .FirstOrDefault(truck => truck.FoodTruckId == foodTruckId);
+
+                return View("Details", selectedTruck);
             }
 
             // Associate the author of the review
@@ -190,6 +199,36 @@ namespace FoodTruckDemo.Controllers
             // new {} dictionary is full of paramName value pairs for Details action
             // every param that the action needs, must be a key in the dictionary
             return RedirectToAction("Details", new { foodTruckId = newReview.FoodTruckId });
+        }
+
+        [HttpGet("/trucks/{foodTruckId}/fan")]
+        public IActionResult BecomeFan(int foodTruckId)
+        {
+            if (!isLoggedIn)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            TruckFan existingRelationship = db.TruckFans.FirstOrDefault(tf => tf.FoodTruckId == foodTruckId && tf.UserId == uid);
+
+            if (existingRelationship != null)
+            {
+                // i crie everytiem
+                db.TruckFans.Remove(existingRelationship);
+            }
+            else
+            {
+                TruckFan newFan = new TruckFan()
+                {
+                    UserId = (int)uid,
+                    FoodTruckId = foodTruckId
+                };
+
+                db.TruckFans.Add(newFan);
+            }
+
+            db.SaveChanges();
+            return RedirectToAction("All");
         }
 
     }
