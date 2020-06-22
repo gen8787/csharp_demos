@@ -28,3 +28,14 @@ class BinarySearchTree {
 
   maxRecursive() {}
 }
+
+/*
+                    root
+                <-- 25 -->
+              /            \
+            15             50
+          /    \         /    \
+        10     22      35     70
+      /   \   /  \    /  \   /  \
+    4    12  18  24  31  44 66  90
+*/
