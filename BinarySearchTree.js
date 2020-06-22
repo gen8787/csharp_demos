@@ -18,18 +18,83 @@ class BinarySearchTree {
     this.root = null;
   }
 
-  isEmpty() {}
+  // Time: O(1) constant
+  // Space: O(1)
+  isEmpty() {
+    return this.root === null;
+  }
 
-  min() {}
+  // show without params first, so adding param can be a lesson for min of right sub tree: bst.min(bst.root.right)
+  // Time: O(h) linear, h = height of left sub tree starting from current node
+  // Space: O(1)
+  min(current = this.root) {
+    if (current === null) {
+      return null;
+    }
 
-  minRecursive() {}
+    while (current.left) {
+      current = current.left;
+    }
+    return current.val;
+  }
 
-  max() {}
+  // Time: O(h) linear, h = height of left sub tree starting from current node
+  // Space: O(1)
+  minRecursive(current = this.root) {
+    if (current === null) {
+      return null;
+    }
 
-  maxRecursive() {}
+    if (current.left === null) {
+      return current.val;
+    }
+    return this.minRecursive(current.left);
+  }
+
+  // show without params first, so adding param can be a lesson for max of left sub tree: bst.max(bst.root.left)
+  // Time: O(h) linear, h = height of right sub tree starting from current node
+  // Space: O(1)
+  max(current = this.root) {
+    if (current === null) {
+      return null;
+    }
+
+    while (current.right) {
+      current = current.right;
+    }
+    return current.val;
+  }
+
+  // Time: O(h) linear, h = height of right sub tree starting from current node
+  // Space: O(1)
+  maxRecursive(current = this.root) {
+    if (current === null) {
+      return null;
+    }
+
+    if (current.right === null) {
+      return current.val;
+    }
+    return this.minRecursive(current.right);
+  }
 }
 
-/*
+const emptyTree = new BinarySearchTree();
+const oneNodeTree = new BinarySearchTree();
+oneNodeTree.root = new Node(10);
+
+/* twoLevelTree 
+        root
+        10
+      /   \
+    5     15
+*/
+const twoLevelTree = new BinarySearchTree();
+twoLevelTree.root = new Node(10);
+twoLevelTree.root.left = new Node(5);
+twoLevelTree.root.right = new Node(15);
+
+/* fullTree
                     root
                 <-- 25 -->
               /            \
