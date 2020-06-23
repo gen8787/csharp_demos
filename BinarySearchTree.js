@@ -3,6 +3,9 @@
     1. isEmpty
     2. min (with & without recursion)
     3. max (with & without recursion)
+
+  2. Tue
+    1. contains (with & without recursion)
 */
 
 class Node {
