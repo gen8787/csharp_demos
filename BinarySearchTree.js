@@ -80,6 +80,45 @@ class BinarySearchTree {
     }
     return this.minRecursive(current.right);
   }
+
+  // Time: O(h) linear, h = height of tree
+  // Space: O(1)
+  contains(searchVal) {
+    let current = this.root;
+
+    while (current) {
+      if (current.val === searchVal) {
+        return true;
+      }
+
+      if (searchVal < current.val) {
+        current = current.left;
+      } else {
+        current = current.right;
+      }
+    }
+    return false;
+  }
+
+  // Time: O(h) linear, h = height of tree
+  // Space: O(1)
+  containsRecursive(searchVal, current = this.root) {
+    if (current === null) {
+      return false;
+    }
+
+    if (current.val === searchVal) {
+      return true;
+    }
+
+    if (searchVal < current.val) {
+      return this.containsRecursive(searchVal, current.left);
+    }
+
+    if (searchVal > current.val) {
+      return this.containsRecursive(searchVal, current.right);
+    }
+  }
 }
 
 const emptyTree = new BinarySearchTree();
