@@ -6,6 +6,12 @@
 
   2. Tue
     1. contains (with & without recursion)
+
+  3. Wed
+    1. insert (with & without recursion)
+        - insert the new value in the appropriate place in the tree
+    2. range (Range is max minus min. What if tree is empty?)\
+    Bonus: full (recursive: isFull if every node other than the leaves has two children)
 */
 
 class Node {
