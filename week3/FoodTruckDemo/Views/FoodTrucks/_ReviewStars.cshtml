@@ -1,16 +1,18 @@
 @model double
 
-@* 
-  filledStar = &#9733;
-  emptyStar = &#9734; 
-*@
+@{
+  string filledStar = "&#9733;";
+  string emptyStar = "&#9734;";
+}
 
 @for (int i = 0; i < Convert.ToInt32(Model); i++)
 {
-  <span>&#9733;</span>
+  <span>@Html.Raw(@filledStar)</span>
+  @* <span>&#9733;</span> *@
 }
 
 @for (int i = 0; i < (5 - Convert.ToInt32(Model)); i++)
 {
-  <span>&#9734;</span>
+  @* <span>&#9734;</span> *@
+  <span>@Html.Raw(@emptyStar)</span>
 }
