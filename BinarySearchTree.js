@@ -125,6 +125,88 @@ class BinarySearchTree {
       return this.containsRecursive(searchVal, current.right);
     }
   }
+
+  // Time: O(h) linear, h = height of tree because we might be adding at bottom
+  // Space: O(1)
+  insert(newVal) {
+    const node = new Node(newVal);
+
+    if (this.isEmpty()) {
+      this.root = node;
+    } else {
+      let current = this.root;
+
+      while (true) {
+        if (newVal <= current.val) {
+          if (!current.left) {
+            current.left = node;
+            break;
+          } else {
+            current = current.left;
+          }
+        } else {
+          // newVal is greater than current.val
+          if (!current.right) {
+            current.right = node;
+            break;
+          } else {
+            current = current.right;
+          }
+        }
+      }
+    }
+    return this;
+  }
+
+  // Time: O(h) linear, h = height of tree
+  // Space: O(1)
+  insertRecursive(newVal, curr = this.root) {
+    if (this.isEmpty()) {
+      this.root = new Node(newVal);
+      return this;
+    }
+
+    if (newVal > curr.val) {
+      if (curr.right === null) {
+        curr.right = new Node(newVal);
+        return this;
+      }
+      return this.insertRecursive(newVal, curr.right);
+    } else {
+      if (curr.left === null) {
+        curr.left = new Node(newVal);
+        return this;
+      }
+      return this.insertRecursive(newVal, curr.left);
+    }
+  }
+
+  // Time: O(rightHeight + leftHeight) -> still linear so simplify to O(h)
+  // Space: O(1)
+  range(startNode = this.root) {
+    if (!startNode) {
+      return null;
+    }
+    return this.max(startNode) - this.min(startNode);
+  }
+
+  isFull(node = this.root) {
+    // if empty, or node is null
+    if (!node) {
+      return false;
+    }
+
+    // if leaf node
+    if (!node.left && !node.right) {
+      return true;
+    }
+
+    if (node.left && node.right) {
+      return this.isFull(node.left) && this.isFull(node.right);
+    }
+
+    return false;
+  }
 }
 
 const emptyTree = new BinarySearchTree();
@@ -152,3 +234,21 @@ twoLevelTree.root.right = new Node(15);
       /   \   /  \    /  \   /  \
     4    12  18  24  31  44 66  90
 */
+
+const fullTree = new BinarySearchTree();
+fullTree
+  .insert(25)
+  .insert(15)
+  .insert(10)
+  .insert(22)
+  .insert(4)
+  .insert(12)
+  .insert(18)
+  .insert(24)
+  .insert(50)
+  .insert(35)
+  .insert(70)
+  .insert(31)
+  .insert(44)
+  .insert(66)
+  .insert(90);
