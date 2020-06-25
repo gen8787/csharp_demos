@@ -12,6 +12,14 @@
         - insert the new value in the appropriate place in the tree
     2. range (Range is max minus min. What if tree is empty?)\
     Bonus: full (recursive: isFull if every node other than the leaves has two children)
+
+  4. Thur (Recursive Traversal Order)
+    1. console.log each node's val in depth first search (DFS) Preorder: (Parent, Left, Right)
+        - on fullBstTest, it should log in this order: 25, 15, 10, 4, 12, 22, 18, 24, 50, 35, 31, 44, 70, 66, 90
+    2. console.log each node's val in depth first search (DFS) Inorder: (Left, Parent, Right)
+        - on fullBstTest, it should log in this order: 4, 10, 12, 15, 18, 22, 24, 25, 31, 35, 44, 50, 66, 70, 90
+    3. console.log each node's val in depth first search (DFS) Postorder: (Left, Right, Parent)
+        - on fullBstTest, it should log in this order: 4, 12, 10, 18, 24, 22, 15, 31, 44, 35, 66, 90, 70, 50, 25
 */
 
 class Node {
