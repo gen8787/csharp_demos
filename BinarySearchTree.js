@@ -215,6 +215,70 @@ class BinarySearchTree {
 
     return false;
   }
+
+  // DFS Preorder: (Parent, Left, Right)
+  // on fullTree: 25, 15, 10, 4, 12, 22, 18, 24, 50, 35, 31, 44, 70, 66, 90
+  printPreorder(node = this.root) {
+    if (node) {
+      console.log(node.val);
+      this.printPreorder(node.left);
+      this.printPreorder(node.right);
+    }
+  }
+
+  // DFS Inorder: (Left, Parent, Right)
+  // on fullTree: 4, 10, 12, 15, 18, 22, 24, 25, 31, 35, 44, 50, 66, 70, 90
+  printInorder(node = this.root) {
+    if (node) {
+      this.printInorder(node.left);
+      console.log(node.val);
+      this.printInorder(node.right);
+    }
+  }
+
+  // DFS Inorder: (Left, Parent, Right)
+  printInorderStack(node = this.root) {
+    let current = node;
+    const stack = [];
+    let str = "";
+
+    while (true) {
+      if (current !== null) {
+        stack.push(current);
+        current = current.left;
+      } else if (stack.length > 0) {
+        current = stack.pop();
+        console.log(current.val);
+
+        str += current.val + " ";
+        current = current.right;
+      } else {
+        break;
+      }
+    }
+    return str;
+  }
+
+  // DFS Postorder (Left, Right, Parent)
+  // on fullTree: 4, 12, 10, 18, 24, 22, 15, 31, 44, 35, 66, 90, 70, 50, 25
+  printPostorder(root = this.root) {
+    if (root) {
+      this.printPostorder(root.left);
+      this.printPostorder(root.right);
+      console.log(root.val);
+    }
+  }
+
+  /* fullTree
+                    root
+                <-- 25 -->
+              /            \
+            15             50
+          /    \         /    \
+        10     22      35     70
+      /   \   /  \    /  \   /  \
+    4    12  18  24  31  44 66  90
+*/
 }
 
 const emptyTree = new BinarySearchTree();
@@ -260,3 +324,5 @@ fullTree
   .insert(44)
   .insert(66)
   .insert(90);
+
+fullTree.printInorderStack();
