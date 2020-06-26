@@ -20,6 +20,13 @@
         - on fullBstTest, it should log in this order: 4, 10, 12, 15, 18, 22, 24, 25, 31, 35, 44, 50, 66, 70, 90
     3. console.log each node's val in depth first search (DFS) Postorder: (Left, Right, Parent)
         - on fullBstTest, it should log in this order: 4, 12, 10, 18, 24, 22, 15, 31, 44, 35, 66, 90, 70, 50, 25
+
+  5. Fri
+    1. Non-recursive breadth first print:
+        - console.log each node's val in level order, horizontal level-by-level
+        - for the example commented tree the order would be: "50, 40, 60, 30, 45, 55, 70, 20, 35, 65, 25"
+    2. size (recursive: total number of nodes)
+    3. height (recursive: longest path from root to leaf)
 */
 
 class Node {
