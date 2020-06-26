@@ -276,6 +276,72 @@ class BinarySearchTree {
     }
   }
 
+  // BFS order: horizontal rows left-to-right top-down
+  printLevelorder(current = this.root) {
+    const queue = [];
+    let str = "";
+
+    if (current) {
+      queue.push(current);
+    }
+
+    // other tree structures have more than a left and a right, so the queue becomes even more useful to visit
+    // all nodes on the same horizontal plane
+    while (queue.length > 0) {
+      const dequeuedNode = queue.shift();
+      console.log(dequeuedNode.val);
+      str += dequeuedNode.val + " ";
+
+      if (dequeuedNode.left) {
+        queue.push(dequeuedNode.left);
+      }
+
+      if (dequeuedNode.right) {
+        queue.push(dequeuedNode.right);
+      }
+    }
+    return str;
+  }
+
+  // depth first
+  // Time: O(n) linear, n = number of nodes
+  // Space: O(1)
+  size(node) {
+    if (!node) {
+      return 0;
+    }
+    return 1 + this.size(node.left) + this.size(node.right);
+  }
+
+  // have to be careful using primitives as params with recursive because they are not passed by reference
+  // so different recursive branches will have their own copy and they will be updated separately resulting in wrong total
+  // if you only do total++ everywhere, but total = this.size2 solves the problem
+  size2(current = this.root, total = 0) {
+    if (current == null) {
+      return total;
+    }
+    total++;
+
+    if (current.left != null) {
+      total = this.size2(current.left, total);
+    }
+
+    if (current.right != null) {
+      total = this.size2(current.right, total);
+    }
+    return total;
+  }
+
+  // Time: O(n) linear, n = total number of nodes because to find out which side is the tallest, must go down both sides
+  // Space: O(1)
+  height(node) {
+    if (!node) {
+      return 0;
+    }
+    // base case returns 0 but then the + 1 starts incrementing for each recursive call
+    return 1 + Math.max(this.height(node.left), this.height(node.right));
+  }
+
   /* fullTree
                     root
                 <-- 25 -->
