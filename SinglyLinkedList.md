@@ -54,7 +54,7 @@ So how do we work with linked lists? A common pattern is to declare a local vari
 ## Compared To Array
 
 - ```js
-  class SList {
+  class SinglyLinkedList {
     constructor() {
       this.head = null;
     }
@@ -67,7 +67,7 @@ So how do we work with linked lists? A common pattern is to declare a local vari
     }
   }
 
-  const sList = new SList();
+  const sList = new SinglyLinkedList();
   // adding nodes non-programmatically (without looping to the end to add)
   sList.head = new Node(1);
   sList.head.next = new Node(2);
@@ -116,9 +116,3 @@ So how do we work with linked lists? A common pattern is to declare a local vari
     currentItem = arr[currentIdx];
   }
   ```
-
----
-
-## Things to Reinforce
-
-- reinforce the nested object structure and log it to remind students of the structure and how it is just like accessing a deeply nested key, except the the key is always called `next`, they will forget this
