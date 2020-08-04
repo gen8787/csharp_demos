@@ -14,11 +14,11 @@ namespace GroceryStoreOOP
                     [x] when shopper enters store, store should print a greeting
                 [x] Have store print list of shoppers
                 [x] Shoppers have a shopping list
-                [] Add items from their list to their cart
-                    [] print shopping cart items
-                [] Shopper checkout and pay
-                    [] shopper must have enough money
-                        [] shopper says they got too many items if not enough money
+                [x] Add items from shoppers list to their cart
+                    [x] print shopping cart items
+                [x] Shopper checkout and pay
+                    [x] shopper must have enough money
+                        [x] shopper says they got too many items if not enough money
                     [] shopper exits store after checkout
                     [] store prints goodbye to shopper
                     [] store should print list of shopper names
@@ -29,7 +29,7 @@ namespace GroceryStoreOOP
 
             List<Product> shoppingList1 = new List<Product>() {
                 new Product("Toilet Paper", 5),
-                new Product("Healing Crystal", 30),
+                new Product("Healing Crystal", 3),
                 new Product("How To Get Gud At LoL, For Dummies and Noobs", 1),
                 new Product("Lysol", 3)
             };
@@ -46,11 +46,15 @@ namespace GroceryStoreOOP
                 new Product("Egg", 4)
             };
 
-            Shopper shopper1 = new Shopper("Dustin", shoppingList1);
-            Shopper shopper2 = new Shopper("Dallas", shoppingList3);
+            Shopper shopper1 = new Shopper("Dustin", shoppingList1, 250m);
+            Shopper shopper2 = new Shopper("Dallas", shoppingList3, 30m);
 
             shopper1.EnterStore(albertsons);
             shopper2.EnterStore(albertsons);
+            shopper1.Checkout();
+            shopper2.Checkout();
+
+
         }
     }
 }
