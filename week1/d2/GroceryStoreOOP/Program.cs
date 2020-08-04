@@ -19,11 +19,10 @@ namespace GroceryStoreOOP
                 [x] Shopper checkout and pay
                     [x] shopper must have enough money
                         [x] shopper says they got too many items if not enough money
-                    [] shopper exits store after checkout
-                    [] store prints goodbye to shopper
-                    [] store should print list of shopper names
+                    [x] shopper exits store after checkout
+                    [x] store prints goodbye to shopper
+                    [x] store should print list of shopper names
             */
-
             // DataType varName = value of var
             GroceryStore albertsons = new GroceryStore("Albert And His Beautiful Sons");
 
@@ -53,6 +52,7 @@ namespace GroceryStoreOOP
             shopper2.EnterStore(albertsons);
             shopper1.Checkout();
             shopper2.Checkout();
+
 
 
         }
