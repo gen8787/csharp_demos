@@ -4,6 +4,13 @@
     2. insertAtBack
     3. seedFromArr
         - given an array, insert each item of the array to the back of this linked list
+
+  2. Tue
+    1. insertAtFront
+        - add a new node to the front of the list
+    2. removeHead
+        - remove only the first node from the list and return the data of the removed node or null
+    3. Extra: return the average of the list
 */
 
 class Node {
