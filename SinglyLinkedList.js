@@ -27,6 +27,27 @@ class SinglyLinkedList {
 
   // all the methods (functionality) of our linked list go here:
 
+  // Time: O(n * m), n = arr.length, m = this linked list's length
+  // Space: O(1) constant
+  seedFromArr(arr) {
+    for (let i = 0; i < arr.length; i++) {
+      this.insertAtBack(arr[i]);
+    }
+    return this;
+  }
+
+  print() {
+    let runner = this.head;
+    let vals = "";
+
+    while (runner) {
+      vals += `${runner.data}${runner.next ? ", " : ""}`;
+      runner = runner.next;
+    }
+    console.log(vals);
+    return vals;
+  }
+
   isEmpty() {
     return this.head === null;
   }
@@ -50,25 +71,39 @@ class SinglyLinkedList {
     return this;
   }
 
-  // Time: O(n * m), n = arr.length, m = this linked list's length
-  // Space: O(1) constant
-  seedFromArr(arr) {
-    for (let i = 0; i < arr.length; i++) {
-      this.insertAtBack(arr[i]);
-    }
+  // Time: O(1) constant
+  // Space: O(1)
+  insertAtFront(data) {
+    const newHead = new Node(data);
+    newHead.next = this.head;
+    this.head = newHead;
     return this;
   }
 
-  print() {
+  // Time: O(1) constant
+  // Space: O(1)
+  removeHead() {
+    if (this.isEmpty()) {
+      return null;
+    }
+    const oldHead = this.head;
+    this.head = this.head.next;
+    return oldHead.data;
+  }
+
+  // Time: O(n) linear, n = length of list
+  // Space: O(1) constant
+  average() {
     let runner = this.head;
-    let vals = "";
+    let sum = 0;
+    let cnt = 0;
 
     while (runner) {
-      vals += `${runner.data}${runner.next ? ", " : ""}`;
+      cnt++;
+      sum += runner.data;
       runner = runner.next;
     }
-    console.log(vals);
-    return vals;
+    return sum / cnt;
   }
 }
 
