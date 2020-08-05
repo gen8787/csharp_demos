@@ -11,6 +11,13 @@
     2. removeHead
         - remove only the first node from the list and return the data of the removed node or null
     3. Extra: return the average of the list
+
+  3. Wed
+    1. removeBack
+        - remove the last node from the list and return it's data or null
+    2. contains - with & without recursion
+        - check if the list contains a value
+    3. Extra: recursiveMax: return max val from list using recursion
 */
 
 class Node {
