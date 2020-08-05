@@ -2,8 +2,8 @@ namespace AbstractIntro
 {
     public class Bunker : Building, IDamageable
     {
+        public int Health { get; set; }
         public override string Name { get; set; }
-        public override double SquareFootage { get; }
         public bool isShielded = true;
 
         public Bunker(string name)
