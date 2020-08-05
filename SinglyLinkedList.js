@@ -112,6 +112,58 @@ class SinglyLinkedList {
     }
     return sum / cnt;
   }
+
+  // Time: O(n) linear, n = length of list
+  // Space: O(1) constant
+  removeBack() {
+    let removedData = null;
+
+    if (!this.isEmpty()) {
+      if (this.head.next === null) {
+        // head only node
+        removedData = this.head.data;
+        this.head = null; // remove it from list
+      } else {
+        let runner = this.head;
+        // right of && will only be checked if left is true
+        while (runner.next.next) {
+          runner = runner.next;
+        }
+
+        // after while loop finishes, runner is now at 2nd to last node
+        removedData = runner.next.data;
+        runner.next = null; // remove it from list
+      }
+    }
+    return removedData;
+  }
+
+  // Time: O(n) linear, n = length of list
+  // Space: O(1)
+  contains(val) {
+    let runner = this.head;
+
+    while (runner) {
+      if (runner.data === val) {
+        return true;
+      }
+      runner = runner.next;
+    }
+    return false;
+  }
+
+  // Time: O(n) linear, n = length of list
+  // Space: O(1)
+  containsRecursive(val, runner = this.head) {
+    if (runner === null) {
+      return false;
+    }
+
+    if (runner.data === val) {
+      return true;
+    }
+    return this.containsRecursive(val, runner.next);
+  }
 }
 
 const emptyList = new SinglyLinkedList();
@@ -142,5 +194,3 @@ const sortedDupeList = new SinglyLinkedList().seedFromArr([
   5,
   5,
 ]);
-
-sortedDupeList.biNodeList();
