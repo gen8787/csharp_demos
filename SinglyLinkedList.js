@@ -18,6 +18,13 @@
     2. contains - with & without recursion
         - check if the list contains a value
     3. Extra: recursiveMax: return max val from list using recursion
+
+  4. Thur
+    1. secondToLast
+        - return the 2nd to last val
+    2. removeVal
+        - remove the node with the specified value, return the removed val, or null if nothing was removed
+    3. Extra: prepend new val before given val
 */
 
 class Node {
