@@ -159,6 +159,48 @@ class SinglyLinkedList {
     return false;
   }
 
+  // Time: O(n - 1) n = list length -> O(n) linear
+  // Space: O(1) constant
+  secondToLast() {
+    if (!this.head || !this.head.next) {
+      return null;
+    }
+
+    // there are at least 2 nodes
+
+    let runner = this.head;
+
+    while (runner.next.next) {
+      runner = runner.next;
+    }
+    return runner.data;
+  }
+
+  // Time: O(n) linear, n = list length. Val could be last node
+  // Space: O(1) constant
+  removeVal(val) {
+    if (this.isEmpty()) {
+      return null;
+    }
+
+    if (this.head.data === val) {
+      return this.removeHead();
+    }
+
+    let runner = this.head.next;
+
+    while (runner.next && runner.next.data !== val) {
+      runner = runner.next;
+    }
+
+    if (runner.next && runner.next.data === val) {
+      const removedData = runner.next.data;
+      runner.next = runner.next.next;
+      return removedData;
+    }
+    return null;
+  }
+
   // Time: O(n) linear, n = length of list
   // Space: O(1)
   containsRecursive(val, runner = this.head) {
@@ -170,6 +212,22 @@ class SinglyLinkedList {
       return true;
     }
     return this.containsRecursive(val, runner.next);
+  }
+
+  recursiveMax(runner = this.head, maxNode = this.head) {
+    if (this.head === null) {
+      return null;
+    }
+
+    if (runner === null) {
+      return maxNode.data;
+    }
+
+    if (runner.data > maxNode.data) {
+      maxNode = runner;
+    }
+
+    return this.recursiveMax(runner.next, maxNode);
   }
 }
 
@@ -201,3 +259,8 @@ const sortedDupeList = new SinglyLinkedList().seedFromArr([
   5,
   5,
 ]);
+
+console.log(emptyList.recursiveMax(), "should be null");
+console.log(singleNodeList.recursiveMax(), "should be 1");
+console.log(biNodeList.recursiveMax(), "should be 2");
+console.log(unorderedList.recursiveMax(), "should be 6");
