@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  @{
+    List<string> travelDestinations = new List<string>()
+    {
+      "Longyearbyen", "Solovetsky Islands", "Socotra", "Bhutan"
+    };
+
+    <ul>
+      @foreach (string destination in travelDestinations)
+      {
+        string someString = "hello";
+
+        <li>
+          <a href="/travel/@destination">
+            @destination
+          </a>
+        </li>
+      }
+    </ul>
+  }
+</body>
+</html>
