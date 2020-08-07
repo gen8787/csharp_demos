@@ -262,6 +262,82 @@ class SinglyLinkedList {
     newNode.next = current;
     return this;
   }
+
+  // Time: O(2n) n = list length -> O(n) linear, 2nd loop could go to end if min was at end
+  // Space: O(1) constant
+  /* 
+    Alternatively, could swap the data in min node and head,
+    but it's better to swap the nodes themselves in case anyone has variables pointing to these nodes
+    already, we don't want those to be negatively affected via an unwanted side effect 
+  */
+  moveMinToFront() {
+    if (this.isEmpty()) {
+      return this;
+    }
+
+    let minNode = this.head;
+    let runner = this.head;
+    let prev = this.head;
+
+    while (runner) {
+      if (runner.data < minNode.data) {
+        minNode = runner;
+      }
+
+      runner = runner.next;
+    }
+    // now that we know the min, if it is already the head, nothing needs to be done
+    if (minNode === this.head) {
+      return this;
+    }
+
+    runner = this.head;
+
+    while (runner !== minNode) {
+      prev = runner;
+      runner = runner.next;
+    }
+
+    prev.next = minNode.next; // remove the minNode
+    minNode.next = this.head;
+    this.head = minNode;
+    return this;
+  }
+
+  // Time: O(n) linear, n = list length
+  // Space: O(n)
+  // This avoids the extra loop in the above sln
+  moveMinFront() {
+    if (this.isEmpty()) {
+      return this;
+    }
+
+    let minNode = this.head;
+    let runner = this.head;
+    let prev = this.head;
+
+    while (runner) {
+      if (runner.data < minNode.data) {
+        minNode = runner;
+      }
+
+      // make sure the prev stays the prev of minNode
+      // if minNode is last node, we don't want prev to become the runner
+      if (prev.next !== minNode && runner.next !== null) {
+        prev = runner;
+      }
+      runner = runner.next;
+    }
+
+    if (minNode === this.head) {
+      return this;
+    }
+
+    prev.next = minNode.next;
+    minNode.next = this.head;
+    this.head = minNode;
+    return this;
+  }
 }
 
 const emptyList = new SinglyLinkedList();
