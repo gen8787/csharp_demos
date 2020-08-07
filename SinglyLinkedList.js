@@ -25,6 +25,14 @@
         - remove the node with the specified value, return the removed val, or null if nothing was removed
     3. Extra: recursiveMax: return max val from list using recursion
     4. Extra: prepend new val before given val
+
+  5. Fri
+    1. concat
+        - combine two SLists together
+        - if list1 is a list of nodes with values 1, 2, 3 and list2 is a list of nodes with values 4, 5, 6
+          - list1.concat(list2) should result in list1 having nodes with data in this order: 1, 2, 3, 4, 5, 6
+    2. moveMinToFront
+        - move node with min value in it to the front of the list (work in place, do not create a new list)
 */
 
 class Node {
@@ -214,6 +222,8 @@ class SinglyLinkedList {
     return this.containsRecursive(val, runner.next);
   }
 
+  // Time: O(n) linear, n = list length. Max could be at end.
+  // Space: O(1) constant
   recursiveMax(runner = this.head, maxNode = this.head) {
     if (this.head === null) {
       return null;
@@ -228,6 +238,29 @@ class SinglyLinkedList {
     }
 
     return this.recursiveMax(runner.next, maxNode);
+  }
+
+  // Time: O(n) linear, n = list length, could end up prepending to last node
+  // Space: O(1) constant
+  prepend(newVal, targetVal) {
+    const newNode = new Node(newVal);
+
+    if (!this.head) {
+      this.head = newNode;
+      return this;
+    }
+
+    let prev = this.head;
+    let current = this.head.next;
+
+    while (current.data !== targetVal) {
+      prev = current;
+      current = current.next;
+    }
+
+    prev.next = newNode;
+    newNode.next = current;
+    return this;
   }
 }
 
