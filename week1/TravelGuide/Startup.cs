@@ -26,6 +26,7 @@ namespace TravelGuide
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseStaticFiles();
             app.UseMvc();
         }
     }

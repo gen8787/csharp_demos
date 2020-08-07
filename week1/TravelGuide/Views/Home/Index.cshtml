@@ -1,29 +1,50 @@
+@* syntax 1 *@
+@* @model TravelGuide.Models.Traveler *@
+
+@* syntax2: @using is needed unless you add it to a Views/_ViewImports.cshtml file *@
+@* @using TravelGuide.Models *@
+
+@model Traveler
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <link rel="stylesheet" href="~/styles.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css
+">
 </head>
 <body>
-  @{
-    List<string> travelDestinations = new List<string>()
-    {
-      "Longyearbyen", "Solovetsky Islands", "Socotra", "Bhutan"
-    };
+  <div class="container">
+    <h1 class="red">
+      @ViewBag.Introduction
+    </h1>
+    <img src="@ViewBag.ImgUrl" width="45%" alt="Are You Ready For Your Quest">
+    <p>Travel guide created in @ViewBag.YearCreated</p>
 
-    <ul>
-      @foreach (string destination in travelDestinations)
-      {
-        string someString = "hello";
+    <h3>Greetings, what is your name traveller?</h3>
 
-        <li>
-          <a href="/travel/@destination">
-            @destination
-          </a>
-        </li>
-      }
-    </ul>
-  }
+    <form action="/guide" method="POST">
+    @* <form action="/guide2" method="POST"> *@
+      <div class="form-group">
+        <label>
+          First Name 
+        </label>
+        <input class="form-control" type="text" name="FirstName">
+      </div>
+
+      <div class="form-group">
+        <label>
+          Last Name
+        </label>
+        <input class="form-control" type="text" name="LastName">
+      </div>
+      <button>Please Guide Me On A Journey!</button>
+    </form>
+
+  </div>
+
 </body>
 </html>
