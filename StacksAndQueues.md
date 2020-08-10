@@ -5,8 +5,13 @@
 1. Mon
    - A Stack is a LIFO (Last in First Out) data structure
    - design a class to represent a stack using an array to store the items
-   - recreate the stack class using a singly linked list to store the items
-   - create these methods for each classes with O(1) time: push (returns new size), pop (returns removed item), isEmpty, size, peek (return top item without removing)
+   - after a Stack with an array, recreate the stack class using a singly linked list to store the items
+   - create these methods for each of the Stack classes with O(1) time:
+     - push (adds new item and returns new size)
+     - pop (returns removed item)
+     - isEmpty
+     - size
+     - peek (return top item without removing)
 
 ---
 
