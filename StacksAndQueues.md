@@ -1,4 +1,4 @@
-# [Stacks] & Queues
+# [Stacks](./Stack.js) & [Queues](./Queue.js)
 
 ## Schedule
 
