@@ -1,27 +1,30 @@
-@* 
-  lower case model is for setting the model
-  Model is for accessing the data
+@*
+  @model lowercase m to specify the data type of the view model
+  @Model capital m to access the data
 *@
 @model List<Post>
 
 <div class="container">
   <h2 class="text-center">All Posts</h2>
+  <hr>
 
   @foreach (Post post in Model)
   {
-    <div class="card shadow p-3 rounded">
-      <h4>
+    <div class="card shadow-sm rounded mx-auto w-75">
+      <h4 class="card-title text-center bg-dark text-light py-2">
         @post.Topic
       </h4>
-      <p>
-        @post.Body
-      </p>
-
-      <img src="@post.ImgUrl" alt="Post">
-      
+      <div class="card-body">
+        <p class="card-text">
+          @post.Body
+        </p>
       <small class="text-muted">
         Submitted: @post.CreatedAt
       </small>
+      </div>
+
+      <img class="card-img-bottom" src="@post.ImgUrl" alt="@post.Topic">
+      
     </div>  
   }
 </div>
