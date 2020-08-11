@@ -12,6 +12,18 @@
      - isEmpty
      - size
      - peek (return top item without removing)
+2. Tue
+   - A Queue is a FIFO (First in First Out) data structure
+   - design a class to represent a queue using an array to store the items
+   - recreate the queue class using a singly linked list to store the items
+   - create these methods for each classes:
+     - enqueue (add item, return new size)
+     - dequeue (remove and return item)
+     - isEmpty
+     - size, front (return first item without removing)
+   - Time complexities should be as follows:
+     - Array Queue: enqueue: O(1), dequeue: O(n), size: O(1), front: O(1)
+     - Linkedd List Queue: enqueue: O(1), dequeue: O(1), size: O(1), front: O(1)
 
 ---
 
