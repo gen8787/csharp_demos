@@ -10,9 +10,15 @@
 
   @foreach (Post post in Model)
   {
-    <div class="card shadow-sm rounded mx-auto w-75">
+    <div class="card shadow-sm rounded mx-auto w-50 mb-4">
       <h4 class="card-title text-center bg-dark text-light py-2">
-        @post.Topic
+        <a
+          asp-controller="Posts"
+          asp-action="Details"
+          asp-route-PostId="@post.PostId"
+        >
+          @post.Topic
+        </a>
       </h4>
       <div class="card-body">
         <p class="card-text">
