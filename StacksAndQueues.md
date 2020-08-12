@@ -25,6 +25,18 @@
    - Time complexities should be as follows:
      - Array Queue: enqueue: O(1), dequeue: O(n), size: O(1), front: O(1)
      - Linkedd List Queue: enqueue: O(1), dequeue: O(1), size: O(1), front: O(1)
+3. Wed
+   - compareQueues
+     - write a method on the Queue class that, given another queue, will return whether they are equal (same items in same order)
+     - Use ONLY the provided queue methods, do not manually index the queue items, no extra array or objects
+     - restore the queues to their original state
+   - queueIsPalindrome
+     - write a method on the Queue class that returns whether or not the queue is a palindrome
+     - use only 1 stack as additional storage (no additional arrays / objects)
+     - do not manually index the queue, use the provided queue methods and stack methods, restore the queue to original state when done
+   - Extra: MinStack
+     - Design a stack that supports push, pop, top, and min methods where the min method retrieves the minimum int in the stack
+     - Bonus: retrieve min element in constant time (no looping).
 
 ---
 

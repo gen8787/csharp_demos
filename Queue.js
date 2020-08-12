@@ -1,3 +1,5 @@
+const Stack = require("./Stack");
+
 class Queue {
   constructor(items = []) {
     this.items = items;
