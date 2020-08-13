@@ -112,4 +112,41 @@ class Queue {
     }
     return isEqual;
   }
+
+  /* 
+    Write a method that returns whether or not the sum of a queue's first half is equal to the sum of it's
+    second half. Use no other objects, do not loop directly over the underlying array,
+    or access by index
+
+    When the function finishes, the queue should be in it's original state.
+    
+    Time: O(n) linear, n = queue length
+    Space: O(1) constant
+  */
+  isSumOfHalvesEqual() {
+    const len = this.size();
+
+    if (len % 2 !== 0) {
+      return false;
+    }
+
+    const halfLen = len / 2;
+    let leftSum = 0;
+    let rightSum = 0;
+    let count = 0;
+
+    while (count < len) {
+      const dequeued = this.dequeue();
+
+      if (count < halfLen) {
+        leftSum += dequeued;
+      } else {
+        rightSum += dequeued;
+      }
+
+      count++;
+      this.enqueue(dequeued);
+    }
+    return leftSum === rightSum;
+  }
 }
