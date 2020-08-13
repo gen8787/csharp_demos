@@ -37,6 +37,14 @@
    - Extra: MinStack
      - Design a stack that supports push, pop, top, and min methods where the min method retrieves the minimum int in the stack
      - Bonus: retrieve min element in constant time (no looping).
+4. Thur
+   - sumOfHalvesEqual
+     - create a method on the Queue class that returns whether or not the sum of the first half of the queue is equal to the sum of the second half
+     - DO NOT manually index the queue items, only use the provided queue methods, use no additional arrays or objects for storage
+     - restore the queue to it's original state before returning
+   - QueueUsingTwoStacks
+     - create enqueue and dequeue methods on a new queue class that uses ONLY 2 stacks as storage but simulates a FIFO pattern
+     - use only the provided stack methods from the two stacks (do not directly index)
 
 ---
 
