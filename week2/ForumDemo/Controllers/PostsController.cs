@@ -4,12 +4,30 @@ using System.Linq;
 using ForumDemo.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace ForumDemo.Controllers
 {
     public class PostsController : Controller
     {
         private ForumContext db;
+
+        private int? uid
+        {
+            get
+            {
+                return HttpContext.Session.GetInt32("UserId");
+            }
+        }
+
+        private bool isLoggedIn
+        {
+            get
+            {
+                return uid != null;
+            }
+        }
+
         public PostsController(ForumContext context)
         {
             db = context;
@@ -18,19 +36,31 @@ namespace ForumDemo.Controllers
         [HttpGet("/posts")]
         public IActionResult All()
         {
-            if (HttpContext.Session.GetInt32("UserId") == null)
+            if (!isLoggedIn)
             {
                 return RedirectToAction("Index", "Home");
             }
 
             // no .Where because we want all of them
-            List<Post> allPosts = db.Posts.ToList();
+            // .Include to auto fill the Post.Author property with corresponding User (does a SQL Join)
+            /* 
+                SELECT * FROM users
+                JOIN posts ON users.UserId = posts.UserId
+            */
+            List<Post> allPosts = db.Posts
+                .Include(post => post.Author)
+                .OrderByDescending(p => p.CreatedAt)
+                .ToList();
             return View("All", allPosts);
         }
 
         [HttpGet("/posts/new")]
         public IActionResult New()
         {
+            if (!isLoggedIn)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             return View("New");
         }
 
@@ -49,6 +79,8 @@ namespace ForumDemo.Controllers
             }
 
             // ModelState IS valid
+            // Assign author's UserId to the created Post
+            newPost.UserId = (int)uid;
             db.Posts.Add(newPost);
             // db does NOT update until you run this, after SaveChanges, the newPost now has it's ID from the DB
             db.SaveChanges();
@@ -60,7 +92,15 @@ namespace ForumDemo.Controllers
         [HttpGet("/posts/{postId}")]
         public IActionResult Details(int postId)
         {
-            Post selectedPost = db.Posts.FirstOrDefault(post => post.PostId == postId);
+
+            if (!isLoggedIn)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            Post selectedPost = db.Posts
+                .Include(post => post.Author)
+                .FirstOrDefault(post => post.PostId == postId);
 
             if (selectedPost == null)
             {
@@ -88,7 +128,7 @@ namespace ForumDemo.Controllers
         {
             Post selectedPost = db.Posts.FirstOrDefault(post => post.PostId == postId);
 
-            if (selectedPost == null)
+            if (selectedPost == null || selectedPost.UserId != uid)
             {
                 return RedirectToAction("All");
             }

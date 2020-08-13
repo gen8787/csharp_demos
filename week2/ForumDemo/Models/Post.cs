@@ -21,5 +21,11 @@ namespace ForumDemo.Models
         public string ImgUrl { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
+
+        // Foreign Keys (FK)
+        public int UserId { get; set; } // this FK must match the User models Primary Key (PK)
+
+        // Navigation properties (not added to DB)
+        public User Author { get; set; }
     }
 }
