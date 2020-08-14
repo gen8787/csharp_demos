@@ -45,6 +45,10 @@
    - QueueUsingTwoStacks
      - create enqueue and dequeue methods on a new queue class that uses ONLY 2 stacks as storage but simulates a FIFO pattern
      - use only the provided stack methods from the two stacks (do not directly index)
+5. Fri
+   - PriorityQueue (create enqueue and dequeue methods)
+     - design a new PriorityQueue class where the queue maintains an ascending order when items are added based on queue item's provided priority integer value. A priority value of 1 is most important which means it should be at the front of the queue, the first to be dequeued.
+   - LinkedListPriorityQueue
 
 ---
 
