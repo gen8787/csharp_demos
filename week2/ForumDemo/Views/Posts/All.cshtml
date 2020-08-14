@@ -14,6 +14,11 @@
 
   @foreach (Post post in Model)
   {
+    List<Vote> upvotes = post.Votes.Where(vote => vote.IsUpvote).ToList();
+    List<Vote> downvotes = post.Votes.Where(vote => vote.IsUpvote == false).ToList();
+    bool alreadyUpvoted = post.Votes.Any(vote => vote.UserId == uid && vote.IsUpvote == true);
+    bool alreadyDownvoted = post.Votes.Any(vote => vote.UserId == uid && vote.IsUpvote == false);
+    
     <div class="card shadow-sm rounded mx-auto w-50 mb-4">
       <h4 class="card-title text-center bg-dark text-light py-2">
         <a
@@ -37,7 +42,50 @@
       </div>
 
       <img class="card-img-bottom" src="@post.ImgUrl" alt="@post.Topic">
-      
+
+      <div class="card-footer text-center">
+        <form
+          class="d-inline-block"
+          asp-controller="Posts"
+          asp-action="Vote"
+          asp-route-postId="@post.PostId"
+          asp-route-isUpvote="true"
+          method="POST"
+        >
+          <button class="btn btn-link">
+            @*
+              Ternary if else shorthand:
+              condition ? "return this if true" : "return this if false"
+              condition is either a boolean or a condition that evaluates into a boolean
+            *@
+            <span class="h1 @(alreadyUpvoted ? "text-secondary" : "text-success")">
+              @upvotes.Count
+            </span>
+            <span class="h1 text-success">
+              &uarr;
+            </span>
+          </button>
+        </form>
+
+        <form
+          class="d-inline-block"
+          asp-controller="Posts"
+          asp-action="Vote"
+          asp-route-postId="@post.PostId"
+          asp-route-isUpvote="false"
+          method="POST"
+        >
+          <button class="btn btn-link text-danger">
+            <span class="h1 text-danger">
+              &darr;
+            </span>
+            <span class="h1 @(alreadyDownvoted ? "text-secondary" : "text-danger")">
+              @downvotes.Count
+            </span>
+          </button>
+        </form>
+
+      </div>
     </div>  
   }
 </div>

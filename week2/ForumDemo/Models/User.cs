@@ -47,5 +47,7 @@ namespace ForumDemo.Models
 
         // Navigation Properties (not added to DB)
         public List<Post> Posts { get; set; } // 1 User : M Posts relationship
+        // Many to Many Voting relationship between Post & User
+        public List<Vote> Votes { get; set; }
     }
 }

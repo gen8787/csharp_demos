@@ -1,6 +1,8 @@
 @model Post
 
 @{
+  List<Vote> upvotes = Model.Votes.Where(vote => vote.IsUpvote).ToList();
+  List<Vote> downvotes = Model.Votes.Where(vote => vote.IsUpvote == false).ToList();
   int? uid = @Context.Session.GetInt32("UserId");
 }
 
@@ -18,6 +20,18 @@
       </small>
 
     <img class="card-img-bottom" src="@Model.ImgUrl" alt="@Model.Topic">
+
+    <div class="card-footer">
+      <p>
+        Up Votes: (@upvotes.Count)
+        @String.Join(", ", upvotes.Select(vote => vote.Voter.FullName()))
+      </p>
+
+      <p>
+        Down Votes: (@downvotes.Count)
+        @String.Join(", ", downvotes.Select(vote => $"{vote.Voter.FirstName} {vote.Voter.LastName}"))
+      </p>
+    </div>
 
     @* if the user in session is the author *@
     @if (uid == Model.UserId)

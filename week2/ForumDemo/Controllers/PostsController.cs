@@ -44,11 +44,14 @@ namespace ForumDemo.Controllers
             // no .Where because we want all of them
             // .Include to auto fill the Post.Author property with corresponding User (does a SQL Join)
             /* 
-                SELECT * FROM users
-                JOIN posts ON users.UserId = posts.UserId
+                SELECT * FROM posts
+                JOIN users ON posts.UserId = users.UserId
+                JOIN votes ON posts.UserId = Votes.PostId
             */
             List<Post> allPosts = db.Posts
                 .Include(post => post.Author)
+                .Include(post => post.Votes)
+                // .ThenInclude(vote => vote.Voter)
                 .OrderByDescending(p => p.CreatedAt)
                 .ToList();
             return View("All", allPosts);
@@ -100,6 +103,8 @@ namespace ForumDemo.Controllers
 
             Post selectedPost = db.Posts
                 .Include(post => post.Author)
+                .Include(post => post.Votes)
+                .ThenInclude(vote => vote.Voter)
                 .FirstOrDefault(post => post.PostId == postId);
 
             if (selectedPost == null)
@@ -165,7 +170,84 @@ namespace ForumDemo.Controllers
             db.Posts.Update(selectedPost);
             db.SaveChanges();
 
+            // Details needs a paramter so we have to pass it in a dictionary
+            // { paramName: paramValue, paramName2: paramValue2 }
             return RedirectToAction("Details", new { postId = postId });
         }
+
+        /* 
+            The All.cshtml page does not have a @model Vote but a newVote is still auto instantiated
+            for us because the form has no input boxes, instead the newVote info is passed in as params
+            whose names match the Vote classes property names, so they get auto-mapped for us.
+        */
+        public IActionResult Vote(Vote newVote)
+        {
+            newVote.UserId = (int)uid;
+
+            Vote existingVote = db.Votes.FirstOrDefault(vote => vote.PostId == newVote.PostId && vote.UserId == newVote.UserId);
+
+            if (existingVote == null)
+            {
+                db.Votes.Add(newVote);
+            }
+            // there IS an existing vote
+            else
+            {
+
+                // voting the same way means they are trying to remove their vote
+                if (existingVote.IsUpvote == newVote.IsUpvote)
+                {
+                    db.Votes.Remove(existingVote);
+                }
+                // if they are changing their vote
+                else
+                {
+                    existingVote.IsUpvote = newVote.IsUpvote;
+                    existingVote.UpdatedAt = DateTime.Now;
+                    db.Votes.Update(existingVote);
+                }
+            }
+
+            db.SaveChanges();
+
+            return RedirectToAction("All");
+            // Details needs a paramter so we have to pass it in a dictionary
+            // { paramName: paramValue, paramName2: paramValue2 }
+            // return RedirectToAction("Details", new { postId = newVote.PostId });
+        }
+
+        // Without removing vote or changing vote functionality
+        // [HttpPost("/posts/{postId}/{isUpvote}")]
+        // public IActionResult Vote(Vote newVote)
+        // {
+        //     newVote.UserId = (int)uid;
+
+        //     db.Votes.Add(newVote);
+        //     db.SaveChanges();
+
+        //     // Details needs a paramter so we have to pass it in a dictionary
+        //     // { paramName: paramValue, paramName2: paramValue2 }
+        //     return RedirectToAction("Details", new { postId = newVote.PostId });
+        // }
+
+        // alternatively
+        // [HttpPost("/posts/{postId}/{isUpvote}")]
+        // public IActionResult Vote(int postId, bool isUpvote)
+        // {
+        //     Vote newVote = new Vote()
+        //     {
+        //         PostId = postId,
+        //         IsUpvote = isUpvote
+        //     };
+
+        //     newVote.UserId = (int)uid;
+
+        //     db.Votes.Add(newVote);
+        //     db.SaveChanges();
+
+        //     // Details needs a paramter so we have to pass it in a dictionary
+        //     // { paramName: paramValue, paramName2: paramValue2 }
+        //     return RedirectToAction("Details", new { postId = newVote.PostId });
+        // }
     }
 }

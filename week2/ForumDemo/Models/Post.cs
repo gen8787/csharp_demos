@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace ForumDemo.Models
@@ -27,5 +28,7 @@ namespace ForumDemo.Models
 
         // Navigation properties (not added to DB)
         public User Author { get; set; }
+        // Many to Many Voting relationship between Post & User
+        public List<Vote> Votes { get; set; }
     }
 }
