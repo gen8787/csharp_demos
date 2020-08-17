@@ -14,8 +14,6 @@
 
 ---
 
----
-
 ## Description
 
 - is an ordered data structure

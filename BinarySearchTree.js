@@ -11,15 +11,63 @@ class BinarySearchTree {
     this.root = null;
   }
 
-  isEmpty() {}
+  // Time: O(1) constant
+  // Space: O(1)
+  isEmpty() {
+    return this.root === null;
+  }
 
-  min() {}
+  // Time: O(h) linear, h = height of left sub tree starting from current node
+  // Space: O(1)
+  min(current = this.root) {
+    if (current === null) {
+      return null;
+    }
 
-  minRecursive() {}
+    while (current.left) {
+      current = current.left;
+    }
+    return current.data;
+  }
 
-  max() {}
+  // Time: O(h) linear, h = height of left sub tree starting from current node
+  // Space: O(1)
+  minRecursive(current = this.root) {
+    if (current === null) {
+      return null;
+    }
 
-  maxRecursive() {}
+    if (current.left === null) {
+      return current.data;
+    }
+    return this.minRecursive(current.left);
+  }
+
+  // Time: O(h) linear, h = height of right sub tree starting from current node
+  // Space: O(1)
+  max(current = this.root) {
+    if (current === null) {
+      return null;
+    }
+
+    while (current.right) {
+      current = current.right;
+    }
+    return current.data;
+  }
+
+  // Time: O(h) linear, h = height of right sub tree starting from current node
+  // Space: O(1)
+  maxRecursive(current = this.root) {
+    if (current === null) {
+      return null;
+    }
+
+    if (current.right === null) {
+      return current.data;
+    }
+    return this.minRecursive(current.right);
+  }
 }
 
 const emptyTree = new BinarySearchTree();
@@ -37,7 +85,7 @@ twoLevelTree.root = new Node(10);
 twoLevelTree.root.left = new Node(5);
 twoLevelTree.root.right = new Node(15);
 
-/*
+/* fullTree
                     root
                 <-- 25 -->
               /            \
@@ -47,7 +95,6 @@ twoLevelTree.root.right = new Node(15);
       /   \   /  \    /  \   /  \
     4    12  18  24  31  44 66  90
 */
-
 // const fullTree = new BinarySearchTree();
 // fullTree
 //   .insert(25)
