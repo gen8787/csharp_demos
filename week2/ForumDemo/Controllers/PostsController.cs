@@ -180,6 +180,7 @@ namespace ForumDemo.Controllers
             for us because the form has no input boxes, instead the newVote info is passed in as params
             whose names match the Vote classes property names, so they get auto-mapped for us.
         */
+        [HttpPost("/posts/{postId}/{isUpvote}")]
         public IActionResult Vote(Vote newVote)
         {
             newVote.UserId = (int)uid;

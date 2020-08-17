@@ -5,16 +5,22 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using ForumDemo.Models;
-using Microsoft.AspNetCore.Identity;
+using FoodTrucks.Models;
 using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
-namespace ForumDemo.Controllers
+namespace FoodTrucks.Controllers
 {
     public class HomeController : Controller
     {
-        private ForumContext db;
+
+        [HttpGet("")]
+        public IActionResult Index()
+        {
+            return View();
+        }
+
+        private FoodTrucksContext db;
 
         private int? uid
         {
@@ -32,7 +38,7 @@ namespace ForumDemo.Controllers
             }
         }
 
-        public HomeController(ForumContext context)
+        public HomeController(FoodTrucksContext context)
         {
             db = context;
         }
@@ -64,7 +70,7 @@ namespace ForumDemo.Controllers
 
             HttpContext.Session.SetInt32("UserId", newUser.UserId);
             HttpContext.Session.SetString("UserName", newUser.FirstName);
-            return RedirectToAction("All", "Posts");
+            return RedirectToAction("All", "Trucks");
         }
 
         [HttpPost("/login")]
@@ -103,7 +109,7 @@ namespace ForumDemo.Controllers
             // no returns happened, everything is good
             HttpContext.Session.SetInt32("UserId", dbUser.UserId);
             HttpContext.Session.SetString("UserName", dbUser.FirstName);
-            return RedirectToAction("All", "Posts");
+            return RedirectToAction("All", "Trucks");
         }
 
         [HttpPost("/logout")]
@@ -111,41 +117,6 @@ namespace ForumDemo.Controllers
         {
             HttpContext.Session.Clear();
             return RedirectToAction("Index");
-        }
-
-        [HttpGet("")]
-        public IActionResult Index()
-        {
-            return View();
-        }
-
-        [HttpGet("/users/{userId}")]
-        public IActionResult AuthorPage(int userId)
-        {
-            if (!isLoggedIn)
-            {
-                return RedirectToAction("Index", "Home");
-            }
-
-            User user = db.Users
-                .Include(user => user.Posts)
-                .Include(user => user.Votes)
-                .FirstOrDefault(user => user.UserId == userId);
-
-            List<Post> postsNotVotedOn = db.Posts
-                .Include(post => post.Votes)
-                .Where(post => post.Votes.Any(v => v.UserId == user.UserId) == false)
-                .ToList();
-
-            // List<Post> postsNotVotedOn2 = db.Posts.Except()
-
-
-            if (user == null)
-            {
-                return RedirectToAction("All", "Posts");
-            }
-
-            return View("AuthorPage", user);
         }
 
         public IActionResult Privacy()
