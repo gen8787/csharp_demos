@@ -1,0 +1,27 @@
+@model List<Truck>
+
+<div class="container">
+  <h2 class="text-center mb-3">All Trucks</h2>
+  
+  @foreach (Truck truck in Model)
+  {
+      <div class="row mb-2 p-3 border rounded shadow">
+        <div class="col-md-4">
+          <img src="@truck.ImgUrl" alt="Food" class="w-100 rounded-circle">
+        </div>
+
+        <div class="col-md-6">
+          <h3>@truck.Name</h3>
+          <p>Style: @truck.Style</p>
+          <p class="text-muted">
+            Average rating: TBD
+          </p>
+        </div>
+
+        <div class="col-md-2">
+          <a class="btn btn-info">edit</a>
+          <a class="btn btn-success">review</a>
+        </div>
+      </div>
+  }
+</div>

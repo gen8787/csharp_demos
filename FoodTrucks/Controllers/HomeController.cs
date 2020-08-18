@@ -13,13 +13,6 @@ namespace FoodTrucks.Controllers
 {
     public class HomeController : Controller
     {
-
-        [HttpGet("")]
-        public IActionResult Index()
-        {
-            return View();
-        }
-
         private FoodTrucksContext db;
 
         private int? uid
@@ -41,6 +34,17 @@ namespace FoodTrucks.Controllers
         public HomeController(FoodTrucksContext context)
         {
             db = context;
+        }
+
+        [HttpGet("")]
+        public IActionResult Index()
+        {
+            if (isLoggedIn)
+            {
+                return RedirectToAction("All", "Trucks");
+            }
+
+            return View();
         }
 
         [HttpPost("/register")]

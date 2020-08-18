@@ -46,6 +46,8 @@ namespace FoodTrucks.Models
         // Foreign Keys (FK)
 
         // Navigation Properties (not added to DB, MUST use .Include to access)
+        public List<Truck> SubmittedTrucks { get; set; }
+        public List<Review> Reviews { get; set; }
 
     }
 }

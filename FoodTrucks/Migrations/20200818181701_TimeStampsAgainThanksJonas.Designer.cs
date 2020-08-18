@@ -3,14 +3,16 @@ using System;
 using FoodTrucks.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FoodTrucks.Migrations
 {
     [DbContext(typeof(FoodTrucksContext))]
-    partial class FoodTrucksContextModelSnapshot : ModelSnapshot
+    [Migration("20200818181701_TimeStampsAgainThanksJonas")]
+    partial class TimeStampsAgainThanksJonas
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
