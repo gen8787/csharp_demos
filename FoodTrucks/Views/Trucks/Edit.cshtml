@@ -1,0 +1,68 @@
+@model Truck
+
+
+<div class="container w-75">
+  <h2 class="text-center">Edit Truck</h2>
+
+  @* <form href="trucks/create" method="POST"> *@
+  <form
+    asp-controller="Trucks"
+    asp-action="Update"
+    asp-route-truckId="@Model.TruckId"
+    method="POST"
+    class="shadow p-3 mb-5 rounded"
+  >
+
+    <div class="form-group">
+      <label asp-for="Name"></label>
+      <span asp-validation-for="Name" class="text-danger font-weight-bold">
+      </span>
+      <input class="form-control" asp-for="Name">
+    </div>
+
+    <div class="form-group">
+      <label asp-for="Style"></label>
+      <span asp-validation-for="Style" class="text-danger font-weight-bold">
+      </span>
+      <input class="form-control" asp-for="Style">
+    </div>
+
+    <div class="form-group">
+      <label asp-for="Description"></label>
+      <span asp-validation-for="Description" class="text-danger font-weight-bold">
+      </span>
+      <textarea class="form-control" asp-for="Description"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label asp-for="ImgUrl"></label>
+      @* <span asp-validation-for="ImgUrl" class="text-danger font-weight-bold">
+      </span> *@
+      <input class="form-control" asp-for="ImgUrl">
+    </div>
+
+    @*
+      only reason this delete is an anchor tag and not a form is because we can't put a form inside a form. We could make it a form outside then use css to move it to look like it's inside.
+    
+      Post request for delete is a better practice
+    *@
+
+    @if (@Context.Session.GetInt32("UserId") == Model.UserId)
+    {
+      <a
+        asp-controller="Trucks"
+        asp-action="Delete"
+        class="btn btn-danger">
+        Delete
+      </a>
+    }
+    <a
+      asp-controller="Trucks"
+      asp-action="All"
+      class="btn btn-info"
+    >
+      Cancel
+    </a>
+    <button class="btn btn-success">Submit</button>
+  </form>
+</div>

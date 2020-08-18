@@ -16,11 +16,28 @@
           <p class="text-muted">
             Average rating: TBD
           </p>
+          <small class="text-muted">
+            Submitted By: @truck.SubmittedBy.FullName() on @truck.CreatedAt
+          </small>
         </div>
 
         <div class="col-md-2">
-          <a class="btn btn-info">edit</a>
-          <a class="btn btn-success">review</a>
+          <a
+            asp-controller="Trucks"
+            asp-action="Edit"
+            asp-route-truckId="@truck.TruckId"
+            class="btn btn-info"
+          >
+            edit
+          </a>
+          <a
+            asp-controller="Trucks"
+            asp-action="Details"
+            asp-route-truckId="@truck.TruckId"
+            class="btn btn-info"
+          >
+            Review
+          </a>
         </div>
       </div>
   }
