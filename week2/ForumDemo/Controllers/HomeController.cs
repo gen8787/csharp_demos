@@ -137,8 +137,6 @@ namespace ForumDemo.Controllers
                 .Where(post => post.Votes.Any(v => v.UserId == user.UserId) == false)
                 .ToList();
 
-            // List<Post> postsNotVotedOn2 = db.Posts.Except()
-
 
             if (user == null)
             {

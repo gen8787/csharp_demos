@@ -88,4 +88,15 @@
       </div>
     </div>  
   }
+
+  @* 
+    This can still be done without a partial by:
+      Making the page @model Post
+      Putting the List<Post> into ViewBag
+      OR creating a wrapper class for the page's model that contains a List<Post> prop and a single Post prop
+  *@
+  @{
+    Post newPost = new Post();
+  }
+  <partial name="_New" model="@newPost"></partial>
 </div>
