@@ -116,6 +116,79 @@ class BinarySearchTree {
     }
     return this.max(startNode) - this.min(startNode);
   }
+
+  // Time: O(h) linear, h = height of tree because we might be adding at bottom
+  // Space: O(1)
+  insert(newVal) {
+    const node = new Node(newVal);
+
+    if (this.isEmpty()) {
+      this.root = node;
+    } else {
+      let current = this.root;
+
+      while (true) {
+        if (newVal <= current.data) {
+          if (!current.left) {
+            current.left = node;
+            break;
+          } else {
+            current = current.left;
+          }
+        } else {
+          // newVal is greater than current.data
+          if (!current.right) {
+            current.right = node;
+            break;
+          } else {
+            current = current.right;
+          }
+        }
+      }
+    }
+    return this;
+  }
+
+  // Time: O(h) linear, h = height of tree
+  // Space: O(1)
+  insertRecursive(newVal, curr = this.root) {
+    if (this.isEmpty()) {
+      this.root = new Node(newVal);
+      return this;
+    }
+
+    if (newVal > curr.data) {
+      if (curr.right === null) {
+        curr.right = new Node(newVal);
+        return this;
+      }
+      return this.insertRecursive(newVal, curr.right);
+    } else {
+      if (curr.left === null) {
+        curr.left = new Node(newVal);
+        return this;
+      }
+      return this.insertRecursive(newVal, curr.left);
+    }
+  }
+
+  // prints tree with root on left and index in parens in reverse inorder traversal
+  // https://www.geeksforgeeks.org/print-binary-tree-2-dimensions/
+  print(node = this.root, spaceCnt = 0, spaceIncr = 10) {
+    if (!node) {
+      return;
+    }
+
+    spaceCnt += spaceIncr;
+    this.print(node.right, spaceCnt);
+
+    console.log(
+      " ".repeat(spaceCnt < spaceIncr ? 0 : spaceCnt - spaceIncr) +
+        `${node.data}`
+    );
+
+    this.print(node.left, spaceCnt);
+  }
 }
 
 const emptyTree = new BinarySearchTree();
@@ -143,20 +216,22 @@ twoLevelTree.root.right = new Node(15);
       /   \   /  \    /  \   /  \
     4    12  18  24  31  44 66  90
 */
-// const fullTree = new BinarySearchTree();
-// fullTree
-//   .insert(25)
-//   .insert(15)
-//   .insert(10)
-//   .insert(22)
-//   .insert(4)
-//   .insert(12)
-//   .insert(18)
-//   .insert(24)
-//   .insert(50)
-//   .insert(35)
-//   .insert(70)
-//   .insert(31)
-//   .insert(44)
-//   .insert(66)
-//   .insert(90);
+const fullTree = new BinarySearchTree();
+fullTree
+  .insert(25)
+  .insert(15)
+  .insert(10)
+  .insert(22)
+  .insert(4)
+  .insert(12)
+  .insert(18)
+  .insert(24)
+  .insert(50)
+  .insert(35)
+  .insert(70)
+  .insert(31)
+  .insert(44)
+  .insert(66)
+  .insert(90);
+
+fullTree.print();
