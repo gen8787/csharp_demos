@@ -9,6 +9,7 @@ namespace FoodTrucks.Models
         public int ReviewId { get; set; }
 
         [Required(ErrorMessage = "is required.")]
+        [Display(Name = "Review")]
         public string Body { get; set; }
 
         [Required(ErrorMessage = "is required.")]

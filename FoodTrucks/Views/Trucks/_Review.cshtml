@@ -1,0 +1,59 @@
+@model Review
+
+<div class="container">
+  @* asp-route-truckId="@Model.TruckId" *@
+  <form
+    asp-controller="Trucks"
+    asp-action="Review"
+  >
+
+    <div class="row">
+
+      <div class="col-md-7">
+        <div class="form-group">
+          <label asp-for="Body"></label>
+          <span asp-validation-for="Body" class="text-danger font-weight-bold">
+          </span>
+          <textarea class="form-control" asp-for="Body"></textarea>
+        </div>
+      </div>
+
+      <div class="col-md-5">
+        <div class="form-group">
+          <label asp-for="Rating"></label>
+          <span asp-validation-for="Rating" class="text-danger font-weight-bold">
+          </span>
+          <select asp-for="Rating">
+            <option value="1">
+              &starf; &star; &star; &star; &star;
+            </option>
+            <option value="2">
+              &starf; &starf; &star; &star; &star;
+            </option>
+            <option value="3">
+              &starf; &starf; &starf; &star; &star;
+            </option>
+            <option value="4">
+              &starf; &starf; &starf; &starf; &star;
+            </option>
+            <option value="5">
+              &starf; &starf; &starf; &starf; &starf;
+            </option>
+          </select>
+        </div>
+
+        <div class="mt-3">
+          <a 
+            asp-controller="Trucks"
+            asp-action="All"
+            class="btn btn-primary"
+          >
+            Cancel
+          </a>
+          <button class="btn btn-success">Submit</button>
+        </div>
+      </div>
+
+    </div>
+  </form>
+</div>
