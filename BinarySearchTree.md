@@ -14,6 +14,9 @@
 2. Tue
    1. contains (with & without recursion)
    2. range (range is max minus min)
+3. Wed
+   1. insert (with & without recursion)
+      - insert the new value in the appropriate place in the tree
 
 ---
 
