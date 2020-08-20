@@ -17,6 +17,13 @@
 3. Wed
    1. insert (with & without recursion)
       - insert the new value in the appropriate place in the tree
+4. Thur: Depth First Search Recursive (DFS) Traversal Order Practice
+   1. toArrPreorder
+      - Preorder (Parent, Left, Right): on the provided fullTree var, it should be in this order: [25, 15, 10, 4, 12, 22, 18, 24, 50, 35, 31, 44, 70, 66, 90]
+   2. toArrInorder
+      - Inorder (Left, Parent, Right): on the provided fullTree var, it should be in this order: [4, 10, 12, 15, 18, 22, 24, 25, 31, 35, 44, 50, 66, 70, 90]
+   3. toArrPostorder
+      - Postorder (Left, Right, Parent): on the provided fullTree var, it should be in this order: [4, 12, 10, 18, 24, 22, 15, 31, 44, 35, 66, 90, 70, 50, 25]
 
 ---
 
