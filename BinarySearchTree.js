@@ -172,6 +172,87 @@ class BinarySearchTree {
     }
   }
 
+  // DFS Preorder: (Parent, Left, Right)
+  // on fullTree: [25, 15, 10, 4, 12, 22, 18, 24, 50, 35, 31, 44, 70, 66, 90]
+  toArrPreorder(node = this.root, vals = []) {
+    if (node) {
+      vals.push(node.data);
+      this.toArrPreorder(node.left, vals);
+      this.toArrPreorder(node.right, vals);
+    }
+    return vals;
+  }
+
+  // DFS Inorder: (Left, Parent, Right)
+  // on fullTree: [4, 10, 12, 15, 18, 22, 24, 25, 31, 35, 44, 50, 66, 70, 90]
+  // Show the call stack of this in debugger and how it pops and then show the stack solution below to see the same thing with manual stack
+  toArrInorder(node = this.root, vals = []) {
+    if (node) {
+      this.toArrInorder(node.left, vals);
+      vals.push(node.data);
+      this.toArrInorder(node.right, vals);
+    }
+    return vals;
+  }
+
+  // DFS Inorder: (Left, Parent, Right)
+  toArrInorderNonRecursive(node = this.root) {
+    let current = node;
+    const stack = [],
+      vals = [];
+
+    while (true) {
+      if (current !== null) {
+        stack.push(current);
+        current = current.left;
+      } else if (stack.length > 0) {
+        current = stack.pop();
+        vals.push(current.data);
+        current = current.right;
+      } else {
+        break;
+      }
+    }
+    return vals;
+  }
+
+  // DFS Postorder (Left, Right, Parent)
+  // on fullTree: [4, 12, 10, 18, 24, 22, 15, 31, 44, 35, 66, 90, 70, 50, 25]
+  toArrPostorder(root = this.root, vals = []) {
+    if (root) {
+      this.toArrPostorder(root.left, vals);
+      this.toArrPostorder(root.right, vals);
+      vals.push(root.data);
+    }
+    return vals;
+  }
+
+  // BFS order: horizontal rows left-to-right top-down
+  // [25, 15, 50, 10, 22, 35, 70, 4, 12, 18, 24, 31, 44, 66, 90]
+  toArrLevelorder(current = this.root) {
+    const queue = [],
+      vals = [];
+
+    if (current) {
+      queue.push(current);
+    }
+
+    // other tree structures have more than a left and a right, so children could be looped over and enqueued
+    while (queue.length > 0) {
+      const dequeuedNode = queue.shift();
+      vals.push(dequeuedNode.data);
+
+      if (dequeuedNode.left) {
+        queue.push(dequeuedNode.left);
+      }
+
+      if (dequeuedNode.right) {
+        queue.push(dequeuedNode.right);
+      }
+    }
+    return vals;
+  }
+
   // prints tree with root on left and index in parens in reverse inorder traversal
   // https://www.geeksforgeeks.org/print-binary-tree-2-dimensions/
   print(node = this.root, spaceCnt = 0, spaceIncr = 10) {
@@ -234,4 +315,4 @@ fullTree
   .insert(66)
   .insert(90);
 
-fullTree.print();
+console.log(fullTree.toArrPreorder());

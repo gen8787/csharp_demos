@@ -24,6 +24,9 @@
       - Inorder (Left, Parent, Right): on the provided fullTree var, it should be in this order: [4, 10, 12, 15, 18, 22, 24, 25, 31, 35, 44, 50, 66, 70, 90]
    3. toArrPostorder
       - Postorder (Left, Right, Parent): on the provided fullTree var, it should be in this order: [4, 12, 10, 18, 24, 22, 15, 31, 44, 35, 66, 90, 70, 50, 25]
+5. Fri
+   1. toArrLevelOrder: Non-recursive Breadth First Search (BFS), aka LevelOrder:
+      - on the provided fullTree var, it should be in this order (horizontal level-by-level top->down left->right): [25, 15, 50, 10, 22, 35, 70, 4, 12, 18, 24, 31, 44, 66, 90]
 
 ---
 
