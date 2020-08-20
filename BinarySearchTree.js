@@ -173,7 +173,7 @@ class BinarySearchTree {
   }
 
   // DFS Preorder: (Parent, Left, Right)
-  // on fullTree: [25, 15, 10, 4, 12, 22, 18, 24, 50, 35, 31, 44, 70, 66, 90]
+  // on fullTree var: [25, 15, 10, 4, 12, 22, 18, 24, 50, 35, 31, 44, 70, 66, 90]
   toArrPreorder(node = this.root, vals = []) {
     if (node) {
       vals.push(node.data);
@@ -184,7 +184,7 @@ class BinarySearchTree {
   }
 
   // DFS Inorder: (Left, Parent, Right)
-  // on fullTree: [4, 10, 12, 15, 18, 22, 24, 25, 31, 35, 44, 50, 66, 70, 90]
+  // on fullTree var: [4, 10, 12, 15, 18, 22, 24, 25, 31, 35, 44, 50, 66, 70, 90]
   // Show the call stack of this in debugger and how it pops and then show the stack solution below to see the same thing with manual stack
   toArrInorder(node = this.root, vals = []) {
     if (node) {
@@ -217,7 +217,7 @@ class BinarySearchTree {
   }
 
   // DFS Postorder (Left, Right, Parent)
-  // on fullTree: [4, 12, 10, 18, 24, 22, 15, 31, 44, 35, 66, 90, 70, 50, 25]
+  // on fullTree var: [4, 12, 10, 18, 24, 22, 15, 31, 44, 35, 66, 90, 70, 50, 25]
   toArrPostorder(root = this.root, vals = []) {
     if (root) {
       this.toArrPostorder(root.left, vals);
@@ -228,7 +228,7 @@ class BinarySearchTree {
   }
 
   // BFS order: horizontal rows left-to-right top-down
-  // [25, 15, 50, 10, 22, 35, 70, 4, 12, 18, 24, 31, 44, 66, 90]
+  // on fullTree var: [25, 15, 50, 10, 22, 35, 70, 4, 12, 18, 24, 31, 44, 66, 90]
   toArrLevelorder(current = this.root) {
     const queue = [],
       vals = [];

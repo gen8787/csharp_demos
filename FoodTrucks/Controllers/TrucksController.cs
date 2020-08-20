@@ -41,8 +41,10 @@ namespace FoodTrucks.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
+
             List<Truck> allTrucks = db.Trucks
                 .Include(t => t.SubmittedBy)
+                .Include(t => t.Reviews)
                 .OrderByDescending(t => t.CreatedAt)
                 .ToList();
             return View("All", allTrucks);
@@ -56,8 +58,14 @@ namespace FoodTrucks.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
+            /* 
+                the parameter in .Include is always the entity from the Table that is being queried (db.Trucks), so a truck in this case
+
+                the parameter in .ThenInclude is always the entity that was just added in the previous .Include
+            */
             Truck truck = db.Trucks
                 .Include(t => t.SubmittedBy)
+                // .ThenInclude(user => user.SubmittedTrucks)
                 .Include(t => t.Reviews)
                 .ThenInclude(review => review.Author)
                 .FirstOrDefault(t => t.TruckId == truckId);
@@ -181,9 +189,15 @@ namespace FoodTrucks.Controllers
                 // to display error messages, need to pass in the model that the Details.cshtml needs
                 return View("Details", truck);
             }
-            newReview.UserId = (int)uid;
-            db.Reviews.Add(newReview);
-            db.SaveChanges();
+
+            bool alreadyReviewed = db.Reviews.Any(r => r.UserId == uid && r.TruckId == truckId);
+
+            if (alreadyReviewed == false)
+            {
+                newReview.UserId = (int)uid;
+                db.Reviews.Add(newReview);
+                db.SaveChanges();
+            }
 
             // because of Details parameter: Details(int truckId)
             // new { paramName = paramValue }, key value pairs for the required parameters

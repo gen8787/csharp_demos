@@ -24,21 +24,12 @@
           <span asp-validation-for="Rating" class="text-danger font-weight-bold">
           </span>
           <select asp-for="Rating">
-            <option value="1">
-              &starf; &star; &star; &star; &star;
-            </option>
-            <option value="2">
-              &starf; &starf; &star; &star; &star;
-            </option>
-            <option value="3">
-              &starf; &starf; &starf; &star; &star;
-            </option>
-            <option value="4">
-              &starf; &starf; &starf; &starf; &star;
-            </option>
-            <option value="5">
-              &starf; &starf; &starf; &starf; &starf;
-            </option>
+            @for (int i = 1; i <= 5; i++)
+            {
+              <option value="@i">
+                <partial name="_Stars" model="@i"></partial>
+              </option>
+            }
           </select>
         </div>
 

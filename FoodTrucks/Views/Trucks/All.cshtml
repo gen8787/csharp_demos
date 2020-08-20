@@ -7,7 +7,7 @@
   {
       <div class="row mb-2 p-3 border rounded shadow">
         <div class="col-md-4">
-          <img src="@truck.ImgUrl" alt="Food" class="w-100 rounded-circle">
+          <img src="@truck.ImgUrl" alt="Food" class="w-100 h-100 rounded-circle">
         </div>
 
         <div class="col-md-6">
@@ -22,14 +22,17 @@
           </h3>
           <p>Style: @truck.Style</p>
           <p class="text-muted">
-            Average rating: TBD
+            @{
+              double avgRating = truck.AverageRating();
+            }
+            Average rating: @avgRating <partial name="_Stars" model="@(int)avgRating"></partial>
           </p>
           <small class="text-muted">
             Submitted By: @truck.SubmittedBy.FullName() on @truck.CreatedAt
           </small>
         </div>
 
-        <div class="col-md-2">
+        <div class="col-md-2">  
           <a
             asp-controller="Trucks"
             asp-action="Edit"

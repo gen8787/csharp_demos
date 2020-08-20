@@ -1,0 +1,19 @@
+@* model is integer to represent how many stars to fill in  *@
+
+@model int
+
+@for (int i = 1; i <= 5; i++)
+{
+  if (i <= Model)
+  {
+    <span>
+      &starf;
+    </span>
+  }
+  else
+  {
+    <span>
+      &star;
+    </span>
+  }
+}

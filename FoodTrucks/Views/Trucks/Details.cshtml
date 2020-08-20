@@ -1,5 +1,9 @@
 @model Truck
 
+@{
+  bool alreadyReviewed = Model.Reviews.Any(r => r.UserId == @Context.Session.GetInt32("UserId"));
+}
+
 <div class="container border">
   <div class="row mb-2 p-3">
     <div class="col-md-3">
@@ -12,7 +16,10 @@
       </h3>
       <p>Style: @Model.Style</p>
       <p class="text-muted">
-        Average rating: TBD
+        @{
+          double avgRating = Model.AverageRating();
+        }
+        Average rating: @avgRating <partial name="_Stars" model="@(int)avgRating"></partial>
       </p>
       <small class="text-muted">
         Submitted By: @Model.SubmittedBy.FullName() on @Model.CreatedAt
@@ -36,22 +43,8 @@
             Rating: @review.Rating
           </span>
 
-          @* without the loops you could do a bunch of conditions to display the amount of stars *@
-          @for (int i = 1; i <= 5; i++)
-          {
-            if (i <= review.Rating)
-            {
-              <span>
-                &starf;
-              </span>
-            }
-            else
-            {
-              <span>
-                &star;
-              </span>
-            }
-          }
+          @* without the loop in the <partial> you could do a bunch of if conditions to display the amount of stars *@
+          <partial name="_Stars" model="@review.Rating"></partial>
         </p>
       </div>
     </div>
@@ -68,6 +61,10 @@
         TruckId = Model.TruckId
       };
     }
-    <partial name="_Review" model="@newReview"></partial>
+
+    @if (!alreadyReviewed)
+    {
+      <partial name="_Review" model="@newReview"></partial>
+    }
   </div>
 </div>
