@@ -13,6 +13,8 @@
 
 1. Mon
    - implement insert, see insert section in Heaps.md for details
+2. Tue
+   - implement extract, see extract section in Heaps.md for details
 
 ---
 
@@ -86,7 +88,7 @@
 
 ### `extract`
 
-- return and remove the max or min, see `shiftDown`
+- return and remove the max (max heap) or min (min heap), see `shiftDown`
 
 ---
 
@@ -104,10 +106,10 @@
 
 - used to restore the proper order after deletion / `extract`
 - remove the first node (save to temp var), then remove the last node and set it to the first index to overwrite the first node
-  - avoid `.splice()`'s `O(n)` time by using `.pop()` and index assignment instead so that `insert` can achieve `O(log n)`
-- **starting from the front**, "shift down" the new front node until it reaches correct position by iteratively swapping while the ordering rule is violated
-  - Max Heap: if the largest child is larger than parent, swap so parent will be larger
-  - Min Heap: if the smallest child is smaller than parent, swap so parent will be smaller
+  - avoid `.splice()`'s `O(n)` time by using `.pop()` and index assignment instead so that `shiftDown` can achieve `O(log n)`
+- **starting from the front**, "shift down" the old last node that is now at the front until it reaches correct position by iteratively swapping while the ordering rule is violated
+  - Max Heap: if the largest child is larger than parent, swap them so the parent will become the larger node
+  - Min Heap: if the smallest child is smaller than parent, swap them so the parent will become the smaller node
 
 ---
 
