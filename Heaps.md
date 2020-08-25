@@ -105,8 +105,8 @@
 ### `shiftDown` AKA: `siftDown`, `heapifyDown`, `bubbleDown`, `sinkDown` (used after extract)
 
 - used to restore the proper order after deletion / `extract`
-- remove the first node (save to temp var), then remove the last node and set it to the first index to overwrite the first node
-  - avoid `.splice()`'s `O(n)` time by using `.pop()` and index assignment instead so that `shiftDown` can achieve `O(log n)`
+- save the first node to a temp var, then reassign the first index the last item returned by `.pop()`
+  - this avoids `.splice()`'s `O(n)` time to maintain `O(log n)`. Extract is not `O(1)` but only retrieving the first node is `O(1)`
 - **starting from the front**, "shift down" the old last node that is now at the front until it reaches correct position by iteratively swapping while the ordering rule is violated
   - Max Heap: if the largest child is larger than parent, swap them so the parent will become the larger node
   - Min Heap: if the smallest child is smaller than parent, swap them so the parent will become the smaller node

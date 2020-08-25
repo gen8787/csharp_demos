@@ -5,6 +5,14 @@ class MinHeap {
     this.heap = [null];
   }
 
+  // Time: O(1) constant
+  // Space: O(1)
+  top() {
+    return this.heap.length > 1 ? this.heap[1] : null;
+  }
+
+  // Time: O(log n) logarithmic due to shiftUp
+  // Space: O(1) constant
   insert(val) {
     this.heap.push(val);
     this.shiftUp();
@@ -45,6 +53,66 @@ class MinHeap {
       idxOfNodeToShiftUp = idxOfParent;
     }
     console.log("shiftUp done\n");
+  }
+
+  // Time: O(log n) logarithmic due to shiftDown
+  // Space: O(1) constant
+  extract() {
+    const heap = this.heap,
+      min = heap[1],
+      lastNode = heap.pop();
+
+    heap[1] = lastNode;
+    // since we put the lastNode at the start, it needs to be swapped down to it's correct position to restore the order
+    this.shiftDown();
+    return min;
+  }
+
+  // AKA: siftDown, heapifyDown, bubbleDown, sinkDown to restore order after extracting min
+  shiftDown() {
+    const heap = this.heap;
+
+    let idxOfNodeToShiftDown = 1,
+      idxOfLeftChild = idxOfNodeToShiftDown * 2;
+
+    this.printArr(
+      `shiftDown start from front to shift ${heap[idxOfNodeToShiftDown]} down:`
+    );
+    this.printHorizontalTree();
+
+    // while there is at least 1 child
+    while (idxOfLeftChild < heap.length) {
+      const idxOfRightChild = idxOfLeftChild + 1;
+      let idxOfSmallestChild = idxOfLeftChild;
+
+      if (
+        idxOfRightChild < heap.length &&
+        heap[idxOfRightChild] < heap[idxOfLeftChild]
+      ) {
+        idxOfSmallestChild = idxOfRightChild;
+      }
+
+      // no more swapping needed, no children are smaller
+      if (heap[idxOfNodeToShiftDown] <= heap[idxOfSmallestChild]) {
+        break;
+      }
+
+      // swap the smallest child with the parent since the parent is larger
+      [heap[idxOfNodeToShiftDown], heap[idxOfSmallestChild]] = [
+        heap[idxOfSmallestChild],
+        heap[idxOfNodeToShiftDown],
+      ];
+
+      this.printArr(
+        `shiftDown swapped ${heap[idxOfSmallestChild]} & ${heap[idxOfNodeToShiftDown]}:`
+      );
+      this.printHorizontalTree();
+
+      // follow this node since it was just swapped to see if it needs to be swapped again
+      idxOfNodeToShiftDown = idxOfSmallestChild;
+      idxOfLeftChild = idxOfNodeToShiftDown * 2;
+    }
+    console.log("shiftDown done\n");
   }
 
   // prints tree with root on left and index in parens in reverse inorder traversal
