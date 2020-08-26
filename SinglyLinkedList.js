@@ -33,6 +33,14 @@
           - list1.concat(list2) should result in list1 having nodes with data in this order: 1, 2, 3, 4, 5, 6
     2. moveMinToFront
         - move node with min value in it to the front of the list (work in place, do not create a new list)
+
+  Week 4
+    3. Wed
+      - reverse
+        - reverse an sList in place (do not create a new sList)
+      - hasLoop
+        - return whether or not the linked list connects back to itself. If it connects to itself, what does that mean will happen when you loop through it?
+      - extra: removeNegatives (in place, no new list)
 */
 
 class Node {
