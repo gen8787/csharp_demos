@@ -346,6 +346,123 @@ class SinglyLinkedList {
     this.head = minNode;
     return this;
   }
+
+  /*
+    each iteration we cut out current's next to make it the new head
+    1234 -> initial, 'current' is 1, iter by iter example:
+    2134
+    3214
+    4321
+
+    Time: O(n) linear, n = list length
+    Space: O(1) constant
+  */
+  reverse() {
+    if (!this.head || !this.head.next) {
+      return this;
+    }
+
+    let current = this.head;
+
+    while (current.next) {
+      const newHead = current.next;
+      // cut the newHead out from where it currently is
+      current.next = current.next.next;
+      newHead.next = this.head;
+      this.head = newHead;
+    }
+    return this;
+  }
+
+  reverse2() {
+    let prev = null;
+    let node = this.head;
+
+    while (node) {
+      const nextNode = node.next;
+      node.next = prev;
+      prev = node;
+      node = nextNode;
+    }
+    this.head = prev;
+    return this;
+  }
+
+  hasLoop() {
+    if (this.isEmpty()) {
+      return false;
+    }
+
+    let fasterRunner = this.head;
+    let runner = this.head;
+
+    while (fasterRunner.next) {
+      runner = runner.next;
+      fasterRunner = fasterRunner.next.next;
+
+      // fasterRunner is lapping slower runner, they are at same location (node) in the loop
+      if (runner === fasterRunner) {
+        return true;
+      }
+    }
+    // faster runner got to the end of the track, no loop
+    return false;
+  }
+
+  /* 
+  Time: O(n) linear, n = list length
+  Space: O(n)
+  In a normal object, the keys cannot be other objects, but in a new Map object, they can be
+  We can't use the .data as the keys in a normal object because that would could cause hasLoop to return a false positive
+  when there are nodes with duplicate data but no loop
+*/
+  hasLoopMap() {
+    if (this.isEmpty()) {
+      return false;
+    }
+
+    const seenMap = new Map();
+    let runner = this.head;
+
+    while (runner) {
+      if (seenMap.has(runner)) {
+        return true;
+      }
+      seenMap.set(runner, true);
+      runner = runner.next;
+    }
+    return false;
+  }
+
+  // adding seen key to nodes, then removing them when done
+  // Time: O(2n) -> O(n) linear
+  // Space: O(n) because "seen" key is being stored n times
+  hasLoopSeen() {
+    if (this.isEmpty()) {
+      return false;
+    }
+
+    let runner = this.head;
+    let hasLoop = false;
+
+    while (runner) {
+      if (runner.hasOwnProperty("seen")) {
+        hasLoop = true;
+        break;
+      } else {
+        runner.seen = true;
+      }
+      runner = runner.next;
+    }
+
+    runner = this.head;
+
+    while (runner && runner.hasOwnProperty("seen")) {
+      delete runner.seen;
+      runner = runner.next;
+    }
+    return hasLoop;
+  }
 }
 
 const emptyList = new SinglyLinkedList();
@@ -377,7 +494,10 @@ const sortedDupeList = new SinglyLinkedList().seedFromArr([
   5,
 ]);
 
-console.log(emptyList.recursiveMax(), "should be null");
-console.log(singleNodeList.recursiveMax(), "should be 1");
-console.log(biNodeList.recursiveMax(), "should be 2");
-console.log(unorderedList.recursiveMax(), "should be 6");
+// node 4 connects to node 1, back to head
+const perfectLoopList = new SinglyLinkedList().seedFromArr([1, 2, 3, 4]);
+perfectLoopList.head.next.next.next = perfectLoopList.head;
+
+// node 4 connects to node 2
+const loopList = new SinglyLinkedList().seedFromArr([1, 2, 3, 4]);
+loopList.head.next.next.next = loopList.head.next;
