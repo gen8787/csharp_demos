@@ -120,6 +120,97 @@ class DoublyLinkedList {
     }
     return null;
   }
+
+  // can also send a runner from both sides to find the val in fewer iterations
+  // Time: O(n) linear, n = list length. targetVal could be at opposite of starting side
+  // Space: O(1)
+  insertAfter(targetVal, newVal) {
+    const newNode = new Node(newVal);
+    let runner = this.head;
+
+    while (runner) {
+      if (runner.data === targetVal) {
+        newNode.prev = runner;
+        newNode.next = runner.next;
+        runner.next.prev = newNode;
+        runner.next = newNode;
+
+        if (runner === this.tail) {
+          this.tail = newNode;
+        }
+        return true;
+      } else {
+        runner = runner.next;
+      }
+    }
+    return false;
+  }
+
+  // Time: O(n) linear, n = list length. targetVal could be at opposite of starting side
+  // Space: O(1)
+  insertBefore(targetVal, newVal) {
+    const newNode = new Node(newVal);
+    let runner = this.head;
+
+    while (runner) {
+      if (runner.data === targetVal) {
+        newNode.next = runner;
+        newNode.prev = runner.prev;
+        runner.prev.next = newNode;
+        runner.prev = newNode;
+
+        if (runner === this.head) {
+          this.head = newNode;
+        }
+        return true;
+      } else {
+        runner = runner.next;
+      }
+    }
+    return false;
+  }
+
+  // alternatively for insertAfter & insertBefore since they share a lot of the same logic we can do something like this
+  insertAft(targetVal, newVal) {
+    return this.insertPositionally(targetVal, newVal, "after");
+  }
+
+  insertBef(targetVal, newVal) {
+    return this.insertPositionally(targetVal, newVal, "before");
+  }
+
+  insertPositionally(targetVal, newVal, position) {
+    const newNode = new Node(newVal);
+    let runner = this.head;
+
+    while (runner) {
+      if (runner.data === targetVal) {
+        if (position === "before") {
+          newNode.next = runner;
+          newNode.prev = runner.prev;
+          runner.prev.next = newNode;
+          runner.prev = newNode;
+
+          if (runner === this.head) {
+            this.head = newNode;
+          }
+        } else if (position === "after") {
+          newNode.prev = runner;
+          newNode.next = runner.next;
+          runner.next.prev = newNode;
+          runner.next = newNode;
+
+          if (runner === this.tail) {
+            this.tail = newNode;
+          }
+        }
+        return true;
+      } else {
+        runner = runner.next;
+      }
+    }
+    return false;
+  }
 }
 
 const emptyList = new DoublyLinkedList();
@@ -150,5 +241,3 @@ const sortedDupeList = new DoublyLinkedList().seedFromArr([
   5,
   5,
 ]);
-
-biNodeList.removeMiddleNode();
