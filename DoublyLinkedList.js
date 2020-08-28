@@ -7,6 +7,11 @@
       - insertAtBack
         - given some new data, add it to the back of the DList
       - removeMiddleNode
+  5. Fri
+    - insertAfter
+      - add new val after a target val
+    - insertBefore
+      - add new val before a target val
 */
 
 class Node {
